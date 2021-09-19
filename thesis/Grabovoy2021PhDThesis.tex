@@ -1,0 +1,127 @@
+\documentclass{dissert}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage{color}
+\usepackage{bm}
+\usepackage{tabularx}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{lastpage}
+
+\usepackage[toc,page]{appendix}
+
+\usepackage{comment}
+\usepackage{rotating}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{definition}{Определение}[section]
+
+\numberwithin{equation}{section}
+
+\newcommand*{\No}{No.}
+
+\usepackage{geometry}
+\geometry{left=2.5cm}
+\geometry{right=1.0cm}
+\geometry{top=2.0cm}
+\geometry{bottom=2.0cm}
+\renewcommand{\baselinestretch}{1.0}
+
+\newcommand{\paragraph}[1]{\noindent\textbf{#1}\quad}
+
+\def\[#1\]{%
+  {\small \begin{equation}#1\end{equation}}%
+}
+
+%https://tex.stackexchange.com/questions/163451/total-number-of-citations
+\usepackage{totcount}
+\newtotcounter{citnum} %From the package documentation
+\def\oldbibitem{} \let\oldbibitem=\bibitem
+\def\bibitem{\stepcounter{citnum}\oldbibitem}
+
+\makeatletter
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{#1.~#2}%
+  \ifdim \wd\@tempboxa >\hsize
+    #1.~#2\par
+  \else
+    \global \@minipagefalse
+    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+\makeatother
+
+\reversemarginpar
+
+
+\begin{document}
+
+% Титульный лист
+\input{dis_title}
+% Нумерация должна начинаться со второй страницы
+\setcounter{page}{2}
+
+% Оглавление
+\newpage
+\tableofcontents
+
+% Введение
+\input{dis_intro}
+
+% Основная часть
+\clearpage
+\chapter{Априорные распределения для задачи смеси экспертов}
+\input{priorexpert.tex}
+
+\clearpage
+\chapter{Модели привилегированного обучения и дистиляции}
+\input{privlearn.tex}
+
+\clearpage
+\chapter{Байесовская дистилляция моделей глубокого обучения}
+\input{bayesdistil.tex}
+
+\clearpage
+\chapter{Введение отношения порядка на множестве параметров аппроксимирующих моделей}
+\input{order.tex}
+
+\clearpage
+\chapter{Релевантность параметров параметрических моделей}
+\input{relevant.tex}
+
+\clearpage
+\chapter{Оптимальный размер выборки для построения линейных моделей}
+\input{samplesize.tex}
+
+\clearpage
+\chapter{Аппроксимация кривых второго порядка при помощи обучения с экспертом}
+\input{priorexpertfig.tex}
+
+\clearpage
+\chapter{Локальные модели в задачах кластеризации временных рядов}
+\input{series.tex}
+
+% Выводы
+\input{dis_conclusion.tex}
+
+% Библиографические ссылки
+\input{bibliography.tex}
+
+% Приложения
+%\input{./appendices.tex}
+
+\end{document}
