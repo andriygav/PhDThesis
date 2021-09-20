@@ -117,7 +117,113 @@
 \footnotetext[1]{\textit{Hinton G., Vinyals O., Dean J.} Distilling the Knowledge in a Neural Network // NIPS, 2015.}
 \footnotetext[2]{\textit{Lopez-Paz D., Bottou L., Scholkopf B., Vapnik V.} Unifying Distillation and Privileged Information // ICLR, 2016.}
 \end{frame}
+
 %----------------------------------------------------------------------------------------------------------
+
+\begin{frame}
+\justifying
+\frametitle<1>{Базовая постановка задачи машинного обучения}
+\frametitle<2>{Априорное распределение параметров}
+\frametitle<3>{Байесовская дистилляция модели}
+
+\begin{minipage}[t][3cm][t]{\textwidth}
+\only<1>{\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=1.0\textwidth]{figures/introdigram_low.png}
+    \end{center}
+\end{figure}}
+
+\only<2>{\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=1.0\textwidth]{figures/introdigram.png}
+    \end{center}
+\end{figure}}
+
+\only<3>{\begin{figure}[h!]
+    \begin{center}
+        \includegraphics[width=1.0\textwidth]{figures/introdigram_large}
+    \end{center}
+\end{figure}}
+\end{minipage}
+\vfill
+
+\begin{itemize}
+    \item \only<1-2>{Задана выборка:
+$
+	\mathfrak{D} = \left\{\mathbf{x}_i, y_i\right\}_{i=1}^{m}, \quad 
+	\mathbf{x}_{i} \in \mathbb{R}^{n}, \quad y_i \in \mathbb{Y},
+$ где~$m$~число объектов, $n$~число признаков.
+}
+\only<3>{Задана выборка:
+$
+	\mathfrak{D} = \left\{\mathbf{x}_i, {\color{blue}\mathbf{x}_i^{*}}, y_i\right\}_{i=1}^{m}, 
+	\quad \mathbf{x}_{i} \in \mathbb{R}^{n}, 
+	{\color{blue} \quad \mathbf{x}_{i}^{*} \in \mathbb{R}^{n^{*}}},
+	\quad y_i \in \mathbb{Y},
+$ где~$m$~число объектов, $n$~число признаков, {\color{blue}$n^*$}~число признаков}
+    \item \only<1-2>{Модель:
+$
+    \mathfrak{G} = \left\{g | g : \mathbb{R}^{n}\times \mathbb{R}^{n_{w}} \to \mathbb{Y} \right\}.
+$}
+\only<3>{Модель:
+$
+    \mathfrak{G} = \left\{g | g : \mathbb{R}^{n}\times \mathbb{R}^{n_{w}} \to \mathbb{Y} \right\},
+{\color{blue}
+    \quad \mathfrak{F} = \left\{f | f : \mathbb{R}^{n^{*}}\times \mathbb{R}^{n_{w}^{*}} \to \mathbb{Y} \right\}.
+}
+$}
+    \item<2-3> \only<2>{\color{blue}
+Априорное распределение параметров:
+$
+    \mathbf{w} \sim \mathcal{N}\bigr(\mathbf{w}_0, \mathbf{A}_0\bigr).
+$
+}\only<3>{
+Априорное распределение параметров:
+$
+    \mathbf{w} \sim \mathcal{N}\bigr({\color{blue}\mathbf{w}_0\bigr(\hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}}\bigr)}, {\color{blue}\mathbf{A}_0\bigr(\hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}}\bigr)}\bigr).
+$}
+    \item \only<1>{Прогноз:
+$
+    \hat{y} = g\bigr(\mathbf{x}, \hat{\mathbf{w}}).
+$}
+\only<2>{Прогноз:
+$
+    \hat{y} = g\bigr(\mathbf{x}, \hat{\mathbf{w}})
+$}
+\only<3>{Прогноз:
+$
+    \hat{y} = g\bigr(\mathbf{x}, \hat{\mathbf{w}}),
+{\color{blue}
+    \quad
+    s = f\bigr(\mathbf{x}^{*}, \hat{\mathbf{u}}).
+}
+$}
+    \item \only<1>{Функция потерь:
+$
+    \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, \hat{y}\bigr).
+$}
+\only<2>{Функция потерь:
+$
+    \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr).
+$}
+\only<3>{Функция потерь:
+$
+    \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|{\color{blue} s, }y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr).
+$}
+    \item \only<1-2>{Оптимизационная задача:
+\[
+    \hat{\mathbf{w}}, \hat{\mathbf{A}}_{w} = \arg \min_{\mathbf{w} \in \mathbb{R}^{n_{w}}, \mathbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\mathbf{w},\mathbf{A}_{\text{w}}|y, \hat{y}\bigr).
+\]}
+\only<3>{Оптимизационная задача:
+\[
+    \hat{\mathbf{w}}, \hat{\mathbf{A}}_{w} = \arg \min_{\mathbf{w} \in \mathbb{R}^{n_{w}}, \mathbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|{\color{blue} s, }y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr).
+\]}
+\end{itemize}
+
+
+\end{frame}
+
+\begin{comment}
 %----------------------------------------------------------------------------------------------------------
 
 \begin{frame}{Базовая постановка задачи машинного обучения}
@@ -196,7 +302,7 @@ $\\[1mm]
 \begin{frame}{Байесовская дистилляция модели}
 \justifying
 \begin{figure}[h!]
-\includegraphics[width=1.0\textwidth]{slides/figures/introdigram_large}
+\includegraphics[width=1.0\textwidth]{figures/introdigram_large}
 \end{figure}
 
 Задана выборка:
@@ -238,6 +344,7 @@ $\\[1mm]
     \hat{\mathbf{w}}, \hat{\mathbf{A}}_{w} = \arg \min_{\mathbf{w} \in \mathbb{R}^{n_{w}}, \mathbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|{\color{blue} s, }y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr).
 \]
 \end{frame}
+\end{comment}
 
 %----------------------------------------------------------------------------------------------------------
 \begin{frame}{Привилегированное обучение {\color{red}В.\,Н.\;Вапника} и \\ \hfill\hfill\hfill дистилляция~{\color{blue}Дж.\;Хинтона}}
@@ -421,11 +528,11 @@ y'_i = \begin{cases}
 \]
 Априорное распределение~$p\bigr(\mathbf{w}|\mathbf{A}\bigr)$ задается как функция от апостериорного распределения параметров учителя~$p\bigr(\mathbf{u}|\mathbf{X}, \mathbf{y}\bigr)$.  Оно задано,
 \[
+\setlength\abovedisplayskip{0pt}
 \begin{aligned}
 p\bigr(\mathbf{u}|\mathbf{X}, \mathbf{y}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\bigr).
 \end{aligned}
 \]
-
 {\it \color{red}Проблема: пространства параметров учителя и ученика не совпадают.}
 \end{frame}
 
@@ -490,13 +597,14 @@ p\bigr(\mathbf{w}|\mathbf{A}\bigr) = p\bigr(\mathbf{w}|\mathbf{X}, \mathbf{y}\bi
 Параметры~$\mathbf{u}$ модели~$\mathbf{f}$ делятся на {\color{red} удаляемые~$\bm{\nu}_2$}, {\color{blue} зануляемые~$\bm{\nu}_1$}, {оставшиеся~$\bm{\upsilon}$}.
 
 Суперпозиция слоев модели учителя~$\mathbf{f}$ в окрестности~$t$-го слоя:
-{\small\[
+{\small
+\[
 \setlength\abovedisplayskip{0pt}
 \mathbf{f}\bigr(\mathbf{x}\bigr) = \cdots \circ
 \underbrace{
 \begin{pmatrix}
 u_{1,1} & \cdots & {\color{blue} u_{1,j}} & \cdots & u_{1,n_{t}} \\
-\vdots  & \ddots & {\color{blue} \vdots}  & \ddots & \vdots 
+\vdots  & \ddots & {\color{blue} \vdots}  & \ddots & \vdots \\
 u_{n_{t+1},1} & \cdots & {\color{blue} u_{n_{t+1},j}} & \cdots & u_{n_{t+1},n_{t}} \\
 \end{pmatrix} 
 }_{\mathbf{U}_{t+1}}
@@ -518,7 +626,8 @@ u_{n_{t},1} & \cdots & u_{n_{t},n_{t-1}} \\
 \mathbf{U}_1
 \mathbf{x}
 \setlength\belowdisplayskip{0pt}
-\]}
+\]
+}
 Апостериорное распределение параметров~$\bm{\upsilon}$ модели~$\mathbf{f}$:
 \[
 \setlength\abovedisplayskip{0pt}
@@ -601,12 +710,20 @@ $
 
 %----------------------------------------------------------------------------------------------------------
 
-\begin{frame}{Анализ вероятностных свойств методов выбора моделей}
+\begin{frame}{Анализ вероятностных свойств ответов модели ученика}
 \justifying
 
-\textbf{Выборка FashionMNIST:} Изображения размера $28\times 28$. Задача классификации c $K=10$ классами. Объем выборки~$m_{\text{train}}=60000$ и~$m_{\text{test}}=10000$ объектов.\\[1mm]
-\textbf{Синтетическая выборка:} Вектора размерности~$n=10$ из нормального распределения с большой дисперсией целевого класса. Задача классификации c $K=3$ классами. Объем выборки~$m_{\text{train}}=1000$ и~$m_{\text{test}}=100$ объектов.\\[1mm]
-\textbf{Выборка Twitter Sentiment Analysis:} Твиты пользователей. Задача бинарной классификации. Объем выборки~$m_{\text{train}}=1{,}18$млн и~$m_{\text{test}}=0{,}35$млн объектов.
+% \textbf{Выборка FashionMNIST:} Изображения размера $28\times 28$. Задача классификации c $K=10$ классами. Объем выборки~$m_{\text{train}}=60000$ и~$m_{\text{test}}=10000$ объектов.\\[1mm]
+% \textbf{Синтетическая выборка:} Вектора размерности~$n=10$ из нормального распределения с большой дисперсией целевого класса. Задача классификации c $K=3$ классами. Объем выборки~$m_{\text{train}}=1000$ и~$m_{\text{test}}=100$ объектов.\\[1mm]
+% \textbf{Выборка Twitter Sentiment Analysis:} Твиты пользователей. Задача бинарной классификации. Объем выборки~$m_{\text{train}}=1{,}18$млн и~$m_{\text{test}}=0{,}35$млн объектов.
+
+\begin{figure}[h!]
+\subfloat[Истинное распределение]{\includegraphics[width=0.3\textwidth]{figures/distr_real.png}}
+\subfloat[Модель без учителя]{\includegraphics[width=0.3\textwidth]{figures/distr_without_teacher.png}}
+\subfloat[Модель с учителем]{\includegraphics[width=0.3\textwidth]{figures/distr_with_teacher.png}}
+\end{figure}
+
+
 \begin{table}[]
 \begin{center}
 \resizebox{\textwidth}{!}{
