@@ -18,7 +18,10 @@
 \usepackage{indentfirst}
 \usepackage{multicol}
 \usepackage{subfig}
-\usepackage{amsmath}
+\usepackage{amsmath,amssymb}
+\usepackage{enumerate}
+\usepackage{mathtools}
+\usepackage{comment}
 
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows}
@@ -35,13 +38,13 @@
 
 %----------------------------------------------------------------------------------------------------------
 
-\title[Априорное распределение параметров модели]{Байесовский выбор\\ априорного распределения параметров}
+\title[Априорное распределение параметров в задачах выбора моделей глубокого обучения]{Априорное распределение параметров \\в задачах выбора моделей глубокого обучения}
 \author{А.\,В.\,Грабовой}
 
 \institute[]{Диссертация на соискание ученой степени\\
-кандидата физико-математических наук\\05.13.17 --- Теоретические основы информатики\\Научный руководитель: д.ф.-м.н. В.В. Стрижов\\}     
+кандидата физико-математических наук\\05.13.17~--- Теоретические основы информатики\\Научный руководитель: д.ф.-м.н. В.\,В. Стрижов\\}     
 %\institute[МФТИ]{Московский Физико-Технический Институт (Государственный Университет)}
-\date[2021]{Московский физико-технический институт\\21 сентября 2021 г.}
+\date[2021]{\small Московский физико-технический институт\\21\;сентября\;2021\,г.}
 
 %----------------------------------------------------------------------------------------------------------
 
@@ -51,69 +54,70 @@
 \titlepage
 \end{frame}
 
-%----------------------------------------------------------------------------------------------------------
-\begin{frame}{Выбор априорного распределения параметров v1}
+%---------------------------------------------------------------------------------------------------------
+\begin{frame}{Априорное распределение параметров моделей}
+\justifying {\small
+Для выбора моделей используется связный байесовский вывод. Он предполагает адекватность функции правдоподобия и априорного распределения параметров модели. 
+
+\begin{block}{Цель исследования~---}
+\justifying 
+предложить метод задания априорного распределения параметров модели глубокого обучения с учетом накопленной информации о решаемой задаче.
+\end{block}
+\begin{block}{Исследуется проблема}
 \justifying
-
-\textbf{Исследуемая проблема}
-
-\textbf{Цель:} предложить метод выбора начального приближения моделей глубокого обучения.\\
-\textbf{Задачи}
-\begin{enumerate}
-\item Предложить байесовский метод обучения моделей ученика на основе моделей учителя.
-\item Предложить алгоритм построения модели на основе предобученных моделей.
-\end{enumerate}
-\textbf{Исследуемые проблемы}
-\begin{enumerate}
-\item Большое число параметров и гиперпараметров модели, высокая вычислительная сложность оптимизации.
-\item Многоэкстремальность и невыпуклость задачи оптимизации.
-\end{enumerate}
-\textbf{Методы исследования}\\ 
-Используются методы байесовского вывода. Для получения начального приближения модели глубокого обучения используется априорное распределение параметров, которое получается как апостериорное распределения ранее обученной модели.
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------
-\begin{frame}{Выбор априорного распределения параметров v2}
+снижения размерности пространства параметров при выборе модели. Большое число параметров и гиперпараметров влечет многоэкстремальность и невыпуклость задачи оптимизации, а также её высокую вычислительную сложность.
+\end{block}
+\begin{block}{Требуется предложить}
 \justifying
-
-\textbf{Исследуемая проблема}
-
-\textbf{Цель:} предложить метод выбора априорного распределения параметров моделей глубокого обучения.\\
-\textbf{Задачи}
-\begin{enumerate}
-\item Предложить метод сопоставления параметрических моделей на основе байесовского вывода.
-\item Предложить метод снижения размерности пространства параметров нейросетевых моделей.
-\end{enumerate}
-\textbf{Исследуемые проблемы}
-\begin{enumerate}
-\item Большое число параметров и гиперпараметров модели, высокая вычислительная сложность оптимизации.
-\item Многоэкстремальность и невыпуклость задачи оптимизации.
-\end{enumerate}
-\textbf{Методы исследования}\\ 
-Используются методы байесовского вывода. Для получения начального приближения модели глубокого обучения используется априорное распределение параметров, которое получается на основе апостериорного распределения предобученной. 
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------
-\begin{frame}{Выбор априорного распределения параметров v3}
+%\begin{enumerate}[1)]
+%\item  
+1)~метод выбора модели, основанный на использовании привилегированной и накопленной информации,
+\\%\item  
+2)~метод сопоставления структур параметрических моделей,% на основе байесовского вывода,
+\\%\item  
+3)~метод снижения размерности пространства параметров моделей глубокого обучения.
+%\end{enumerate}
+\end{block}
+\begin{block}{Используются методы}
 \justifying
-
-\textbf{Исследуемая проблема}
-
-\textbf{Цель:} предложить метод автоматического назначения априорного распределения параметров в моделях глубокого обучения.\\
-\textbf{Задачи}
-\begin{enumerate}
-\item Предложить метод сопоставления параметрических моделей на основе байесовского вывода.
-\item Предложить метод выбора априорного распределения параметров модели используя экспертную информацию о задаче.
-\end{enumerate}
-\textbf{Исследуемые проблемы}
-\begin{enumerate}
-\item Большое число параметров и гиперпараметров модели, высокая вычислительная сложность оптимизации.
-\item Многоэкстремальность и невыпуклость задачи оптимизации.
-\end{enumerate}
-\textbf{Методы исследования}\\ 
-Используется байесовский подход к обучению нейросетевых моделей. Априорное распределение параметров модели назначается на основе экспертной информации о рассматриваемой задаче. В частности в качестве экспертной информации рассматриваются предобученные параметрические модели.
+связного байесовского вывода. Для назначения априорного распределения параметров при выборе моделей глубокого обучения используется априорная экспертная информация и распределение параметров ранее полученных моделей.
+\end{block}
+}
 \end{frame}
+%\end{document}
+%---------------------------------------------------------------------------------------------------------
 
+\begin{frame}{Оптимизация ученика на основе учителя\footnotemark~и привилегированных признаков\footnotemark}
+\justifying
+Заданы:
+\begin{enumerate}
+    \item[1)] признаки~$\textbf{x}_i \in \mathbb{R}^{n}$ и привилегированные признаки~$\textbf{x}^*_i \in \mathbb{R}^{n^*}$,
+    \item[2)] целевая переменная~$y_i \in \mathbb{Y}$,
+    \item[3)] индексы объектов, для которых известна привилегированная информация $\mathcal{I},$ а для которых она не известна $\bar{\mathcal{I}}$.
+\end{enumerate}
+
+Функции учителя~$\textbf{f}:\mathbb{R}^{n^*} \to \mathbb{Y}^\prime$ и ученика~$\textbf{g}:\mathbb{R}^{n} \to \mathbb{Y}^\prime$ --- пространство оценок.
+
+Ответы $\textbf{s}_i = \textbf{f}\bigr(\textbf{x}_i^*\bigr)$ функции $\textbf{f}$ для объектов~$\textbf{x}^*_i$.
+
+\bigskip
+
+Требуется выбрать модель ученика~$\textbf{g}$ из множества
+\[
+	\mathfrak{G} = \left\{\textbf{g}| \textbf{g}:\mathbb{R}^{n} \to \mathbb{Y}^\prime\right\}.
+\]
+Оптимизационная задача:
+\[
+	\textbf{g} = \arg\min_{\textbf{g} \in \mathfrak{G}} \mathcal{L}\bigr(\textbf{g}, \textbf{f}, \textbf{X}, \textbf{X}^{*}, \textbf{y}\bigr),
+\]
+где $\mathcal{L}$ функция ошибки.
+
+\bigskip
+
+\footnotetext[1]{\textit{Hinton G., Vinyals O., Dean J.} Distilling the Knowledge in a Neural Network // NIPS, 2015.}
+\footnotetext[2]{\textit{Lopez-Paz D., Bottou L., Scholkopf B., Vapnik V.} Unifying Distillation and Privileged Information // ICLR, 2016.}
+\end{frame}
+%----------------------------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------------------------
 
 \begin{frame}{Базовая постановка задачи машинного обучения}
@@ -228,7 +232,7 @@ $\\[1mm]
 Функция потерь:
 $
     \mathcal{L}\bigr(\hat{\textbf{w}},\hat{\textbf{A}}_{\text{w}}|{\color{blue} s, }y, \hat{y}, {\color{blue}\textbf{w}_0, \textbf{A}_0}\bigr).
-$[1mm]
+$\\[1mm]
 Оптимизационная задача:
 \[
     \hat{\textbf{w}}, \hat{\textbf{A}}_{w} = \arg \min_{\textbf{w} \in \mathbb{R}^{n_{w}}, \textbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\hat{\textbf{w}},\hat{\textbf{A}}_{\text{w}}|{\color{blue} s, }y, \hat{y}, {\color{blue}\textbf{w}_0, \textbf{A}_0}\bigr).
@@ -236,84 +240,51 @@ $[1mm]
 \end{frame}
 
 %----------------------------------------------------------------------------------------------------------
-
-\begin{frame}{Оптимизация ученика на основе учителя}
+\begin{frame}{Привилегированное обучение {\color{red}В.\,Н.\;Вапника} и \\ \hfill\hfill\hfill дистилляция~{\color{blue}Дж.\;Хинтона}}
 \justifying
 Заданы:
 \begin{enumerate}
-    \item[1)] признаки~$\textbf{x}_i \in \mathbb{R}^{n}$;
-    \item[2)] привилегированные признаки~$\textbf{x}^*_i \in \mathbb{R}^{n^*}$;
-    \item[3)] целевая переменная~$y_i \in \mathbb{Y}$;
-    \item[4)] индексы объектов, для которых известна привилегированная информация $\mathcal{I},$ а для которых она не известна $\bar{\mathcal{I}}$.
-\end{enumerate}
-
-\bigskip
-
-Функции учителя~$\textbf{f}:\mathbb{R}^{n^*} \to \mathbb{Y}^\prime$ и ученика~$\textbf{g}:\mathbb{R}^{n} \to \mathbb{Y}^\prime$ --- пространство оценок.
-
-Ответ $\textbf{s}_i = \textbf{f}\bigr(\textbf{x}_i^*\bigr)$ функции $\textbf{f}$ для объекта~$\textbf{x}^*_i$ используется при решении оптимизационной задачи.
-
-\bigskip
-
-Требуется выбрать модель ученика~$\textbf{g}$ из множества
-\[
-	\mathfrak{G} = \left\{\textbf{g}| \textbf{g}:\mathbb{R}^{n} \to \mathbb{Y}^\prime\right\}.
-\]
-
-Оптимизационная задача:
-\[
-	\textbf{g} = \arg\min_{\textbf{g} \in \mathfrak{G}} \mathcal{L}\bigr(\textbf{g}, \textbf{f}, \textbf{X}, \textbf{X}^{*}, \textbf{y}\bigr),
-\]
-где $\mathcal{L}$ функция ошибки.
-\end{frame}
-%----------------------------------------------------------------------------------------------------------
-\begin{frame}{Постановка задачи: дистилляция {\color{blue}Хинтона}\footnotemark; {\color{red}Вапника}\footnotemark}
-\justifying
-Заданы:
-\begin{enumerate}
-	\item[1)] {\color{blue} $\textbf{x}^*_i = \textbf{x}_i$}; {\color{red} $\textbf{x}^*_i \not= \textbf{x}_i$} для всех $i \in \{1, 2, \cdots, m\}$;
+	\item[1)] {\color{blue} $\textbf{x}^*_i = \textbf{x}_i$}, {\color{red} $\textbf{x}^*_i \not= \textbf{x}_i$} для всех $i \in \{1, 2, \cdots, m\}$,
 	\item[2)] $y_i \in \mathbb{Y}=\{1, \cdots, K\}, \quad \mathbb{Y}^\prime=\mathbb{R}^{K}$.
 \end{enumerate}
 
 Параметрические семейства учителя и ученика:
 \[
-\setlength\abovedisplayskip{0pt}
+%\setlength\abovedisplayskip{0pt}
 \mathfrak{F}^{\color{red}*}_{\text{cl}} = \left\{\textbf{f}| \textbf{f} = \text{softmax}\bigr(\textbf{v}^{\color{red}*}\bigr(\textbf{x}^{\color{red}*}\bigr)/T\bigr), \quad \textbf{v}^{\color{red}*}: \mathbb{R}^{n^{\color{red}*}} \to \mathbb{R}^K \right\},
-\setlength\belowdisplayskip{0pt}
+%\setlength\belowdisplayskip{0pt}
 \]
 \[
-\setlength\abovedisplayskip{0pt}
+%\setlength\abovedisplayskip{0pt}
 \mathfrak{G}_{\text{cl}} = \left\{\textbf{g}| \textbf{g} = \text{softmax}\bigr(\textbf{z}\bigr(\textbf{x}\bigr)/T\bigr), \quad \textbf{z}: \mathbb{R}^n \to \mathbb{R}^K \right\},
-\setlength\belowdisplayskip{0pt}
+%\setlength\belowdisplayskip{0pt}
 \]
-где~$\textbf{z},\textbf{v}^{\color{red}*}$~--- это дифференцируемые параметрические функции заданной структуры, $T$~--- параметр температуры.
+где~$\textbf{z},\textbf{v}^{\color{red}*}$~--- это дифференцируемые по параметрам функции заданной структуры, $T$~--- параметр температуры.
 
 Функция ошибки
 \[
 \setlength\abovedisplayskip{0pt}
 \begin{aligned}
-   \mathcal{L}_\text{st}\bigr(\textbf{g}\bigr) = &-\sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}y^k_i\log\textbf{g}\bigr(\textbf{x}_i\bigr)\bigr|_{T=1}}}_{\text{исходная функция потерь}}- \sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}\textbf{f}\bigr(\textbf{x}^{\color{red}*}_i\bigr)\bigr|_{T=T_0}\log\textbf{g}\bigr(\textbf{x}_i\bigr)\bigr|_{T=T_0}}}_{\text{слагаемое дистилляция}},
+   \mathcal{L}_\text{st}\bigr(\textbf{g}\bigr) = &-\sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}y^k_i\log\textbf{g}\bigr(\textbf{x}_i\bigr)\bigr|_{T=1}}}_{\text{исходная функция потерь}}- \sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}\textbf{f}\bigr(\textbf{x}^{\color{red}*}_i\bigr)\bigr|_{T=T_0}\log\textbf{g}\bigr(\textbf{x}_i\bigr)\bigr|_{T=T_0}}}_{\text{слагаемое дистилляции}},
 \end{aligned}
 \setlength\belowdisplayskip{0pt}
 \]
-где~$\cdot\bigr|_{T=t}$ параметр температуры~$T$ равняется~$t$.
+где~$\cdot\bigr|_{T=t}$ фиксирует температуру~$T$.
 
-Оптимизационная задача:
-\[
-\setlength\abovedisplayskip{0pt}
-	\hat{\textbf{g}} = \arg\min_{\textbf{g} \in \mathfrak{G}_{\text{cl}}} \mathcal{L}_\text{st}\bigr(\textbf{g}\bigr).\setlength\belowdisplayskip{0pt}
-\]
-\footnotetext[1]{\textit{Hinton G., Vinyals O., Dean J.} Distilling the Knowledge in a Neural Network // NIPS, 2015.}
-\footnotetext[2]{\textit{Lopez-Paz D., Bottou L., Scholkopf B., Vapnik V.} Unifying Distillation and Privileged Information //ICLR, 2016.}
+%Оптимальная модель~$\textbf{g}$ выбирается из класса~$\mathfrak{G}_{\text{cl}}$,
+Оптимальная модель выбирается из класса,
+%\[\setlength\abovedisplayskip{0pt}
+$\hat{\textbf{g}} = \arg\min_{\textbf{g} \in \mathfrak{G}_{\text{cl}}} \mathcal{L}_\text{st}\bigr(\textbf{g}\bigr).$
+%\setlength\belowdisplayskip{0pt}\]
 \end{frame}
 %----------------------------------------------------------------------------------------------------------
 \begin{frame}{Вероятностная постановка задачи дистилляции}
 \justifying
 Гипотеза порождения данных:
 \begin{enumerate}
-	\item[1)] задано распределение целевой переменной~$p\bigr(y_i|\textbf{x}_i, \textbf{g}\bigr)$;
-	\item[2)] задано совместное распределение~$p\bigr(y_i, \textbf{s}_i|\textbf{x}_i, \textbf{g}\bigr)$;
-	\item[3)] для всех $i \in \mathcal{I}$ элементы $y_i$ и $\textbf{s}_i$ являются зависимыми величинами;
+	\item[1)] задано распределение целевой переменной~$p\bigr(y_i|\textbf{x}_i, \textbf{g}\bigr)$,
+	\item[2)] задано совместное распределение~$p\bigr(y_i, \textbf{s}_i|\textbf{x}_i, \textbf{g}\bigr)$,
+	\item[3)] для всех $i \in \mathcal{I}$ элементы $y_i$ и $\textbf{s}_i$ являются зависимыми величинами,
 	\item[4)] если $|\mathcal{I}|=0$ то решение равно решению максимума правдоподобия.
 \end{enumerate}
 Совместное правдоподобие истинных меток и меток учителя:
@@ -348,13 +319,13 @@ p\bigr(\textbf{y}, \textbf{S}|\textbf{X}, \textbf{g}, \mathcal{I}\bigr)=\prod_{i
 \end{frame}
 
 %----------------------------------------------------------------------------------------------------------
-\begin{frame}{Задача классификации: вероятностная постановка}
+\begin{frame}{Вероятностная постановка задачи классификации}
 \justifying
 Заданы:
 \begin{enumerate}
-	\item[1)] учитель $\textbf{f}\in\mathfrak{F}_{\text{cl}}^{*}$ и ученик~$\textbf{g}\in\mathfrak{G}_{\text{cl}}$;
-	\item[2)] распределение истинных меток~$p\bigr(y|\textbf{x}, \textbf{g}\bigr) = \text{Cat}\bigr(\textbf{g}\bigr(\textbf{x}\bigr)\bigr)$;
-	\item[3)] распределение ответов учителя~$p\bigr(\textbf{s}|\textbf{x}, \textbf{g}\bigr) = C\prod_{k=1}^{K}g_k\bigr(\textbf{x}\bigr)^{s^k}, \quad C < \infty.$
+	\item[1)] учитель $\textbf{f}\in\mathfrak{F}_{\text{cl}}^{*}$ и ученик~$\textbf{g}\in\mathfrak{G}_{\text{cl}}$,
+	\item[2)] распределение истинных меток~$p\bigr(y|\textbf{x}, \textbf{g}\bigr) = \text{Cat}\bigr(\textbf{g}\bigr(\textbf{x}\bigr)\bigr)$,
+	\item[3)] распределение ответов учителя~$p\bigr(\textbf{s}|\textbf{x}, \textbf{g}\bigr) = C\prod_{k=1}^{K}g_k\bigr(\textbf{x}\bigr)^{s^k}, \quad C < \infty,$
 \end{enumerate}
 \[
 \setlength\abovedisplayskip{0pt}
@@ -380,13 +351,13 @@ C=\left(-1\right)^{K}\frac{K^{K/2}}{2^{K(K-1)/2}}\prod_{k=1}^{K}g_k\bigr(\textbf
 
 \end{frame}
 %----------------------------------------------------------------------------------------------------------
-\begin{frame}{Задача регрессии: вероятностная постановка}
+\begin{frame}{Вероятностная постановка задачи регрессии}
 \justifying
-\begin{enumerate}
-	\item[1)] учитель~$f\in\mathfrak{F}_{\text{rg}}^{*}= \left\{f| f = \textbf{v}^*\bigr(\textbf{x}^*\bigr), \quad \textbf{v}^*: \mathbb{R}^{n^*} \to \mathbb{R} \right\}$;
-	\item[2)] ученик~$g\in\mathfrak{G}_{\text{rg}} = \left\{g| g = \textbf{z}\bigr(\textbf{x}\bigr), \quad \textbf{z}: \mathbb{R}^n \to \mathbb{R} \right\}$;
-	\item[3)] распределение истинных меток $p\bigr(y|\textbf{x}, g\bigr) = \mathcal{N}\bigr(y|g\bigr(x\bigr), \sigma\bigr)$;
-	\item[4)] распределения меток учителя $p\bigr(s| \textbf{x}, g\bigr) = \mathcal{N}\bigr(s|g\bigr(\textbf{x}\bigr), \sigma_s\bigr).$
+\begin{enumerate}[1)]
+	\item учитель~$f\in\mathfrak{F}_{\text{rg}}^{*}= \left\{f| f = \textbf{v}^*\bigr(\textbf{x}^*\bigr), \quad \textbf{v}^*: \mathbb{R}^{n^*} \to \mathbb{R} \right\}$,
+	\item ученик~$g\in\mathfrak{G}_{\text{rg}} = \left\{g| g = \textbf{z}\bigr(\textbf{x}\bigr), \quad \textbf{z}: \mathbb{R}^n \to \mathbb{R} \right\}$,
+	\item распределение истинных меток $p\bigr(y|\textbf{x}, g\bigr) = \mathcal{N}\bigr(y|g\bigr(\textbf{x}\bigr), \sigma\bigr)$,
+	\item распределения меток учителя $p\bigr(s| \textbf{x}, g\bigr) = \mathcal{N}\bigr(s|g\bigr(\textbf{x}\bigr), \sigma_s\bigr).$
 \end{enumerate}
 Оптимизационная задача:
 \[
@@ -424,66 +395,66 @@ y'_i = \begin{cases}
 
 \begin{frame}{Байесовская постановка задачи дистилляции}
 
-Задана модель учителя с фиксированными параметрами в виде суперпозиции отображений:
+Задана модель учителя, суперпозиция
 \[
-\begin{aligned}
-f = \bm{\sigma} \circ \textbf{U}_T \circ \bm{\sigma} \circ \textbf{U}_{T-1} \circ \cdots \circ \bm{\sigma} \circ \textbf{U}_1,
-\end{aligned}
+%\begin{aligned}
+\textbf{f}\bigr(\textbf{x}\bigr) = \bm{\sigma} \circ \textbf{U}_T\bm{\sigma} \circ \textbf{U}_{T-1}\bm{\sigma} \circ \cdots \circ \textbf{U}_1\textbf{x},
+%\end{aligned}
 \]
-где~$\textbf{U}$ матрицы линейны отображений,~$\bm{\sigma}$ нелинейность. Вектор параметров модели учителя:
+где~$\textbf{U}$ матрицы линейных отображений,~$\bm{\sigma}$ монотонная вектор-функция. Параметры учителя фиксированы
 \[
 \begin{aligned}
 \textbf{u} = \text{vec}\bigr(\left[\textbf{U}_T, \textbf{U}_{T-1}, \cdots \textbf{U}_1\right]\bigr).
 \end{aligned}
 \]
-
-На основе выборки~$\left\{\textbf{x}_i, y_i\right\}_{i=1}^{m}$ и учителя~$f$ требуется выбрать модель ученика:
+На основе выборки~$\left\{\textbf{x}_i, y_i\right\}_{i=1}^{m}$ и значений учителя~$\textbf{f}(\hat{\textbf{u}},\textbf{x})$ требуется выбрать модель ученика:
 \[
 \begin{aligned}
-g = \bm{\sigma} \circ \textbf{W}_L \circ \cdots \circ \bm{\sigma} \circ \textbf{W}_1, \quad \textbf{W}_l \in \mathbb{R}^{n_s \times n_{s-1}},
+\textbf{g}\bigr(\textbf{x}\bigr) = \bm{\sigma} \circ \textbf{W}_L\bm{\sigma} \circ \cdots \circ \textbf{W}_1\textbf{x}, \quad \textbf{W}_l \in \mathbb{R}^{n_s \times n_{s-1}},
 \end{aligned}
 \]
-где~$\textbf{W}$,~$\bm{\sigma}$,~$\textbf{w}$ вводятся аналогично учителю. Выбор модели~$g$ эквивалентный оптимизации вектора параметров~$\textbf{w}$. Параметры~$\textbf{w}$ оптимизируются на основе вариационного вывода:
+где~$\textbf{W}$,~$\bm{\sigma}$ вводятся как и отображения учителя. Задача выбора модели~$\textbf{g}$ состоит в оптимизации вектора~$\textbf{w}$.  Решается  вариационным выводом
 \[
 \begin{aligned}
-\hat{\textbf{w}} = \arg \min_{q, \textbf{w}} \text{D}_{\text{KL}}\bigr(q\bigr(\textbf{w}\bigr)||p\bigr(\textbf{w}|\textbf{A}\bigr)\bigr) - \log p\bigr(\textbf{y}|\textbf{X}, \textbf{w}\bigr).
+\hat{\textbf{w}}, \hat{\bm{\mu}}, \hat{\bm{\Sigma}} = \arg \min_{\bm{\mu}, \bm{\Sigma}, \textbf{w}} \text{D}_{\text{KL}}\bigr(q\bigr(\textbf{w}|\bm{\mu}, \bm{\Sigma}\bigr)||p\bigr(\textbf{w}|\textbf{A}\bigr)\bigr) - \sum_{i=1}^{m}\log p\bigr(y_i|\textbf{x}_{i}, \textbf{w}\bigr).
 \end{aligned}
 \]
-Априорное распределение~$p\bigr(\textbf{w}|\textbf{A}\bigr)$ задается как функция от апостериорного распределения~$p\bigr(\textbf{u}|\textbf{X}, \textbf{y}\bigr)$. Апостериорное распределение параметров модели учителя задается нормальным распределением:
+Априорное распределение~$p\bigr(\textbf{w}|\textbf{A}\bigr)$ задается как функция от апостериорного распределения параметров учителя~$p\bigr(\textbf{u}|\textbf{X}, \textbf{y}\bigr)$.  Оно задано,
 \[
 \begin{aligned}
-p\bigr(\textbf{u}|\textbf{X}, \textbf{y}\bigr) = \mathcal{N}\bigr(\textbf{u}_0, \bm{\Sigma}_0\bigr).
+p\bigr(\textbf{u}|\textbf{X}, \textbf{y}\bigr) = \mathcal{N}\bigr(\textbf{m}, \bm{\Sigma}\bigr).
 \end{aligned}
 \]
 
-Проблема: пространства параметров учителя и ученика не совпадает.
-
+{\it \color{red}Проблема: пространства параметров учителя и ученика не совпадают.}
 \end{frame}
 
 
 %----------------------------------------------------------------------------------------------------------
-\begin{frame}{Байесовкая дистилляция: сопоставление параметров моделей}
-\begin{rusdefinition}
-Структура модели~--- множество структурных параметров модели, которые задают вид суперпозиции.
-\end{rusdefinition}
+\begin{frame}{Сопоставление структурных параметров}
+%\begin{rusdefinition}
+Множество структурных параметров задает вид суперпозиции моделей~$\mathbf{f}, \mathbf{g}$.
+%\end{rusdefinition}
 
 \begin{rusdefinition}
-Сопоставление параметрических моделей~--- изменение структуры модели (одной или нескольких моделей) в результате которого векторы параметров различных моделей лежат в одном пространстве.
+Сопоставление параметрических моделей~--- изменение структуры одной или нескольких моделей в результате которого векторы параметров моделей различных структур лежат в одном пространстве.
 \end{rusdefinition}
 
 
 \textbf{Пространства параметров совпадают}
 \begin{itemize}
-    \item число слоев совпадает $L=T$;
-    \item размеры соответствующих слоев совпадают,
+    \item[---] число слоев совпадает $L=T$,
+    \item[---] размеры соответствующих слоев совпадают,
 \end{itemize}
-тогда $p\bigr(\textbf{w}|\textbf{A}\bigr) = p\bigr(\textbf{w}|\mathfrak{D}\bigr)$.
+тогда
+\[
+p\bigr(\textbf{w}|\textbf{A}\bigr) = p\bigr(\textbf{w}|\textbf{X}, \textbf{y}\bigr).
+\]
 
 \textbf{Пространства параметров не совпадают}
-В данном случае дистиляция проходит в два этапа:
 \begin{itemize}
-    \item выполняется сопоставление моделей учителя и ученика;
-    \item апостериорное распределение учителя назначается априорным распределением ученика.
+    \item[---] выполняется сопоставление моделей учителя~$\textbf{g}$ и ученика~$\textbf{f}$,
+    \item[---] апостериорное распределение учителя~$p\bigr(\textbf{u}|\textbf{X}, \textbf{y}\bigr)$ назначается априорным распределением ученика~$p\bigr(\textbf{w}|\textbf{A}\bigr)$.
 \end{itemize}
 
 \end{frame}
@@ -501,18 +472,79 @@ p\bigr(\textbf{u}|\textbf{X}, \textbf{y}\bigr) = \mathcal{N}\bigr(\textbf{u}_0, 
 
 \begin{rustheorem}[Грабовой, 2021]
 Пусть выполняются следующие условия:
-\begin{itemize}
-\itemапостериорное распределение параметров $p\bigr(\textbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\textbf{m}, \bm{\Sigma}\bigr);$
-\item число слоев модели учителя равняется числу слоев модели ученика $L=T$;
-\item размеры соответствующих слоев не совпадают, другими словами, для всех $t, l$ таких, что $t=l$ выполняется $n_l \leq n_t$.
-\end{itemize}
-Тогда апостериорное распределения параметров модели учителя $p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)$ также является нормальным распределением.
+\begin{enumerate}[1)]
+\item апостериорное распределение параметров $p\bigr(\textbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\textbf{m}, \bm{\Sigma}\bigr),$
+\item число слоев модели учителя равняется числу слоев модели ученика $T=L$,
+\item размеры соответствующих слоев не совпадают, другими словами, для всех $t, l,$ таких что $t=l,$ выполняется $n_t \leq n_l.$
+\end{enumerate}
+Тогда апостериорное распределение параметров модели учителя~$p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)$ также является нормальным.
 \end{rustheorem}
 
 \end{frame}
+%----------------------------------------------------------------------------------------------------------
+
+\begin{frame}{Решение задачи сопоставления структур моделей}\vspace{-.4cm}
+\[
+\hat{\textbf{w}}, \hat{\bm{\mu}}, \hat{\bm{\Sigma}} = \arg \min_{\bm{\mu}, \bm{\Sigma}, \textbf{w}} \text{D}_{\text{KL}}\bigr(q\bigr(\textbf{w}|\bm{\mu}, \bm{\Sigma}\bigr)||p\bigr(\textbf{w}|\textbf{A}\bigr)\bigr) - \sum_{i=1}^{m}\log p\bigr(y_i|\textbf{x}_{i}, \textbf{w}\bigr).
+\]
+Параметры~$\textbf{u}$ модели~$\textbf{f}$ делятся на {\color{red} удаляемые~$\bm{\nu}_2$}, {\color{blue} зануляемые~$\bm{\nu}_1$}, {оставшиеся~$\bm{\upsilon}$}.
+
+Суперпозиция слоев модели учителя~$\textbf{f}$ в окрестности~$t$-го слоя:
+{\small\[
+\setlength\abovedisplayskip{0pt}
+\textbf{f}\bigr(\textbf{x}\bigr) = \cdots \circ
+\underbrace{
+\begin{pmatrix}
+u_{1,1} & \cdots & {\color{blue} u_{1,j}} & \cdots & u_{1,n_{t}} \\
+\vdots  & \ddots & {\color{blue} \vdots}  & \ddots & \vdots 
+u_{n_{t+1},1} & \cdots & {\color{blue} u_{n_{t+1},j}} & \cdots & u_{n_{t+1},n_{t}} \\
+\end{pmatrix} 
+}_{\textbf{U}_{t+1}}
+\bm{\sigma} 
+\circ 
+\underbrace{
+\begin{pmatrix}
+u_{1,1} & \cdots & u_{1,n_{t-1}} \\
+\vdots  & \ddots & \vdots        \\
+{\color{red} u_{j,1}} & {\color{red}\cdots} & {\color{red} u_{j,n_{t-1}}} \\
+\vdots  & \ddots & \vdots        \\
+u_{n_{t},1} & \cdots & u_{n_{t},n_{t-1}} \\
+\end{pmatrix}
+}_{\textbf{U}_{t}}
+\bm{\sigma}
+\circ 
+\cdots
+\circ 
+\textbf{U}_1
+\textbf{x}
+\setlength\belowdisplayskip{0pt}
+\]}
+Апостериорное распределение параметров~$\bm{\upsilon}$ модели~$\textbf{f}$:
+\[
+\setlength\abovedisplayskip{0pt}
+p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)  = \int\limits_{{\color{red} \bm{\nu}_2} \in \mathbb{R}^{n_{t-1}}}p\bigr({\color{blue}\bar{\bm{\nu}}_1}|\mathfrak{D}, {\color{blue}\bm{\nu}_1}=\textbf{0}\bigr) d{\color{red} \bm{\nu}_2}.
+\setlength\belowdisplayskip{0pt}
+\]
+Из свойства распределения 
+$
+    p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr) = \mathcal{N}\bigr(\bm{\mu}, \bm{\Xi}\bigr),
+$
+с параметрами~$\bm{\mu}, \bm{\Xi}$:
+\[
+\begin{aligned}
+\bm{\mu} &= \mathbf{m}_{\bar{\bm{\nu}}_1}+\bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1} \bm{\Sigma}_{\bm{\nu}_1,\bm{\nu}_1}^{-1} \left(\mathbf{0} - \mathbf{m}_{\bm{\nu}_1}\right), \\
+ \bm{\Xi} &= \bm{\Sigma}_{\bar{\bm{\nu}}_1,\bar{\bm{\nu}}_1} - \bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1} \bm{\Sigma}_{\bm{\nu}_1,\bm{\nu}_1}^{-1} \bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1},
+\end{aligned}
+\]
+Маргинализация нормального распределения
+$
+p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\bm{\mu}_{\bm{\upsilon}},  \bm{\Xi}_{\bm{\upsilon}, \bm{\upsilon}}\bigr).
+$
+\end{frame}
 
 %----------------------------------------------------------------------------------------------------------
-\begin{frame}{Число скрытых слоев учителя и ученика отличаются}
+
+\begin{frame}{Число скрытых слоев учителя и ученика различны}
 
 Преобразования $t$-го слоя учителя:
 \[
@@ -524,211 +556,237 @@ p\bigr(\textbf{u}|\textbf{X}, \textbf{y}\bigr) = \mathcal{N}\bigr(\textbf{u}_0, 
 
 \begin{rustheorem}[Грабовой, 2021]
 Пусть выполняются следующие условия:
-\begin{itemize}
-\item апостериорное распределение параметров $p\bigr(\textbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\textbf{m}, \bm{\Sigma}\bigr);$
-\item соответствующие размеры слоев совпадают, $n_t=n_{t-1},$ то есть матрица $\textbf{U}_t$ является квадратной;
+\begin{enumerate}[1)]
+\item апостериорное распределение параметров $p\bigr(\textbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\textbf{m}, \bm{\Sigma}\bigr),$
+\item соответствующие размеры слоев совпадают, $n_t=n_{t-1},$ т.е. матрица~$\mathbf{U}_t$ является квадратной,
 \item функция активации удовлетворяет свойству идемпотентности $\bm{\sigma} \circ \bm{\sigma} = \bm{\sigma}$.
-\end{itemize}
-Тогда апостериорное распределения также описывается нормальным распределением со следующей плотностью распределения:
+\end{enumerate}
+Тогда апостериорное распределение также описывается нормальным распределением с плотностью распределения:
 \[
 \label{eq:ap:5}
 \begin{aligned}
 p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\textbf{m}_{\bm{\upsilon}}+\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}} \bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1} \left(\textbf{i} - \bar{\bm{\upsilon}}\right), \bm{\Sigma}_{\bm{\upsilon},\bm{\upsilon}} - \bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1}\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bigr),
 \end{aligned}
 \]
-где~$\textbf{i}$~ единичная матрица преобразована в вектор.
+где вектор~$
+\textbf{i}=[\underbrace{1, 0, \ldots, 0}_{n_t}, \underbrace{0, 1, \ldots, 0}_{n_t}, \underbrace{0, 0, 1, \ldots, 0}_{n_t}, \underbrace{0, \ldots, 1}_{n_t}]^{\mathsf{T}}.
+$
 \end{rustheorem}
 
 \end{frame}
 
 %----------------------------------------------------------------------------------------------------------
-\begin{frame}{Порядок на множестве параметров}
-Задание порядка на множестве параметров:
-\begin{itemize}
-	\item случайным образом (используется в рамках вычислительного эксперимента)
+\begin{frame}{Введение отношения порядка на множестве параметров}
+Полный порядок при выборе задается:
+\begin{enumerate}[1)]
+	\item случайным образом (базовая гипотеза),
 	\item на основе метода оптимального прореживания нейросети:
 	\[
 	\xi = \arg \min_{j} h_{jj}\frac{u_j^2}{2},
 	\]
-	где~$h_{jj}$ коэффициент при квадратичном члене в разложении Тейлора функции ошибки по параметрам модели.
-	\item на основе отношения плотности апостериорного распределения параметра к плотности апостериорного распределения параметра к нулю:
+	где~$h_{jj}$ коэффициент при квадратичном члене в разложении функции ошибки~$\mathcal{L}$ по параметрам модели~$\textbf{u}$,
+	\item на основе отношения плотности апостериорного распределения параметра в нуле к плотности апостериорного распределения параметра:
 	\[
 	\xi = \arg \max_{j} \frac{p\bigr(0|\textbf{X}, \textbf{t}\bigr)}{p\bigr(u_j|\textbf{X}, \textbf{t}\bigr)},
 	\]
-	\item выбор на основе анализа мультиколиниарности параметров методов Белсли:
+	\item на основе анализа мультиколиниарности параметров методом Белсли:
 	\[
 	\xi = \arg \max_{j} \frac{\lambda_{\max}}{\lambda_{j}}, 
 	\]
-	где~$\lambda$ являются сингулярными числами ковариационный матрицы параметров.
-\end{itemize}
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------
-
-\begin{frame}{Вычислительный эксперимент: вероятностная дистиляция}
-\justifying
-\textbf{Выборка FashionMNIST:}
-
-Изображения размера $28\times 28$. Решается задача классификации c $K=10$ классами.
-
-Объем выборки~$m_{\text{train}}=60000$ и~$m_{\text{test}}=10000$ объектов.
-
-~\\
-\textbf{Синтетическая выборка:}
-\[
-\setlength\abovedisplayskip{0pt}
-\begin{aligned}
-\textbf{X} &= \left[\mathcal{N}\bigr(x_{ij}|0, 1\bigr)\right]_{m\times n},  \quad &\textbf{W} &= \left[\mathcal{N}\bigr(w_{jk}|0, 1\bigr)\right]_{n\times K}, \\
- \textbf{S} &= \text{softmax}\left(\textbf{XW}\right), \quad &\textbf{y} &= \left[\text{Cat}\bigr(y_i| \textbf{s}_i\bigr)\right],
-\end{aligned}
-\setlength\belowdisplayskip{0pt}
-\]
-где функция~$\text{softmax}$ берется построчно.
-
-Число признаков~$n=10$, число классов~$K=3$, объем выборки~$m_{\text{train}}=1000$ и~$m_{\text{test}}=100$ объектов. 
-
-~\\
-\textbf{Выборка Twitter Sentiment Analysis:}
-
-Англоязычные твиты пользователей. Решается задача бинарной классификации текстовых сообщений.
-
-Объем выборки~$m_{\text{train}}=1{,}18$млн и~$m_{\text{test}}=0{,}35$млн объектов.
-
-\end{frame}
-
-
-%----------------------------------------------------------------------------------------------------------
-
-\begin{frame}{Сводная таблица вычислительного эксперимента: вероятностная дистиляция}
-\justifying
-
-\begin{table}[]
-\begin{center}
-\resizebox{\textwidth}{!}{
-	\begin{tabular}{|l|l|c|c|c|}
-	\hline
-	\multicolumn{1}{|c|}{Dataset} & \multicolumn{1}{c|}{Model} & CrossEntropyLoss      & Accuracy    &   StudentSize   \\ \hline
-\hline
+	где~$\lambda$ являются сингулярными числами ковариационный матрицы параметров,
+	\item на основе ковариационной матрицы градиентов функции ошибки~$\mathcal{L}$ по параметрам~$\textbf{u}$.
 	
-	\multirow{2}{*}{FashionMnist} & without teacher    &  $0{,}461 \pm 0{,}005$ & $0{,}841\pm 0{,}002$ & 7850 \\ \cline{2-5} 
-                              & with teacher       & $\mathbf{0{,}453 \pm 0{,}003}$ & $0{,}842 \pm 0{,}002$ & 7850\\ \hline
-\hline
-	\multirow{2}{*}{Synthetic}    & without teacher    & $\mathbf{0{,}225 \pm 0{,}002}$ & $\mathbf{0{,}831\pm 0{,}002}$ & 33 \\ \cline{2-5} 
-                              &  with teacher       & $0{,}452 \pm 0{,}001$   & $0{,}828\pm 0{,}001$ & 33 \\ \hline
-\hline
-	\multirow{2}{*}{Twitter }    & without teacher    & $0{,}501 \pm 0{,}006$ & $0{,}747\pm 0{,}005$ & $1538$  \\ \cline{2-5} 
-                              &with teacher       & $\mathbf{0{,}489 \pm 0{,}003}$   & $\mathbf{0{,}764\pm 0{,}004}$ & $1538$ \\ \hline
-	\end{tabular}
-}
-\end{center}
-\end{table}
-
-В таблице показаны результаты вычислительного эксперимента для разных выборок. Точность аппроксимации выборки учеником улучшается при использовании модели учителя при обучении.
-
+\end{enumerate}
 \end{frame}
 
 %----------------------------------------------------------------------------------------------------------
 
-\begin{frame}{Вычислительный эксперимент: байесовская дистилляция}
+\begin{frame}{Анализ вероятностных свойств методов выбора моделей}
+\justifying
 
-Синтетическая выборка:
-\[
-\label{eq:ex:1}
-\begin{aligned}
-\textbf{w} &= \left[w_j: w_{j}\sim \mathcal{N}\bigr(0, 1\bigr)\right]_{n\times 1}, \quad \textbf{X} &= \left[x_{ij}: x_{ij}\sim\mathcal{N}\bigr(0, 1\bigr)\right]_{m\times n}, \\
- \textbf{y} &= \left[y_i: y_i \sim \mathcal{N}\bigr(\textbf{x}_i^{\mathsf{T}}\textbf{w}, \beta\bigr)\right]_{m \times 1},
-\end{aligned}
-\]
-где~$\beta=0{,}1$~--- уровень шума в данных. Число признаков~$n=10$, для обучения и тестирования было сгенерировано~$m_{\text{train}}=900$ и~$m_{\text{test}}=124$ объекта.
-
-Модель учителя:
-\[
-\begin{aligned}
-f\bigr(\textbf{x}\bigr) = \bm{\sigma} \circ \textbf{U}_3\circ \bm{\sigma} \circ \textbf{U}_2\circ\bm{\sigma}\circ \textbf{U}_1\textbf{x},
-\end{aligned}
-\]
-
-Первая конфигурация модели ученика:
-\[
-\begin{aligned}
-g = \bm{\sigma} \circ \textbf{W}_3 \circ \bm{\sigma} \circ \textbf{W}_2 \circ \bm{\sigma} \circ \textbf{W}_1, \quad \textbf{W}_{1} \in \mathbb{R}^{10 \times 10}, \textbf{W}_{2} \in \mathbb{R}^{10 \times 10},  \textbf{W}_{3} \in \mathbb{R}^{1 \times 10}.
-\end{aligned}
-\]
-
-Вторая конфигурация модели ученика:
-\[
-\begin{aligned}
-g = \bm{\sigma} \circ \textbf{W}_2 \circ \bm{\sigma} \circ \textbf{W}_1, \quad \textbf{W}_{1} \in \mathbb{R}^{1 \times 50}, \textbf{W}_{2} \in \mathbb{R}^{50 \times 10}.
-\end{aligned}
-\]
-\end{frame}
-
-%----------------------------------------------------------------------------------------------------------
-\begin{frame}{Результаты эксперимента: байесовская дистилляция}
-
-\begin{figure}[h!]
-\includegraphics[width=0.4\textwidth]{figures/synthetic_likelihood_3_layers.eps}
-\includegraphics[width=0.4\textwidth]{figures/synthetic_D_KL_3_layers.eps}
-\end{figure}
-Первая конфигурация модели ученика. Дистиллированная модель имеет большее правдоподобие.
-
-\begin{figure}[h!]
-\includegraphics[width=0.4\textwidth]{figures/synthetic_likelihood_2_layers.eps}
-\includegraphics[width=0.4\textwidth]{figures/synthetic_D_KL_2_layers.eps}
-\end{figure}
-Вторая конфигурация модели ученика. Дистиллированная модель имеет большее правдоподобие.
-
-\end{frame}
-%----------------------------------------------------------------------------------------------------------
-
-\begin{frame}{Сводная таблица вычислительного эксперимента: байесовская дистилляция}
-
+\textbf{Выборка FashionMNIST:} Изображения размера $28\times 28$. Задача классификации c $K=10$ классами. Объем выборки~$m_{\text{train}}=60000$ и~$m_{\text{test}}=10000$ объектов.\\[1mm]
+\textbf{Синтетическая выборка:} Вектора размерности~$n=10$ из нормального распределения с большой дисперсией целевого класса. Задача классификации c $K=3$ классами. Объем выборки~$m_{\text{train}}=1000$ и~$m_{\text{test}}=100$ объектов.\\[1mm]
+\textbf{Выборка Twitter Sentiment Analysis:} Твиты пользователей. Задача бинарной классификации. Объем выборки~$m_{\text{train}}=1{,}18$млн и~$m_{\text{test}}=0{,}35$млн объектов.
 \begin{table}[]
 \begin{center}
 \resizebox{\textwidth}{!}{
-\begin{tabular}{|l|c|c|c|c|llll}
-
-\cline{1-5}
-                 & teacher           & student        & distil-student & distil-student-all &                           &                      &                      &                      \\ \cline{1-5}
-\multicolumn{5}{|c|}{Эксперимент на синтетической выборке (удаление нейрона)}             &                      &                      &                      &                      \\ \cline{1-5}
-Архитектура            & $[10,100,50,1]$   & $[10,10,10,1]$  & $[10,10,10,1]$ & $[10,10,10,1]$    &                      &                      &                      &                      \\ \cline{1-5}
-Число параметров  & 6050                    & 210                   & 210                  & 210                      &                      &                      &                      &                      \\ \cline{1-5}
-Разность площадей   &   -                         & 0                       & $\mathbf{16559}$              & $\mathbf{16864}$                  &                      &                      &                      &                      \\ \cline{1-5}
-\multicolumn{5}{|c|}{Эксперимент на синтетической выборке (удаление слоя)}                    & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{1}{c}{} \\ \cline{1-5}
-Архитектура            & $[10,100,50,1]$   & $[10,50,1]$       & $[10,50,1]$      & $[10,50,1]$          &                      &                      &                      &                      \\ \cline{1-5}
-Число параметро    &   6050                       &       550                   &          550               &     550                        &                      &                      &                      &                      \\ \cline{1-5}
-Разность площадей    &  -                          &  0                      &  $\mathbf{23310}$             & $\mathbf{25506}$                  &                      &                      &                      &                      \\ \cline{1-5}
-\multicolumn{5}{|c|}{Эксперимент на выборке FashionMnist}                                                     &                      &                      &                      &                      \\ \cline{1-5}
-Архитектура           & $[784,800,50,10]$& $[784,50,10]$   & $[784,50,10]$  & $[784,50,10]$      &                      &                      &                      &                      \\ \cline{1-5}
-Число параметро    &   667700                     &     39700                     &      39700                   &      39700                       &                      &                      &                      &                      \\ \cline{1-5}
-Разность площадей   & -                           & 0                       &  $\mathbf{1165}$               & $\mathbf{1145} $                   &                      &                      &                      &                      \\ \cline{1-5}
+\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{Выборка} & Модель      & \begin{tabular}[c]{@{}c@{}}Кросс-Энтропийная\\ ошибка\end{tabular} & \begin{tabular}[c]{@{}c@{}}{\color{blue}Кросс-Энтропийная} \\ {\color{blue}ошибка с реальными}\\ {\color{blue}вероятностями}\end{tabular} & \begin{tabular}[c]{@{}c@{}}{\color{red}Вероятностная}
+\\ {\color{red}разница}\end{tabular} & Точность            & \begin{tabular}[c]{@{}c@{}}Число\\ Параметров\end{tabular} \\ \hline\hline
+\multirow{2}{*}{FashionMnist} & с учителем  & $0{,}453\pm0{,}003$                                                & -                                                                                             & $0{,}84\pm0{,}13$                                               & $0{,}842\pm0{,}002$ & 7850                                                       \\ \cline{2-7} 
+                              & без учителя & $0{,}461\pm0{,}005$                                                & -                                                                                             & $0{,}86\pm0{,}18$                                               & $0{,}841\pm0{,}002$ & 7850                                                       \\ \hline \hline
+\multirow{2}{*}{Systetic}     & с учителем  & $0{,}618\pm0{,}001$                                                & $\textbf{1{,}17}\pm\textbf{0{,}05}$                                                                             & $\textbf{0{,}45}\pm\textbf{0{,}20}$                                               & $0{,}828\pm0{,}002$ & 33                                                         \\ \cline{2-7} 
+                              & без учителя & $0{,}422\pm0{,}002$                                                & $2{,}64\pm0{,}02$                                                                             & $0{,}75\pm0{,}22$                                               & $0{,}831\pm0{,}001$ & 33                                                         \\ \hline \hline
+\multirow{2}{*}{Twiter}       & с учителем  & $0{,}489\pm0{,}003$                                               & -                                                                                             & $0{,}79\pm0{,}17$                                               & $0{,}764\pm0{,}005$ & 1538                                                       \\ \cline{2-7} 
+                              & без учителя &  $0{,}501\pm0{,}006$                                                & -                                                                                             & $0{,}83\pm0{,}22$                                               & $0{,}747\pm0{,}004$ & 1538                                                       \\ \hline 
 \end{tabular}
 }
 \end{center}
 \end{table}
 
-Для численного сравнения качества моделей выбрана разность площадей графика $\ln p\bigr(\textbf{y}|\textbf{X}, \textbf{w}\bigr)$. Чем больше значение тем лучше.
+Точность предсказания модели ученика и учителя на одном уровне.\\
+{\color{blue}Модель с учителем аппроксимирует истинные вероятности классов.}\\
+{\color{red}Модель с учителем имеет меньшую разницу между вероятностями классов, то есть вероятность не концентрируются в одном классе.}
+\end{frame}
+
+\begin{comment}
+%---------------------------------------------------------------------------------
+\begin{frame}{Анализ решения задачи сопоставления структур моделей с разным размером скрытых слоев}
+%{Анализ правдоподобия выборки, сопоставления моделей с разным размером скрытых слоев}
+\justifying
+Вид суперпозиции модели учителя:
+$$
+f\bigr(\textbf{x}\bigr) = \bm{\sigma} \circ \textbf{U}_3\circ \bm{\sigma} \circ \textbf{U}_2\circ\bm{\sigma}\circ \textbf{U}_1\textbf{x},
+$$
+Вид суперпозиции модели ученика:
+$$
+g = \bm{\sigma} \circ \textbf{W}_3 \circ \bm{\sigma} \circ \textbf{W}_2 \circ \bm{\sigma} \circ \textbf{W}_1, \quad \textbf{W}_{1} \in \mathbb{R}^{10 \times 10}, \textbf{W}_{2} \in \mathbb{R}^{10 \times 10},  \textbf{W}_{3} \in \mathbb{R}^{1 \times 10}.
+$$
+\begin{table}[]
+\begin{center}
+\resizebox{0.9\textwidth}{!}{
+\begin{tabular}{|l|c|c|c|c|}\cline{1-5}
+                  & teacher           & student        & distil-student & distil-student-all \\ \cline{1-5}
+Структура         & $[10,100,50,1]$   & $[10,10,10,1]$  & $[10,10,10,1]$ & $[10,10,10,1]$ \\ \cline{1-5}
+Число параметров  & 6050                    & 210                   & 210                  & 210 \\ \cline{1-5}
+Разность площадей   &   -                         & 0                       & $\textbf{16559}$              & $\textbf{16864}$  \\ \cline{1-5}
+\end{tabular}
+}
+\end{center}
+\end{table}
+
+Численный анализ: интегральная разность~$\ln p\bigr(\textbf{y}|\textbf{X}, \textbf{w}\bigr)$ по итерациям.
+
+\begin{figure}[h!]
+\includegraphics[width=0.4\textwidth]{figures/synthetic_likelihood_3_layers.eps}
+\includegraphics[width=0.4\textwidth]{figures/synthetic_D_KL_3_layers.eps}
+\end{figure}
 
 \end{frame}
+
+\end{comment}
+
+%----------------------------------------------------------------------------------------------------------
+
+\begin{frame}{Анализ правдоподобия выборки, сопоставлении моделей с разным числом скрытых слоев}
+\justifying
+Вид суперпозиции модели учителя:
+$$
+f\bigr(\textbf{x}\bigr) = \bm{\sigma} \circ \textbf{U}_3\circ \bm{\sigma} \circ \textbf{U}_2\circ\bm{\sigma}\circ \textbf{U}_1\textbf{x},
+$$
+Вид суперпозиции модели ученика:
+$$
+g = \bm{\sigma} \circ \textbf{W}_2 \circ \bm{\sigma} \circ \textbf{W}_1, \quad \textbf{W}_{1} \in \mathbb{R}^{1 \times 50}, \textbf{W}_{2} \in \mathbb{R}^{50 \times 10}.
+$$
+\begin{table}[]
+\begin{center}
+\resizebox{0.9\textwidth}{!}{
+\begin{tabular}{|l|c|c|c|c|}\cline{1-5}
+                  & teacher           & student        & distil-student & distil-student-all \\ \cline{1-5}
+Структура            & $[10,100,50,1]$   & $[10,50,1]$       & $[10,50,1]$      & $[10,50,1]$ \\ \cline{1-5}
+Число параметро    &   6050                       &       550                   &          550               &     550 \\ \cline{1-5}
+Разность площадей    &  -                          &  0                      &  $\textbf{23310}$             & $\textbf{25506}$ \\ \cline{1-5}
+\end{tabular}
+}
+\end{center}
+\end{table}
+
+Численный анализ: интегральная разность~$\ln p\bigr(\textbf{y}|\textbf{X}, \textbf{w}\bigr)$ по итерациям.
+
+\begin{figure}[h!]
+\includegraphics[width=0.4\textwidth]{figures/synthetic_likelihood_2_layers.eps}
+\includegraphics[width=0.4\textwidth]{figures/synthetic_D_KL_2_layers.eps}
+\end{figure}
+
+\end{frame}
+
+\begin{comment}
+
+%----------------------------------------------------------------------------------------------------------
+
+\begin{frame}{Анализ сходимости ??чего-к-чему?? дистиллированных моделей}
+\justifying
+
+Вид суперпозиции модели учителя:
+$
+f\bigr(\textbf{x}\bigr) = \bm{\sigma} \circ \textbf{U}_3\circ \bm{\sigma} \circ \textbf{U}_2\circ\bm{\sigma}\circ \textbf{U}_1\textbf{x},
+$\\
+Первый вариант вида суперпозиции модели ученика:
+$$
+g = \bm{\sigma} \circ \textbf{W}_3 \circ \bm{\sigma} \circ \textbf{W}_2 \circ \bm{\sigma} \circ \textbf{W}_1, \quad \textbf{W}_{1} \in \mathbb{R}^{10 \times 10}, \textbf{W}_{2} \in \mathbb{R}^{10 \times 10},  \textbf{W}_{3} \in \mathbb{R}^{1 \times 10}.
+$$
+Второй вариант вида суперпозиции модели ученика:
+$$
+g = \bm{\sigma} \circ \textbf{W}_2 \circ \bm{\sigma} \circ \textbf{W}_1, \quad \textbf{W}_{1} \in \mathbb{R}^{1 \times 50}, \textbf{W}_{2} \in \mathbb{R}^{50 \times 10}.
+$$
+Численный анализ: интегральная разность~$\ln p\bigr(\textbf{y}|\textbf{X}, \textbf{w}\bigr)$ по итерациям.
+
+\begin{table}[]
+\begin{center}
+\resizebox{0.9\textwidth}{!}{
+\begin{tabular}{|l|c|c|c|c|}\cline{1-5}
+                  & teacher           & student        & distil-student & distil-student-all \\ \cline{1-5}
+\multicolumn{5}{|c|}{Эксперимент на синтетической выборке (удаление нейрона)} \\ \cline{1-5}
+Структура         & $[10,100,50,1]$   & $[10,10,10,1]$  & $[10,10,10,1]$ & $[10,10,10,1]$ \\ \cline{1-5}
+Число параметров  & 6050                    & 210                   & 210                  & 210 \\ \cline{1-5}
+Разность площадей   &   -                         & 0                       & $\textbf{16559}$              & $\textbf{16864}$  \\ \cline{1-5}
+\multicolumn{5}{|c|}{Эксперимент на синтетической выборке (удаление слоя)}  \\ \cline{1-5}
+Структура            & $[10,100,50,1]$   & $[10,50,1]$       & $[10,50,1]$      & $[10,50,1]$ \\ \cline{1-5}
+Число параметро    &   6050                       &       550                   &          550               &     550 \\ \cline{1-5}
+Разность площадей    &  -                          &  0                      &  $\textbf{23310}$             & $\textbf{25506}$ \\ \cline{1-5}
+\multicolumn{5}{|c|}{Эксперимент на выборке FashionMnist} \\ \cline{1-5}
+Структура           & $[784,800,50,10]$& $[784,50,10]$   & $[784,50,10]$  & $[784,50,10]$ \\ \cline{1-5}
+Число параметро    &   667700                     &     39700                     &      39700                   &      39700 \\ \cline{1-5}
+Разность площадей   & -                           & 0                       &  $\textbf{1165}$               & $\textbf{1145} $ \\ \cline{1-5}
+\end{tabular}
+}
+\end{center}
+\end{table}
+\end{frame}
+
+%----------------------------------------------------------------------------------------------------------
+\begin{frame}{Байесовская дистилляция ?? дальше идет сообщение ??}
+
+\begin{figure}[h!]
+\includegraphics[width=0.4\textwidth]{figures/synthetic_likelihood_3_layers.eps}
+\includegraphics[width=0.4\textwidth]{figures/synthetic_D_KL_3_layers.eps}
+\end{figure}
+Первый вариант вида суперпозиции модели ученика. Дистиллированная модель имеет большее правдоподобие.
+
+\begin{figure}[h!]
+\includegraphics[width=0.4\textwidth]{figures/synthetic_likelihood_2_layers.eps}
+\includegraphics[width=0.4\textwidth]{figures/synthetic_D_KL_2_layers.eps}
+\end{figure}
+Второй вариант вида суперпозиции модели ученика. Дистиллированная модель имеет большее правдоподобие.
+
+\end{frame}
+
+\end{comment}
 %----------------------------------------------------------------------------------------------------------
 
 \begin{frame}{Выносится на защиту}
 \justifying
 	\begin{enumerate}
 	\justifying
-	    \item Предложен байесовский метод обучения моделей ученика на основе моделей учителя.
-        \item Предложен алгоритм построения модели на основе предобученных моделей.
-        \item Предложен метод задания порядка на множестве параметров нейросетевых моделей на основе корреляции параметров.
-        \item Предложен метод задания порядка на множестве параметров нейросетевых моделей при помощи оценки скорости сходимости параметров.
-        \item Исследованы свойства дистилляции моделей глубокого обучения. Представлена вероятностная интерпретации дистиляции моделей глубокого обучения.
-        \item Исследованы методы сопоставления параметрических моделей. Исследован метод получения априорного распределения параметров нейросети используя апостериорное распределение параметров исходной модели:
+	    \item Предложен байесовский метод выбора моделей моделей ученика с использованием моделей учителя с привилегированной и накопленной информации.
+        \item Доказаны теоремы о свойствах дистилляции, 
         \begin{itemize}
-            \item различие в размерности слоев;
-            \item различие в числе слоев.
+            \item[---] \emph{теоремы об эквивалентности} для дистилляции моделей в случае задачи регрессии и классификации,
+            \item[---] \emph{теоремы о виде априорного распределения} параметров модели ученика в байесовской дистилляции.
         \end{itemize}
-        
+        \item Предложен метод сопоставления структур параметрических моделей. Предложен метод выбора априорного распределения параметров модели ученика с использованием апостериорного распределения параметров модели учителя для случаев
+        \begin{itemize}
+            \item[---] различных размерностей пространств параметров отдельных слоев,
+            \item[---] различного в числа слоев нескольких моделей.
+        \end{itemize}
+        \item Предложены методы задания порядка на множестве параметров моделей
+        \begin{itemize}
+            \item[---] на основе корреляции параметров,
+            \item[---] на основе оценки скорости сходимости параметров.
+        \end{itemize}
+        \item Предложена вероятностная интерпретации дистилляции моделей глубокого обучения. Исследованы свойства дистилляции моделей глубокого обучения.
 	\end{enumerate}
-
 \end{frame}
 %----------------------------------------------------------------------------------------------------------
 
@@ -736,27 +794,27 @@ g = \bm{\sigma} \circ \textbf{W}_2 \circ \bm{\sigma} \circ \textbf{W}_1, \quad \
 \justifying
 {
 \scriptsize
-\textbf{Публикации ВАК по теме}
+\textbf{Публикации в журналах ВАК}
 
 \begin{enumerate}
-\item \textit{Грабовой А.В., Бахтеев О.Ю., Стрижов В.В.} Определение релевантности параметров нейросети // Информатика и ее применения, 2019.
-\item \textit{Грабовой А.В., Бахтеев О. Ю., Стрижов В.В.} Введение отношения порядка на множестве параметров аппроксимирующих моделей // Информатика и ее применения, 2020.
-\item \textit{A. Grabovoy, V. Strijov.} Quasi-periodic time series clustering for human // Lobachevskii Journal of Mathematics, 2020.
-\item \textit{Грабовой А.В., Стрижов В.В.} Анализ выбора априорного распределения для смеси экспертов // Журнал Вычислительной математики и математической физики, 2021.
-\item \textit{Грабовой А.В., Стрижов В.В.} Байесовская дистилляция моделей глубокого обучения // Автоматика и Телемеханика, 2021.
-\item \textit{Грабовой А.В., Стрижов В.В.} Анализ моделей привилегированного обучения и дистилляции // (на рецензировании).
-\item \textit{A. Grabovoy, T. Gadaev, A. Motrenko, V. Strijov} Numerical methods of minimum sufficient sample size estimation for linear models // (на рецензировании).
-\item \textit{Bazarova A.I., Grabovoy A.V., Strijov V.V.} Analysis of the properties of probabilistic models in learning problems with an expert // (на рецензировании).
+    \item \textit{Грабовой А.В., Стрижов В.В.} Байесовская дистилляция моделей глубокого обучения~// Автоматика и Телемеханика, 2021.
+    \item \textit{Грабовой А.В., Стрижов В.В.} Анализ выбора априорного распределения для смеси экспертов~// Журнал Вычислительной математики и математической физики, 2021.
+    \item \textit{A. Grabovoy, V. Strijov.} Quasi-periodic time series clustering for human // Lobachevskii Journal of Mathematics, 2020.
+    \item \textit{Грабовой А.В., Бахтеев О. Ю., Стрижов В.В.} Введение отношения порядка на множестве параметров аппроксимирующих моделей~// Информатика и ее применения, 2020.
+    \item \textit{Грабовой А.В., Бахтеев О.Ю., Стрижов В.В.} Определение релевантности параметров нейросети~// Информатика и ее применения, 2019.
+    \item \textit{Грабовой А.В., Стрижов В.В.} Вероятностная интерпретация задачи дистилляции~// Автоматика и Телемеханика (на рецензировании), 2021.
+    \item \textit{A. Grabovoy, T. Gadaev, A. Motrenko, V. Strijov} Numerical methods of minimum sufficient sample size estimation for linear models~// Lobachevskii Journal of Mathematics (на рецензировании), 2021.
+    \item \textit{Bazarova A.I., Grabovoy A.V., Strijov V.V.} Analysis of the properties of probabilistic models in learning problems with an expert~// Journal of Computational Mathematics (на рецензировании), 2021.
 \end{enumerate}
 
-\textbf{Выступление с докладом}
+\textbf{Выступления с докладом}
 \begin{enumerate}
-\item Автоматическое определение релевантности параметров нейросети // ИОИ-2018, 2018.
-\item Поиск оптимальной модели при помощи алгоритмов прореживания // 61-я Всероссийская научная конференция МФТИ, 2018.
-\item Анализ априорных распределений в задаче смеси экспертов // 62-я Всероссийская научная конференция МФТИ, 2019.
-\item Введение отношения порядка на множестве параметров нейронной сети // ММРО-2019, 2019.
-\item Привилегированная информация и дистилляция моделей // 63-я Всероссийская научная конференция МФТИ, 2020.
-\item Задача обучения с экспертом для построение интерпретируемых моделей машинного обучения // ИОИ-2020, 2021.
+    \item Задача обучения с экспертом для построения интерпретируемых моделей машинного обучения, Международная конференция <<Интеллектуализация обработки информации>>, 2020.
+    \item Привилегированная информация и дистилляция моделей, Всероссийская конференция <<63-я научная конференция МФТИ>>, 2020.
+    \item Введение отношения порядка на множестве параметров нейронной сети, Всероссийская конференция <<Математические методы распознавания образов ММРО>>, 2019.
+    \item Анализ априорных распределений в задаче смеси экспертов, Всероссийская конференция <<62-я научная конференция МФТИ>>, 2019.
+    \item Поиск оптимальной модели при помощи алгоритмов прореживания, Всероссийская конференция <<61-я научная конференция МФТИ>>, 2018.
+    \item Автоматическое определение релевантности параметров нейросети, Международная конференция <<Интеллектуализация обработки информации>>, 2018.
 \end{enumerate}
 }
 \end{frame}
