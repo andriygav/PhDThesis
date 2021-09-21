@@ -22,12 +22,18 @@
 \usepackage{enumerate}
 \usepackage{mathtools}
 \usepackage{comment}
+\usepackage{multicol}
+
+\usepackage[all]{xy}
 
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows}
 
 \tikzstyle{name} = [parameters]
 \definecolor{name}{rgb}{0.5,0.5,0.5}
+
+\usepackage{caption}
+\captionsetup{skip=0pt,belowskip=0pt}
 
 \newtheorem{rustheorem}{Теорема}
 \newtheorem{rusdefinition}{Определение}
@@ -46,57 +52,77 @@
 %\institute[МФТИ]{Московский Физико-Технический Институт (Государственный Университет)}
 \date[2021]{\small Московский физико-технический институт\\21\;сентября\;2021\,г.}
 
-%----------------------------------------------------------------------------------------------------------
-
+%---------------------------------------------------------------------------------------------------------
 \begin{document}
-%----------------------------------------------------------------------------------------------------------
+
 \begin{frame}
 \titlepage
 \end{frame}
 
-%---------------------------------------------------------------------------------------------------------
-\begin{frame}{Априорное распределение параметров моделей}
-\justifying {\small
-Для выбора моделей используется связный байесовский вывод. Он предполагает адекватность функции правдоподобия и априорного распределения параметров модели. 
+%----------------------------------------------------------------------------------------------------------
 
+\begin{frame}{Априорное распределение параметров моделей}
+\bigskip
+Исследуется проблема выбора моделей глубокого обучения. Для выбора моделей используется связный байесовский вывод. Для снижения размерности пространства параметров при выборе модели используется информация об их априорном и апостериорном распределениях. 
 \begin{block}{Цель исследования~---}
-\justifying 
 предложить метод задания априорного распределения параметров модели глубокого обучения с учетом накопленной информации о решаемой задаче.
-\end{block}
-\begin{block}{Исследуется проблема}
-\justifying
-снижения размерности пространства параметров при выборе модели. Большое число параметров и гиперпараметров влечет многоэкстремальность и невыпуклость задачи оптимизации, а также её высокую вычислительную сложность.
 \end{block}
 \begin{block}{Требуется предложить}
 \justifying
-%\begin{enumerate}[1)]
-%\item  
-1)~метод выбора модели, основанный на использовании привилегированной и накопленной информации,
-\\%\item  
-2)~метод сопоставления структур параметрических моделей,% на основе байесовского вывода,
-\\%\item  
-3)~метод снижения размерности пространства параметров моделей глубокого обучения.
-%\end{enumerate}
+\begin{enumerate}[1)]
+\item метод выбора модели, основанный на использовании привилегированной и накопленной информации,
+\item метод выравнивания структур параметрических моделей,
+\item метод снижения размерности пространства параметров моделей.
+\end{enumerate}
 \end{block}
-\begin{block}{Используются методы}
-\justifying
-связного байесовского вывода. Для назначения априорного распределения параметров при выборе моделей глубокого обучения используется априорная экспертная информация и распределение параметров ранее полученных моделей.
+\begin{block}{Решение}
+Для назначения априорного распределения параметров при выборе моделей глубокого обучения используются апостериорные распределения параметров ранее полученных моделей.
 \end{block}
-}
 \end{frame}
 %\end{document}
+%----------------------------------------------------------------------------------------------------------
+%\begin{frame}{Априорное распределение параметров моделей}
+%\justifying {\small
+%Для выбора моделей используется связный байесовский вывод. Он предполагает адекватность функции правдоподобия и априорного распределения параметров модели. 
+%\begin{block}{Цель исследования~---}
+%\justifying 
+%предложить метод задания априорного распределения параметров модели глубокого обучения с учетом накопленной информации о решаемой задаче.
+%\end{block}
+%\begin{block}{Исследуется проблема}
+%\justifying
+%снижения размерности пространства параметров при выборе модели. Большое число параметров и гиперпараметров влечет многоэкстремальность и невыпуклость задачи оптимизации, а также её высокую вычислительную сложность.
+%\end{block}
+%\begin{block}{Требуется предложить}
+%\justifying
+%\begin{enumerate}[1)]
+%\item  
+%1)~метод выбора модели, основанный на использовании привилегированной и накопленной информации,
+%\\%\item  
+%2)~метод выравнивания структур параметрических моделей,% на основе байесовского вывода,
+%\\%\item  
+%3)~метод снижения размерности пространства параметров моделей глубокого обучения.
+%\end{enumerate}
+%\end{block}
+%\begin{block}{Метод исследования:}
+%\justifying
+%связного байесовского вывода. 
+%Для назначения априорного распределения параметров при выборе моделей глубокого обучения используются %ется априорная экспертная информация и
+%апостериорные распределения параметров ранее полученных моделей.
+%\end{block}
+%}
+%\end{frame}
+%\end{document}
 %---------------------------------------------------------------------------------------------------------
-
-\begin{frame}{Оптимизация ученика на основе учителя\footnotemark~и привилегированных признаков\footnotemark}
-\justifying
-Заданы:
-\begin{enumerate}
-    \item[1)] признаки~$\mathbf{x}_i \in \mathbb{R}^{n}$ и привилегированные признаки~$\mathbf{x}^*_i \in \mathbb{R}^{n^*}$,
-    \item[2)] целевая переменная~$y_i \in \mathbb{Y}$,
-    \item[3)] индексы объектов, для которых известна привилегированная информация $\mathcal{I},$ а для которых она не известна $\bar{\mathcal{I}}$.
+\begin{frame}{Привилегированное обучение {\color{red}В.\,Н.\;Вапника\footnotemark} и \\ \hfill\hfill\hfill\hfill\hfill дистилляция~{\color{blue}Дж.\;Хинтона\footnotemark}}
+%\justifying
+Заданы
+\begin{enumerate}[1)]
+    \item признаки~$\mathbf{x}_i \in \mathbb{R}^{n}$ и привилегированные признаки~$\mathbf{x}^*_i \in \mathbb{R}^{n^*}$,
+    \item целевая переменная~$y_i \in \mathbb{Y}$,
+    \item индексы объектов, для которых известна привилегированная информация $\mathcal{I},$ а для которых она не известна $\bar{\mathcal{I}}$.
 \end{enumerate}
 
-Функции учителя~$\mathbf{f}:\mathbb{R}^{n^*} \to \mathbb{Y}^\prime$ и ученика~$\mathbf{g}:\mathbb{R}^{n} \to \mathbb{Y}^\prime$ --- пространство оценок.
+Модели учителя~$\mathbf{f}:\mathbb{R}^{n^*} \to \mathbb{Y}^\prime$ и ученика~$\mathbf{g}:\mathbb{R}^{n} \to \mathbb{Y}^\prime$~--- пространство оценок.
 
 Ответы $\mathbf{s}_i = \mathbf{f}\bigr(\mathbf{x}_i^*\bigr)$ функции $\mathbf{f}$ для объектов~$\mathbf{x}^*_i$.
 
@@ -108,119 +134,138 @@
 \]
 Оптимизационная задача:
 \[
-	\mathbf{g} = \arg\min_{\mathbf{g} \in \mathfrak{G}} \mathcal{L}\bigr(\mathbf{g}, \mathbf{f}, \mathbf{X}, \mathbf{X}^{*}, \mathbf{y}\bigr),
+	\mathbf{g} = \arg\min_{\mathbf{g} \in \mathfrak{G}} \mathcal{L}\bigr(\mathbf{g}, \mathbf{f}, \mathbf{X}, \mathbf{X}^{*}, \mathbf{y},\mathbf{s}\bigr),
 \]
-где $\mathcal{L}$ функция ошибки.
+где $\mathcal{L}$~--- функция ошибки.
 
 \bigskip
-
-\footnotetext[1]{\textit{Hinton G., Vinyals O., Dean J.} Distilling the Knowledge in a Neural Network // NIPS, 2015.}
-\footnotetext[2]{\textit{Lopez-Paz D., Bottou L., Scholkopf B., Vapnik V.} Unifying Distillation and Privileged Information // ICLR, 2016.}
+\footnotetext[1]{\textit{Lopez-Paz D., Bottou L., Scholkopf B., Vapnik V.} {\color{red}Unifying distillation and privileged information} // ICLR, 2016.}
+\footnotetext[2]{\textit{Hinton G., Vinyals O., Dean J.} {\color{blue}Distilling the knowledge in a neural network} // NIPS, 2015.}
 \end{frame}
 
-%----------------------------------------------------------------------------------------------------------
-
+%---------------------------------------------------------------------------------------------------------
 \begin{frame}
-\justifying
-\frametitle<1>{Базовая постановка задачи машинного обучения}
-\frametitle<2>{Априорное распределение параметров}
+%\justifying
+%\frametitle<1>{Базовая постановка задачи машинного обучения}
+%\frametitle<2>{Априорное распределение параметров}
+%\frametitle<3>{Байесовская дистилляция модели}
+\frametitle<1>{Задача оптимизации параметров модели}
+\frametitle<2>{Байесовский выбор модели}
 \frametitle<3>{Байесовская дистилляция модели}
 
-\begin{minipage}[t][3cm][t]{\textwidth}
-\only<1>{\begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=1.0\textwidth]{figures/introdigram_low.png}
-    \end{center}
-\end{figure}}
-
-\only<2>{\begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=1.0\textwidth]{figures/introdigram.png}
-    \end{center}
-\end{figure}}
-
-\only<3>{\begin{figure}[h!]
-    \begin{center}
-        \includegraphics[width=1.0\textwidth]{figures/introdigram_large}
-    \end{center}
-\end{figure}}
+\begin{minipage}[t][4.1cm][t]{\textwidth}
+~\\[-2mm]
+\begin{equation*}
+\xymatrix{
+% First Line
+\parbox{3em}{
+\footnotesize Задача \\ оптимизации
+}
+&
+\parbox{3em}{
+\centering
+$\hat{\mathbf{w}}, \hat{\mathbf{A}}_{w}\ar[r]^{g}$
+}
+& 
+\hat{y}\ar[rr]
+&
+\parbox{3em}{
+\centering
+}
+& 
+\parbox{10em}{
+\centering
+$
+\only<1>{\mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, \hat{y}\bigr)}
+\only<2>{\mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr)}
+\only<3>{\mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|{\color{blue} s, }y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr)}
+\ar@/_2pc/[lll]
+$
+}
+\\
+% Second Line
+\only<2-3>{
+\parbox{3em}{\footnotesize Дополнительная \\ информация}
+}
+&
+\only<2>{\color{blue} \mathfrak{G} \ar[u]}
+\only<3>{\mathfrak{G} \ar[u]}
+&
+\only<3>{\color{blue} s \ar[urr]}
+&
+\only<3>{\color{blue} \hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}} \ar[r] \ar[l]^{f}}
+&
+\only<2-3>{\color{blue} \left(\mathbf{w}_0, \mathbf{A}_0\right) \ar[u]}
+\\
+% Third Line
+\parbox{3em}{\footnotesize Выборка}
+&
+&
+\parbox{3em}{
+\centering
+$
+\only<3>{\color{blue} (\mathbf{x}^{*}, y) \ar[u]}
+$
+}
+& 
+\only<1-2>{\left(\mathbf{x}, y\right) \ar[uul] \ar[uur]}
+\only<3>{\left(\mathbf{x}, y\right) \ar@{.>}[uul] \ar@{.>}[uur]}
+&
+}
+\end{equation*}
 \end{minipage}
+
 \vfill
-
+\vspace{0.5cm}
 \begin{itemize}
-    \item \only<1-2>{Задана выборка:
-$
-	\mathfrak{D} = \left\{\mathbf{x}_i, y_i\right\}_{i=1}^{m}, \quad 
-	\mathbf{x}_{i} \in \mathbb{R}^{n}, \quad y_i \in \mathbb{Y},
-$ где~$m$~число объектов, $n$~число признаков.
-}
-\only<3>{Задана выборка:
-$
-	\mathfrak{D} = \left\{\mathbf{x}_i, {\color{blue}\mathbf{x}_i^{*}}, y_i\right\}_{i=1}^{m}, 
-	\quad \mathbf{x}_{i} \in \mathbb{R}^{n}, 
-	{\color{blue} \quad \mathbf{x}_{i}^{*} \in \mathbb{R}^{n^{*}}},
-	\quad y_i \in \mathbb{Y},
-$ где~$m$~число объектов, $n$~число признаков, {\color{blue}$n^*$}~число признаков}
-    \item \only<1-2>{Модель:
-$
-    \mathfrak{G} = \left\{g | g : \mathbb{R}^{n}\times \mathbb{R}^{n_{w}} \to \mathbb{Y} \right\}.
-$}
-\only<3>{Модель:
-$
-    \mathfrak{G} = \left\{g | g : \mathbb{R}^{n}\times \mathbb{R}^{n_{w}} \to \mathbb{Y} \right\},
-{\color{blue}
-    \quad \mathfrak{F} = \left\{f | f : \mathbb{R}^{n^{*}}\times \mathbb{R}^{n_{w}^{*}} \to \mathbb{Y} \right\}.
-}
-$}
-    \item<2-3> \only<2>{\color{blue}
-Априорное распределение параметров:
-$
-    \mathbf{w} \sim \mathcal{N}\bigr(\mathbf{w}_0, \mathbf{A}_0\bigr).
-$
-}\only<3>{
-Априорное распределение параметров:
-$
-    \mathbf{w} \sim \mathcal{N}\bigr({\color{blue}\mathbf{w}_0\bigr(\hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}}\bigr)}, {\color{blue}\mathbf{A}_0\bigr(\hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}}\bigr)}\bigr).
-$}
-    \item \only<1>{Прогноз:
-$
-    \hat{y} = g\bigr(\mathbf{x}, \hat{\mathbf{w}}).
-$}
-\only<2>{Прогноз:
-$
-    \hat{y} = g\bigr(\mathbf{x}, \hat{\mathbf{w}})
-$}
-\only<3>{Прогноз:
-$
-    \hat{y} = g\bigr(\mathbf{x}, \hat{\mathbf{w}}),
-{\color{blue}
-    \quad
-    s = f\bigr(\mathbf{x}^{*}, \hat{\mathbf{u}}).
-}
-$}
-    \item \only<1>{Функция потерь:
-$
-    \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, \hat{y}\bigr).
-$}
-\only<2>{Функция потерь:
-$
-    \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr).
-$}
-\only<3>{Функция потерь:
-$
-    \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|{\color{blue} s, }y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr).
-$}
-    \item \only<1-2>{Оптимизационная задача:
-\[
-    \hat{\mathbf{w}}, \hat{\mathbf{A}}_{w} = \arg \min_{\mathbf{w} \in \mathbb{R}^{n_{w}}, \mathbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\mathbf{w},\mathbf{A}_{\text{w}}|y, \hat{y}\bigr).
-\]}
-\only<3>{Оптимизационная задача:
-\[
-    \hat{\mathbf{w}}, \hat{\mathbf{A}}_{w} = \arg \min_{\mathbf{w} \in \mathbb{R}^{n_{w}}, \mathbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|{\color{blue} s, }y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr).
-\]}
+%\setlength\itemsep{0.1em}
+\item[] Выборка
+    \only<1-2>{
+        $\mathfrak{D}\ni(\mathbf{x},y)$,
+        %\left\{\mathbf{x}_i, y_i\right\}_{i=1}^{m},\quad 
+	    $\mathbf{x}\in\mathbb{R}^{n}, y\in\mathbb{Y}$
+	    % где~$m$~число объектов, $n$~число признаков.
+    }
+    \only<3>{
+        $\mathfrak{D}\ni(\mathbf{x},{\color{blue}\mathbf{x}^{*}},y)$,
+        %\left\{(\mathbf{x}_i, {\color{blue}\mathbf{x}_i^{*}}, y_i)\right\}_{i=1}^{m},
+        $\quad \mathbf{x} \in \mathbb{R}^{n}, y \in \mathbb{Y}, \quad \text{дополнительно~} {\color{blue} \mathbf{x}^*\in \mathbb{R}^{n^{*}}}$ 
+        %где~$m$~число объектов, $n$~число признаков, {\color{blue}$n^*$}~число признаков
+    }
+    \item[] Модели $\mathfrak{G}\ni\mathbf{g}: \mathbb{R}^{n}\times\mathbb{R}^{n_{w}} \to \mathbb{Y}^\prime$
+        \only<1-2>{}
+        \only<3>{
+            $\quad\text{и учитель~}{\color{blue}\mathbf{f}:\mathbb{R}^{n^{*}}\times \mathbb{R}^{n_{w}^{*}} \to \mathbb{Y}^\prime}$
+        }
+    \item[] Прогноз $\hat{y} = g\bigr(\mathbf{x}, \hat{\mathbf{w}})$
+        \only<1>{}
+        \only<2>{}
+        \only<3>{
+            $\quad \text{и~}
+            {\color{blue} s = f\bigr(\mathbf{x}^{*}, \hat{\mathbf{u}})}$}
+    \item[]<2-3> Априорное распределение 
+        \only<2>{
+            \color{blue}$\mathbf{w} \sim \mathcal{N}\bigr(\mathbf{w}_0, \mathbf{A}_0\bigr)$}
+        \only<3>{
+            $\mathbf{w} \sim \mathcal{N}\bigr({\color{blue}\mathbf{w}_0\bigr(\hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}}\bigr)}, {\color{blue}\mathbf{A}_0\bigr(\hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}}\bigr)}\bigr)$.
+        }
+    %\item[] Функция потерь
+    %    \only<1>{
+    %        $\mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, %\hat{y}\bigr)$.}
+    %    \only<2>{
+    %        $\mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, %\hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr)$.}
+    %    \only<3>{
+    %        $\mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|{\color{bl%ue} s, }y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr)$.}
+    \item[] Оптимизационная задача
+        \only<1-2>{
+            \[
+            \hat{\mathbf{w}}, \hat{\mathbf{A}}_{w} = \mathop{\arg\min}_{\mathbf{w} \in \mathbb{R}^{n_{w}}, \mathbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\mathbf{w},\mathbf{A}_{\text{w}}|\mathfrak{D},\mathbf{g}\bigr)
+            \]}
+        \only<3>{
+            \[
+            \hat{\mathbf{w}}, \hat{\mathbf{A}}_{w} = \mathop{\arg\min}_{\mathbf{w} \in \mathbb{R}^{n_{w}}, \mathbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|{\color{blue} \mathbf{s}}, \mathfrak{D}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}, \mathbf{g},{\color{blue}\mathbf{f}}\bigr)
+            \]}
 \end{itemize}
-
-
 \end{frame}
 
 \begin{comment}
@@ -347,17 +392,18 @@ $\\[1mm]
 \end{comment}
 
 %----------------------------------------------------------------------------------------------------------
-\begin{frame}{Привилегированное обучение {\color{red}В.\,Н.\;Вапника} и \\ \hfill\hfill\hfill дистилляция~{\color{blue}Дж.\;Хинтона}}
-\justifying
-Заданы:
-\begin{enumerate}
-	\item[1)] {\color{blue} $\mathbf{x}^*_i = \mathbf{x}_i$}, {\color{red} $\mathbf{x}^*_i \not= \mathbf{x}_i$} для всех $i \in \{1, 2, \cdots, m\}$,
-	\item[2)] $y_i \in \mathbb{Y}=\{1, \cdots, K\}, \quad \mathbb{Y}^\prime=\mathbb{R}^{K}$.
+\begin{frame}{Оптимизация модели ученика на основе учителя~и привилегированных признаков}
+~\\[-1mm]
+Заданы
+\begin{enumerate}[1)]
+	\item $\mathbf{x}^*_i = \mathbf{x}_i$, {\color{red} $\mathbf{x}^*_i \not= \mathbf{x}_i$} для всех $i \in \{1, 2, \cdots, m\}$,
+	\item $y_i \in \mathbb{Y}=\{1, \cdots, K\}, \quad \mathbb{Y}^\prime=\mathbb{R}^{K}$.
 \end{enumerate}
 
+\medskip
 Параметрические семейства учителя и ученика:
 \[
-%\setlength\abovedisplayskip{0pt}
+\setlength\abovedisplayskip{0pt}
 \mathfrak{F}^{\color{red}*}_{\text{cl}} = \left\{\mathbf{f}| \mathbf{f} = \text{softmax}\bigr(\mathbf{v}^{\color{red}*}\bigr(\mathbf{x}^{\color{red}*}\bigr)/T\bigr), \quad \mathbf{v}^{\color{red}*}: \mathbb{R}^{n^{\color{red}*}} \to \mathbb{R}^K \right\},
 %\setlength\belowdisplayskip{0pt}
 \]
@@ -366,13 +412,14 @@ $\\[1mm]
 \mathfrak{G}_{\text{cl}} = \left\{\mathbf{g}| \mathbf{g} = \text{softmax}\bigr(\mathbf{z}\bigr(\mathbf{x}\bigr)/T\bigr), \quad \mathbf{z}: \mathbb{R}^n \to \mathbb{R}^K \right\},
 %\setlength\belowdisplayskip{0pt}
 \]
-где~$\mathbf{z},\mathbf{v}^{\color{red}*}$~--- это дифференцируемые по параметрам функции заданной структуры, $T$~--- параметр температуры.
+где~$\mathbf{z},\mathbf{v}^{\color{red}*}$~--- дифференцируемые по параметрам функции заданной структуры, $T$~--- параметр температуры.
 
+\medskip
 Функция ошибки
 \[
 \setlength\abovedisplayskip{0pt}
 \begin{aligned}
-   \mathcal{L}_\text{st}\bigr(\mathbf{g}\bigr) = &-\sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}y^k_i\log\mathbf{g}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1}}}_{\text{исходная функция потерь}}- \sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}\mathbf{f}\bigr(\mathbf{x}^{\color{red}*}_i\bigr)\bigr|_{T=T_0}\log\mathbf{g}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}}}_{\text{слагаемое дистилляции}},
+   \mathcal{L}\bigr(\mathbf{g}\bigr) = &-\sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}y^k_i\log\mathbf{g}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1}}}_{\text{исходная функция потерь}}- \sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}\mathbf{f}\bigr(\mathbf{x}^{\color{red}*}_i\bigr)\bigr|_{T=T_0}\log\mathbf{g}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}}}_{\text{слагаемое дистилляции}},
 \end{aligned}
 \setlength\belowdisplayskip{0pt}
 \]
@@ -381,19 +428,26 @@ $\\[1mm]
 %Оптимальная модель~$\mathbf{g}$ выбирается из класса~$\mathfrak{G}_{\text{cl}}$,
 Оптимальная модель выбирается из класса,
 %\[\setlength\abovedisplayskip{0pt}
-$\hat{\mathbf{g}} = \arg\min_{\mathbf{g} \in \mathfrak{G}_{\text{cl}}} \mathcal{L}_\text{st}\bigr(\mathbf{g}\bigr).$
+$\hat{\mathbf{g}} = \arg\min\limits_{\mathbf{g} \in \mathfrak{G}_{\text{cl}}} \mathcal{L}\bigr(\mathbf{g}\bigr).$
 %\setlength\belowdisplayskip{0pt}\]
 \end{frame}
 %----------------------------------------------------------------------------------------------------------
 \begin{frame}{Вероятностная постановка задачи дистилляции}
-\justifying
+\bigskip
+\begin{columns}
+\column{0.6\textwidth} 
 Гипотеза порождения данных:
 \begin{enumerate}
-	\item[1)] задано распределение целевой переменной~$p\bigr(y_i|\mathbf{x}_i, \mathbf{g}\bigr)$,
-	\item[2)] задано совместное распределение~$p\bigr(y_i, \mathbf{s}_i|\mathbf{x}_i, \mathbf{g}\bigr)$,
+	\item[1)] распределение целевой переменной~$p\bigr(y_i|\mathbf{x}_i, \mathbf{g}\bigr)$,
+	\item[2)] совместное распределение~$p\bigr(y_i, \mathbf{s}_i|\mathbf{x}_i, \mathbf{g}\bigr)$,
 	\item[3)] для всех $i \in \mathcal{I}$ элементы $y_i$ и $\mathbf{s}_i$ являются зависимыми величинами,
 	\item[4)] если $|\mathcal{I}|=0$ то решение равно решению максимума правдоподобия.
 \end{enumerate}
+\column{0.4\textwidth}
+\includegraphics[width=\textwidth]{figures/proba_model}
+\end{columns}
+
+\bigskip
 Совместное правдоподобие истинных меток и меток учителя:
 \[
 \setlength\abovedisplayskip{0pt}
@@ -401,34 +455,32 @@ p\bigr(\mathbf{y}, \mathbf{S}|\mathbf{X}, \mathbf{g}, \mathcal{I}\bigr)=\prod_{i
 \setlength\belowdisplayskip{0pt}
 \]
 
-\begin{columns}
-\column{0.55\textwidth}
-Задача оптимизации:
+%\begin{columns}
+%\column{0.55\textwidth}
+Задача оптимизации
 \[
 \setlength\abovedisplayskip{0pt}
-\mathbf{g} = \arg\max_{\mathbf{g} \in \mathfrak{G}} p\bigr(\mathbf{y}, \mathbf{S}|\mathbf{X}, \mathbf{g}, \mathcal{I}\bigr),
+\mathbf{g} = \arg\max_{\mathbf{g} \in \mathfrak{G}} p\bigr(\mathbf{y},  \mathbf{S}|\mathbf{X}, \mathbf{g}, \mathcal{I}\bigr),
 \setlength\belowdisplayskip{0pt}
 \]
-имеет вид:
+имеет вид
 \[
-\setlength\abovedisplayskip{0pt}
+%\setlength\abovedisplayskip{0pt}
 \begin{aligned}
-\sum_{i\not\in \mathcal{I}}\log p\bigr(y_i|\mathbf{x}_i, \mathbf{g}\bigr) &+ \left(1-\lambda\right)\sum_{i\in \mathcal{I}}\log p\bigr(y_i|\mathbf{x}_i, \mathbf{g}\bigr) \\
-&+ \lambda\sum_{i\in \mathcal{I}}\log p\bigr(\mathbf{s}_i|\mathbf{x}_i, \mathbf{g}\bigr),
+\sum_{i\not\in \mathcal{I}}\log p\bigr(y_i|\mathbf{x}_i, \mathbf{g}\bigr) &+ \left(1-\lambda\right)\sum_{i\in \mathcal{I}}\log p\bigr(y_i|\mathbf{x}_i, \mathbf{g}\bigr) + \lambda\sum_{i\in \mathcal{I}}\log p\bigr(\mathbf{s}_i|\mathbf{x}_i, \mathbf{g}\bigr).
 \end{aligned}
-\setlength\belowdisplayskip{0pt}
+%\setlength\belowdisplayskip{0pt}
 \]
-где~$\lambda \in [0,1]$ --- метапараметр.
-\column{0.4\textwidth}
-\includegraphics[width=\textwidth]{figures/proba_model}
-\end{columns}
-
+%где~$\lambda \in [0,1]$ --- метапараметр.
+%\column{0.4\textwidth}
+%\includegraphics[width=\textwidth]{figures/proba_model}
+%\end{columns}
 \end{frame}
 
 %----------------------------------------------------------------------------------------------------------
 \begin{frame}{Вероятностная постановка задачи классификации}
-\justifying
-Заданы:
+%\justifying
+Заданы
 \begin{enumerate}
 	\item[1)] учитель $\mathbf{f}\in\mathfrak{F}_{\text{cl}}^{*}$ и ученик~$\mathbf{g}\in\mathfrak{G}_{\text{cl}}$,
 	\item[2)] распределение истинных меток~$p\bigr(y|\mathbf{x}, \mathbf{g}\bigr) = \text{Cat}\bigr(\mathbf{g}\bigr(\mathbf{x}\bigr)\bigr)$,
@@ -438,7 +490,7 @@ p\bigr(\mathbf{y}, \mathbf{S}|\mathbf{X}, \mathbf{g}, \mathcal{I}\bigr)=\prod_{i
 \setlength\abovedisplayskip{0pt}
 \begin{aligned}
 &\hat{\mathbf{g}} = \arg\max_{\mathbf{g}\in \mathfrak{G}} \sum_{i\not\in \mathcal{I}}\sum_{k=1}^{K}y_i^k\log g_k\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1} 
-+ \left(1-\lambda\right)\sum_{i\in \mathcal{I}}\sum_{k=1}^{K}y_i^k\log g_k\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1} \\
++ \left(1-\lambda\right)\sum_{i\in \mathcal{I}}\sum_{k=1}^{K}y_i^k\log g_k\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1} +\\
 &+ \lambda\sum_{i\in \mathcal{I}}\sum_{k=1}^{K}s_{i,k}\log g_k\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0} 
 + \lambda \sum_{i\in \mathcal{I}}\sum_{k=1}^{K}\left(\log g_k\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0} + \log\log\frac{1}{g_k\bigr(\mathbf{x}_i\bigr)}\bigr|_{T=T_0}\right).
 \end{aligned}
@@ -459,7 +511,8 @@ C=\left(-1\right)^{K}\frac{K^{K/2}}{2^{K(K-1)/2}}\prod_{k=1}^{K}g_k\bigr(\mathbf
 \end{frame}
 %----------------------------------------------------------------------------------------------------------
 \begin{frame}{Вероятностная постановка задачи регрессии}
-\justifying
+%\justifying
+Заданы
 \begin{enumerate}[1)]
 	\item учитель~$f\in\mathfrak{F}_{\text{rg}}^{*}= \left\{f| f = \mathbf{v}^*\bigr(\mathbf{x}^*\bigr), \quad \mathbf{v}^*: \mathbb{R}^{n^*} \to \mathbb{R} \right\}$,
 	\item ученик~$g\in\mathfrak{G}_{\text{rg}} = \left\{g| g = \mathbf{z}\bigr(\mathbf{x}\bigr), \quad \mathbf{z}: \mathbb{R}^n \to \mathbb{R} \right\}$,
@@ -470,7 +523,7 @@ C=\left(-1\right)^{K}\frac{K^{K/2}}{2^{K(K-1)/2}}\prod_{k=1}^{K}g_k\bigr(\mathbf
 \[
 \setlength\abovedisplayskip{0pt}
 \begin{aligned}
-\hat{g} = \arg\min_{g\in \mathfrak{G}} & \sum_{i\not\in \mathcal{I}}\sigma^2\left(y_i-g\bigr(\mathbf{x}_i\bigr)\right)^2 \\
+\hat{g} = \arg\min_{g\in \mathfrak{G}} & \sum_{i\not\in \mathcal{I}}\sigma^2\left(y_i-g\bigr(\mathbf{x}_i\bigr)\right)^2 + \\
 &+ \left(1-\lambda\right)\sum_{i\in \mathcal{I}}\sigma^2\left(y_i-g\bigr(\mathbf{x}_i\bigr)\right)^2 + \lambda\sum_{i\in \mathcal{I}}\sigma_s^2\left(s_i-g\bigr(\mathbf{x}_i\bigr)\right)^2.
 \end{aligned}
 \setlength\belowdisplayskip{0pt}
@@ -538,13 +591,13 @@ p\bigr(\mathbf{u}|\mathbf{X}, \mathbf{y}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \b
 
 
 %----------------------------------------------------------------------------------------------------------
-\begin{frame}{Сопоставление структурных параметров}
+\begin{frame}{Выравнивание структур моделей}
 %\begin{rusdefinition}
 Множество структурных параметров задает вид суперпозиции моделей~$\mathbf{f}, \mathbf{g}$.
 %\end{rusdefinition}
 
 \begin{rusdefinition}
-Сопоставление параметрических моделей~--- изменение структуры одной или нескольких моделей в результате которого векторы параметров моделей различных структур лежат в одном пространстве.
+Выравнивание структур параметрических моделей~--- изменение структуры одной или нескольких моделей в результате которого векторы параметров моделей различных структур лежат в одном пространстве.
 \end{rusdefinition}
 
 
@@ -560,14 +613,14 @@ p\bigr(\mathbf{w}|\mathbf{A}\bigr) = p\bigr(\mathbf{w}|\mathbf{X}, \mathbf{y}\bi
 
 \textbf{Пространства параметров не совпадают}
 \begin{itemize}
-    \item[---] выполняется сопоставление моделей учителя~$\mathbf{g}$ и ученика~$\mathbf{f}$,
+    \item[---] выполняется выравнивание моделей учителя~$\mathbf{g}$ и ученика~$\mathbf{f}$,
     \item[---] апостериорное распределение учителя~$p\bigr(\mathbf{u}|\mathbf{X}, \mathbf{y}\bigr)$ назначается априорным распределением ученика~$p\bigr(\mathbf{w}|\mathbf{A}\bigr)$.
 \end{itemize}
 
 \end{frame}
 
 %----------------------------------------------------------------------------------------------------------
-\begin{frame}{Размеры скрытых слоев учителя и ученика отличаются}
+\begin{frame}{Размеры скрытых слоев учителя и ученика различны}
 
 Преобразования $t$-го слоя учителя:
 \[
@@ -590,7 +643,7 @@ p\bigr(\mathbf{w}|\mathbf{A}\bigr) = p\bigr(\mathbf{w}|\mathbf{X}, \mathbf{y}\bi
 \end{frame}
 %----------------------------------------------------------------------------------------------------------
 
-\begin{frame}{Решение задачи сопоставления структур моделей}\vspace{-.4cm}
+\begin{frame}{Решение задачи выравнивания структур моделей}\vspace{-.4cm}
 \[
 \hat{\mathbf{w}}, \hat{\bm{\mu}}, \hat{\bm{\Sigma}} = \arg \min_{\bm{\mu}, \bm{\Sigma}, \mathbf{w}} \text{D}_{\text{KL}}\bigr(q\bigr(\mathbf{w}|\bm{\mu}, \bm{\Sigma}\bigr)||p\bigr(\mathbf{w}|\mathbf{A}\bigr)\bigr) - \sum_{i=1}^{m}\log p\bigr(y_i|\mathbf{x}_{i}, \mathbf{w}\bigr).
 \]
@@ -686,12 +739,13 @@ $
 
 %----------------------------------------------------------------------------------------------------------
 \begin{frame}{Введение отношения порядка на множестве параметров}
-Полный порядок при выборе задается:
+Полный порядок при выборе моделей задается:
 \begin{enumerate}[1)]
 	\item случайным образом (базовая гипотеза),
 	\item на основе метода оптимального прореживания нейросети:
 	\[
 	\xi = \arg \min_{j} h_{jj}\frac{u_j^2}{2},
+	\setlength\belowdisplayskip{0pt}
 	\]
 	где~$h_{jj}$ коэффициент при квадратичном члене в разложении функции ошибки~$\mathcal{L}$ по параметрам модели~$\mathbf{u}$,
 	\item на основе отношения плотности апостериорного распределения параметра в нуле к плотности апостериорного распределения параметра:
@@ -701,6 +755,7 @@ $
 	\item на основе анализа мультиколиниарности параметров методом Белсли:
 	\[
 	\xi = \arg \max_{j} \frac{\lambda_{\max}}{\lambda_{j}}, 
+	\setlength\belowdisplayskip{0pt}
 	\]
 	где~$\lambda$ являются сингулярными числами ковариационный матрицы параметров,
 	\item на основе ковариационной матрицы градиентов функции ошибки~$\mathcal{L}$ по параметрам~$\mathbf{u}$.
@@ -712,24 +767,24 @@ $
 
 \begin{frame}{Анализ вероятностных свойств ответов модели ученика}
 \justifying
-
 % \textbf{Выборка FashionMNIST:} Изображения размера $28\times 28$. Задача классификации c $K=10$ классами. Объем выборки~$m_{\text{train}}=60000$ и~$m_{\text{test}}=10000$ объектов.\\[1mm]
 % \textbf{Синтетическая выборка:} Вектора размерности~$n=10$ из нормального распределения с большой дисперсией целевого класса. Задача классификации c $K=3$ классами. Объем выборки~$m_{\text{train}}=1000$ и~$m_{\text{test}}=100$ объектов.\\[1mm]
 % \textbf{Выборка Twitter Sentiment Analysis:} Твиты пользователей. Задача бинарной классификации. Объем выборки~$m_{\text{train}}=1{,}18$млн и~$m_{\text{test}}=0{,}35$млн объектов.
-
+~\\[-8mm]
 \begin{figure}[h!]
 \subfloat[Истинное распределение]{\includegraphics[width=0.3\textwidth]{figures/distr_real.png}}
 \subfloat[Модель без учителя]{\includegraphics[width=0.3\textwidth]{figures/distr_without_teacher.png}}
 \subfloat[Модель с учителем]{\includegraphics[width=0.3\textwidth]{figures/distr_with_teacher.png}}
 \end{figure}
-Распределение классов для объектов обучающей выборки.
+{\emph{Распределение классов объектов обучающей выборки восстанавливается точнее с учителем.}}
 
+\vspace{-0.5cm}
 \begin{table}[]
 \begin{center}
 \resizebox{\textwidth}{!}{
 \begin{tabular}{|l|c|c|c|c|c|c|}
 \hline
-\multicolumn{1}{|c|}{Выборка} & Модель      & \begin{tabular}[c]{@{}c@{}}Кросс-Энтропийная\\ ошибка\end{tabular} & \begin{tabular}[c]{@{}c@{}}{\color{blue}Кросс-Энтропийная} \\ {\color{blue}ошибка с реальными}\\ {\color{blue}вероятностями}\end{tabular} & \begin{tabular}[c]{@{}c@{}}{\color{red}Вероятностная}
+\multicolumn{1}{|c|}{Выборка} & Модель      & \begin{tabular}[c]{@{}c@{}}Кросс-энтропийная\\ ошибка\end{tabular} & \begin{tabular}[c]{@{}c@{}}{\color{blue}Кросс-энтропийная} \\ {\color{blue}ошибка с реальными}\\ {\color{blue}вероятностями}\end{tabular} & \begin{tabular}[c]{@{}c@{}}{\color{red}Вероятностная}
 \\ {\color{red}разница}\end{tabular} & Точность            & \begin{tabular}[c]{@{}c@{}}Число\\ Параметров\end{tabular} \\ \hline\hline
 \multirow{2}{*}{FashionMnist} & с учителем  & $0{,}453\pm0{,}003$                                                & -                                                                                             & $0{,}84\pm0{,}13$                                               & $0{,}842\pm0{,}002$ & 7850                                                       \\ \cline{2-7} 
                               & без учителя & $0{,}461\pm0{,}005$                                                & -                                                                                             & $0{,}86\pm0{,}18$                                               & $0{,}841\pm0{,}002$ & 7850                                                       \\ \hline \hline
@@ -749,7 +804,7 @@ $
 
 \begin{comment}
 %---------------------------------------------------------------------------------
-\begin{frame}{Анализ решения задачи сопоставления структур моделей с разным размером скрытых слоев}
+\begin{frame}{Анализ решения задачи выравнивания структур моделей с разным размером скрытых слоев}
 %{Анализ правдоподобия выборки, сопоставления моделей с разным размером скрытых слоев}
 \justifying
 Вид суперпозиции модели учителя:
@@ -764,7 +819,7 @@ $$
 \begin{center}
 \resizebox{0.9\textwidth}{!}{
 \begin{tabular}{|l|c|c|c|c|}\cline{1-5}
-                  & teacher           & student        & distil-student & distil-student-all \\ \cline{1-5}
+                  & Учитель           & Ученик        & Дистил.-ученик & distil-student-all \\ \cline{1-5}
 Структура         & $[10,100,50,1]$   & $[10,10,10,1]$  & $[10,10,10,1]$ & $[10,10,10,1]$ \\ \cline{1-5}
 Число параметров  & 6050                    & 210                   & 210                  & 210 \\ \cline{1-5}
 Разность площадей   &   -                         & 0                       & $\mathbf{16559}$              & $\mathbf{16864}$  \\ \cline{1-5}
@@ -773,7 +828,7 @@ $$
 \end{center}
 \end{table}
 
-Численный анализ: интегральная разность~$\ln p\bigr(\mathbf{y}|\mathbf{X}, \mathbf{w}\bigr)$ по итерациям.
+Анализ решения задачи: интегральная разность~$\ln p\bigr(\mathbf{y}|\mathbf{X}, \mathbf{w}\bigr)$ по итерациям.
 
 \begin{figure}[h!]
 \includegraphics[width=0.4\textwidth]{figures/synthetic_likelihood_3_layers.eps}
@@ -786,15 +841,19 @@ $$
 
 %----------------------------------------------------------------------------------------------------------
 
-\begin{frame}{Анализ правдоподобия выборки, сопоставлении моделей с разным числом скрытых слоев}
+\begin{frame}{Анализ правдоподобия выборки, выравнивание моделей с разным числом скрытых слоев}
 \justifying
 Вид суперпозиции модели учителя:
 $$
+\setlength\abovedisplayskip{0pt}
 f\bigr(\mathbf{x}\bigr) = \bm{\sigma} \circ \mathbf{U}_3\circ \bm{\sigma} \circ \mathbf{U}_2\circ\bm{\sigma}\circ \mathbf{U}_1\mathbf{x},
+\setlength\belowdisplayskip{0pt}
 $$
 Вид суперпозиции модели ученика:
 $$
+\setlength\abovedisplayskip{0pt}
 g = \bm{\sigma} \circ \mathbf{W}_2 \circ \bm{\sigma} \circ \mathbf{W}_1, \quad \mathbf{W}_{1} \in \mathbb{R}^{1 \times 50}, \mathbf{W}_{2} \in \mathbb{R}^{50 \times 10}.
+\setlength\belowdisplayskip{0pt}
 $$
 \begin{table}[]
 \begin{center}
@@ -809,12 +868,13 @@ $$
 \end{center}
 \end{table}
 
-Численный анализ: интегральная разность~$\ln p\bigr(\mathbf{y}|\mathbf{X}, \mathbf{w}\bigr)$ по итерациям.
-
+Анализ решения задачи: интегральная разность~$\ln p\bigr(\mathbf{y}|\mathbf{X}, \mathbf{w}\bigr)$ по итерациям.
 \begin{figure}[h!]
 \includegraphics[width=0.4\textwidth]{figures/synthetic_likelihood_2_layers.eps}
 \includegraphics[width=0.4\textwidth]{figures/synthetic_D_KL_2_layers.eps}
 \end{figure}
+
+Правдоподобие модели ученика с дистилляцией растет быстрее чем без нее.
 
 \end{frame}
 
@@ -886,13 +946,13 @@ $$
 \justifying
 	\begin{enumerate}
 	\justifying
-	    \item Предложен байесовский метод выбора моделей моделей ученика с использованием моделей учителя с привилегированной и накопленной информации.
+	    \item Предложен байесовский метод выбора моделей с использованием моделей учителя с привилегированной и накопленной информации.
         \item Доказаны теоремы о свойствах дистилляции, 
         \begin{itemize}
             \item[---] \emph{теоремы об эквивалентности} для дистилляции моделей в случае задачи регрессии и классификации,
             \item[---] \emph{теоремы о виде априорного распределения} параметров модели ученика в байесовской дистилляции.
         \end{itemize}
-        \item Предложен метод сопоставления структур параметрических моделей. Предложен метод выбора априорного распределения параметров модели ученика с использованием апостериорного распределения параметров модели учителя для случаев
+        \item Предложен метод выравнивания структур параметрических моделей. Предложен метод выбора априорного распределения параметров модели ученика с использованием апостериорного распределения параметров модели учителя для случаев
         \begin{itemize}
             \item[---] различных размерностей пространств параметров отдельных слоев,
             \item[---] различного в числа слоев нескольких моделей.
@@ -938,3 +998,157 @@ $$
 %----------------------------------------------------------------------------------------------------------
 
 \end{document} 
+
+
+
+
+\begin{comment}
+\begin{frame}
+%\justifying
+%\frametitle<1>{Базовая постановка задачи машинного обучения}
+%\frametitle<2>{Априорное распределение параметров}
+%\frametitle<3>{Байесовская дистилляция модели}
+\frametitle<1>{Задача оптимизации параметров модели}
+\frametitle<2>{Бейесовский выбор модели}
+\frametitle<3>{Байесовская дистилляция модели}
+
+\begin{minipage}[t][4.1cm][t]{\textwidth}
+~\\[-2mm]
+\begin{equation*}
+\xymatrix{
+% First Line
+\parbox{3em}{
+\footnotesize Задача \\ оптимизации:
+}
+&
+\parbox{3em}{
+\centering
+$\hat{\mathbf{w}}, \hat{\mathbf{A}}_{w}\ar[r]^{g}$
+}
+& 
+\hat{y}\ar[rr]
+&
+\parbox{3em}{
+\centering
+}
+& 
+\parbox{10em}{
+\centering
+$
+\only<1>{\mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, \hat{y}\bigr)}
+\only<2>{\mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr)}
+\only<3>{\mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|{\color{blue} s, }y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr)}
+\ar@/_2pc/[lll]
+$
+}
+\\
+% Second Line
+\only<2-3>{
+\parbox{3em}{\footnotesize Дополнительная \\ информация:}
+}
+&
+\only<2>{\color{blue} \mathfrak{G} \ar[u]}
+\only<3>{\mathfrak{G} \ar[u]}
+&
+\only<3>{\color{blue} s \ar[urr]}
+&
+\only<3>{\color{blue} \hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}} \ar[r] \ar[l]^{f}}
+&
+\only<2-3>{\color{blue} \left(\mathbf{w}_0, \mathbf{A}_0\right) \ar[u]}
+\\
+% Third Line
+\parbox{3em}{\footnotesize Выборка:}
+&
+&
+\parbox{3em}{
+\centering
+$
+\only<3>{\color{blue} (\mathbf{x}^{*}, y) \ar[u]}
+$
+}
+& 
+\only<1-2>{\left(\mathbf{x}, y\right) \ar[uul] \ar[uur]}
+\only<3>{\left(\mathbf{x}, y\right) \ar@{.>}[uul] \ar@{.>}[uur]}
+&
+}
+\end{equation*}
+\end{minipage}
+\vfill
+
+\begin{itemize}
+\setlength\itemsep{0.1em}
+    \item \only<1-2>{Задана выборка:
+$
+	\mathfrak{D} = \left\{\mathbf{x}_i, y_i\right\}_{i=1}^{m}, \quad 
+	\mathbf{x}_{i} \in \mathbb{R}^{n}, \quad y_i \in \mathbb{Y},
+$ где~$m$~число объектов, $n$~число признаков.
+}
+\only<3>{Задана выборка:
+$
+	\mathfrak{D} = \left\{\mathbf{x}_i, {\color{blue}\mathbf{x}_i^{*}}, y_i\right\}_{i=1}^{m}, 
+	\quad \mathbf{x}_{i} \in \mathbb{R}^{n}, 
+	{\color{blue} \quad \mathbf{x}_{i}^{*} \in \mathbb{R}^{n^{*}}},
+	\quad y_i \in \mathbb{Y},
+$ где~$m$~число объектов, $n$~число признаков, {\color{blue}$n^*$}~число признаков}
+    \item \only<1-2>{Модель:
+$
+    \mathfrak{G} = \left\{g | g : \mathbb{R}^{n}\times \mathbb{R}^{n_{w}} \to \mathbb{Y} \right\}.
+$}
+\only<3>{Модель:
+$
+    \mathfrak{G} = \left\{g | g : \mathbb{R}^{n}\times \mathbb{R}^{n_{w}} \to \mathbb{Y} \right\},
+{\color{blue}
+    \quad \mathfrak{F} = \left\{f | f : \mathbb{R}^{n^{*}}\times \mathbb{R}^{n_{w}^{*}} \to \mathbb{Y} \right\}.
+}
+$}
+    \item<2-3> \only<2>{\color{blue}
+Априорное распределение параметров:
+$
+    \mathbf{w} \sim \mathcal{N}\bigr(\mathbf{w}_0, \mathbf{A}_0\bigr).
+$
+}\only<3>{
+Априорное распределение параметров:
+$
+    \mathbf{w} \sim \mathcal{N}\bigr({\color{blue}\mathbf{w}_0\bigr(\hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}}\bigr)}, {\color{blue}\mathbf{A}_0\bigr(\hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}}\bigr)}\bigr).
+$}
+    \item \only<1>{Прогноз:
+$
+    \hat{y} = g\bigr(\mathbf{x}, \hat{\mathbf{w}}).
+$}
+\only<2>{Прогноз:
+$
+    \hat{y} = g\bigr(\mathbf{x}, \hat{\mathbf{w}})
+$}
+\only<3>{Прогноз:
+$
+    \hat{y} = g\bigr(\mathbf{x}, \hat{\mathbf{w}}),
+{\color{blue}
+    \quad
+    s = f\bigr(\mathbf{x}^{*}, \hat{\mathbf{u}}).
+}
+$}
+    \item \only<1>{Функция потерь:
+$
+    \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, \hat{y}\bigr).
+$}
+\only<2>{Функция потерь:
+$
+    \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr).
+$}
+\only<3>{Функция потерь:
+$
+    \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|{\color{blue} s, }y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr).
+$}
+    \item \only<1-2>{Оптимизационная задача:
+\[
+    \hat{\mathbf{w}}, \hat{\mathbf{A}}_{w} = \arg \min_{\mathbf{w} \in \mathbb{R}^{n_{w}}, \mathbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\mathbf{w},\mathbf{A}_{\text{w}}|y, \hat{y}\bigr).
+\]}
+\only<3>{Оптимизационная задача:
+\[
+    \hat{\mathbf{w}}, \hat{\mathbf{A}}_{w} = \arg \min_{\mathbf{w} \in \mathbb{R}^{n_{w}}, \mathbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|{\color{blue} s, }y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr).
+\]}
+\end{itemize}
+
+
+\end{frame}
+\end{comment}
