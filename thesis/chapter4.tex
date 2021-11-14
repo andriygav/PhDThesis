@@ -1,30 +1,8 @@
-В статье исследуется проблема построения смеси экспертов.
-Смесь экспертов - это мультимодель, которая состоит из множества локальных моделей, которые называются экспертами и шлюзовой функции.
-Смест экспертов использует шлюзовую функцию для взвешивания прогнозов каждого эксперта.
-Весовые коэффициенты шлюзовую функции зависят от объекта, для которого производится прогноз.
-Примерами мультимоделей являются бэггинг,  градиентный бустинг \cite{Tianqi2016} и случайный лес \cite{Ishwaran2012}.
-В статье \cite{Yuksel2012} предполагается, что вклад каждого эксперта в ответ зависит от объекта из набора данных.
+\chapter{Априорные распределения параметров смеси экспертов}
 
-Основной проблемой построения мультимоделей является то, что ансамбль зависит от начальной инициализации параметров. Для улучшения устойчивости мультимодели предлагается использовать вероятностную постановку задачи для поиска оптимальных параметров шлюзовой функции и параметров локальной модели. В данной работе задается априорное распределения на параметры локальных моделей, также, для повышения, предлагается учесть зависимость априорных распределений для разных моделей.
+Данный раздел посвящен анализу свойств смеси экспертов. Рассматриваются различные способы выбора априорного распределения. Анализируется случай, когда выбрано информативное и неинформативное априорные распределения параметров каждого эксперта. Экспертами рассматриваются линейные модели. Смесь экспертов это нейросеть с функцией softmax на последнем слое. Рассматривается задача поиска окружностей на изображении. Каждой окружности на изображении соответствует свой эксперт. Рассматривается два случая, с зависимыми и независимыми априорными распределениями параметрами локальных моделей~--- экспертов. Требуется найти на изображении синтетически сгенерированные окружности с разным уровнем шума. Сравнивается устойчивость к шуму смеси с заданными априорными распределениями на вектора параметров экспертов и без задания априорного распределения.
 
-\begin{figure}[h!t]\center
-\includegraphics[width=1\textwidth]{results/priorexpert/statment}
-\caption{Пример окружностей с разным уровнем шума: (a) окружности без шума; (b) окружности с зашумленным радиусом; (c) окружности с зашумленным радиусом, а также с равномерным шумом по всему изображению}
-\label{example:1}
-\end{figure}
-
-В данной работе решается задача поиска окружностей на бинаризованном изображении. Предполагается, что радиусы окружностей различаются значимо, а также, что центры почти совпадают. Пример изображений показан на рис. \ref{example:1}. В данной работе в качестве экспертов рассматриваются линейные модели --- каждая модель аппроксимирует одну окружности. В качестве шлюзовой функции рассматривается двухслойная нейронная сеть.
-
-Большое количество работ в области построения смеси экспертов посвящены выбору шлюзовой функции: используется softmax, процесс Дирихле \cite{Edward2002}, нейронная сеть \cite{Shazeer2017} с функцией softmax на последнем слое. Ряд работ посвящены выбору моделей в качестве отдельных экспертов. В работах \cite{Jordan1994, Jordan1991} в качестве модели эксперта рассматривается линейная модель. Работы \cite{Lima2007, Cao2003} рассматриваю модель SVM в качестве модели эксперта.
-В работе \cite{Yuksel2012} представлен обзор методов и моделей в задачах смеси экспертов.
-
-Смесь экспертов имеет множество приложений в прикладных задачах. Работы \cite{Yumlu2003, Cheung1995, Weigend2000} посвящены применению смеси экспертов в задачах прогнозирования временных рядов. 
-В работе \cite{Ebrahimpour2009} предложен метод распознавания рукописных цифр. 
-Метод распознания текстов при помощи смеси экспертов иследуется в работах \cite{Estabrooks2001}, распознание речи \cite{Mossavat2010, Peng1996, Tuerk2001}. 
-В работе \cite{Sminchisescu2007} исследуется смесь экспертов для задачи распознавания трехмерных движений человека. 
-В \cite{Bowyer2010} описаны работы по исследованию обнаружения радужки глаза на изображении. В работах \cite{Matveev2010, Matveev2014} в частности описаны методы выделения границ радужки и зрачка.
-
-\section{Постановка задачи аппроксимации параметров окружности}
+\section{Локальные модели в задачи смеси экспертов}
 Задано бинарное изображение
 \[
 \label{eq:st:cr:1}
@@ -138,7 +116,7 @@ p\bigr(\mathbf{y}, \mathbf{W}|\mathbf{X}, \mathbf{V}\bigr) = \prod_{k=1}^{K}p^{k
 \end{aligned}
 \]
 
-\section{Вероятностная постановка задачи смеси экспертов}
+\section{Вероятностное обоснование задачи смеси экспертов}
 Для построения смеси экспертов (\ref{eq:st:2},  \ref{eq:st:4}), введем следующие вероятностные предположения о данных \eqref{eq:st:cr:5}:
 
 \begin{enumerate}
@@ -166,8 +144,8 @@ p\bigr(\mathbf{y}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}
 \[
 \label{eq:em:2}
 \begin{aligned}
-\log p\bigr(\mathbf{y}, \mathbf{Z}, \mathbf{W}&|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0},  \bm{\Xi}, \beta\bigr) =\\
-&= \sum_{i=1}^{N}\sum_{k=1}^{K}z_{ik}\left[\log\pi_k\bigr(\textbf{x}_i, \textbf{V}\bigr) - \frac{\beta}{2}\left(y_{i} - \textbf{w}_{k}^{\mathsf{T}}\textbf{x}_{i}\right)^{2} + \frac{1}{2}\log\frac{\beta}{2\pi}\right] +\\
+\log p&\bigr(\mathbf{y}, \mathbf{Z}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0},  \bm{\Xi}, \beta\bigr) =\\
+& = \sum_{i=1}^{N}\sum_{k=1}^{K}z_{ik}\left[\log\pi_k\bigr(\textbf{x}_i, \textbf{V}\bigr) - \frac{\beta}{2}\left(y_{i} - \textbf{w}_{k}^{\mathsf{T}}\textbf{x}_{i}\right)^{2} + \frac{1}{2}\log\frac{\beta}{2\pi}\right] +\\
 &+ \sum_{k=1}^{K}\left[-\frac{1}{2}\left(\textbf{w}_{k} - \textbf{w}_{k}^{0}\right)^{\mathsf{T}}\textbf{A}_{k}^{-1}\left(\textbf{w}_{k} - \textbf{w}_{k}^{0}\right) + \frac{1}{2}\log\det\textbf{A}^{-1}_{k} - \frac{n}{2}\log2\pi\right]+\\
 &+ \sum_{k=1}^{K}\sum_{k'=1}^{K}\left[-\frac{1}{2}\left(\textbf{w}_{k}^{0}-\textbf{w}_{k'}^{0}\right)^{\mathsf{T}}\bm{\Xi}^{-1}\left(\textbf{w}_{k}^{0}-\textbf{w}_{k'}^{0}\right) +\frac{1}{2}\log\det \bm{\Xi} -\frac{n}{2}\log{2\pi}\right].
 \end{aligned}
@@ -183,7 +161,7 @@ p\bigr(\mathbf{y}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}
 \[
 \label{eq:em:new:1}
 \begin{aligned}
-\log p\bigr(\mathbf{y}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr) &= \int_{\textbf{W}, \textbf{Z}} q\bigr(\textbf{W}, \textbf{Z}\bigr) \log p\bigr(\mathbf{y}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)d\textbf{W}d\textbf{Z} =\\
+\log p&\bigr(\mathbf{y}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr) = \int_{\textbf{W}, \textbf{Z}} q\bigr(\textbf{W}, \textbf{Z}\bigr) \log p\bigr(\mathbf{y}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)d\textbf{W}d\textbf{Z} =\\
 &= \int_{\textbf{W}, \textbf{Z}} q\bigr(\textbf{W}, \textbf{Z}\bigr)\log \frac{p\bigr(\mathbf{y}, \textbf{W}, \textbf{Z}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)}{p\bigr(\textbf{W}, \textbf{Z}|\mathbf{y}, \mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)}d\textbf{W}d\textbf{Z}=\\
 &= \int_{\textbf{W}, \textbf{Z}} q\bigr(\textbf{W}, \textbf{Z}\bigr)\log \frac{p\bigr(\mathbf{y}, \textbf{W}, \textbf{Z}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)q\bigr(\textbf{W}, \textbf{Z}\bigr)}{p\bigr(\textbf{W}, \textbf{Z}|\mathbf{y}, \mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)q\bigr(\textbf{W}, \textbf{Z}\bigr)}d\textbf{W}d\textbf{Z}=\\
 &= \int_{\textbf{W}, \textbf{Z}} q\bigr(\textbf{W}, \textbf{Z}\bigr)\frac{p\bigr(\mathbf{y}, \textbf{W}, \textbf{Z}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)}{q\bigr(\textbf{W}, \textbf{Z}\bigr)}d\textbf{W}d\textbf{Z}+\\
@@ -200,7 +178,7 @@ p\bigr(\mathbf{y}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}
 \]
 где $\mathcal{L}\bigr(q, \textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\bigr)$ называется нижней оценкой обоснованости.
 
-Используем EM--алгоритм \cite{Dempster1977, bishop2006} для решения оптимизационной задачи \eqref{eq:em:3}. Заметим, что EM--алгоритм вместо оптимизации $\log p\bigr(\mathbf{y}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)$ оптимизирует нижнюю оценку $\mathcal{L}\left(q, \textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\right)$.
+Используем EM--алгоритм~\cite{Dempster1977, bishop2006} для решения оптимизационной задачи \eqref{eq:em:3}. Заметим, что EM--алгоритм вместо оптимизации $\log p\bigr(\mathbf{y}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)$ оптимизирует нижнюю оценку $\mathcal{L}\left(q, \textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\right)$.
 
 
 \paragraph{E-шаг.} E-шаг решает следующую оптимизационую задачу:
@@ -212,7 +190,7 @@ p\bigr(\mathbf{y}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}
 \]
 где параметры $\textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta$ являются зафиксированными.
 
-Пусть совместное распределение $q\bigr(\mathbf{Z}, \mathbf{W}\bigr)$ удовлетворяет условию независимости $q\bigr(\mathbf{Z}, \mathbf{W}\bigr) = q\bigr(\mathbf{Z}\bigr)q\bigr(\mathbf{W}\bigr)$ \cite{bishop2006}. 
+Пусть совместное распределение $q\bigr(\mathbf{Z}, \mathbf{W}\bigr)$ удовлетворяет условию независимости $q\bigr(\mathbf{Z}, \mathbf{W}\bigr) = q\bigr(\mathbf{Z}\bigr)q\bigr(\mathbf{W}\bigr)$~\cite{bishop2006}. 
 Далее символом $\propto$ обозначим то, что обе стороны выражения равны с точностью до аддитивной константы.
 Сначала найдем распределение $q\bigr(\textbf{Z}\bigr)$:
 \[
@@ -254,7 +232,7 @@ p\bigr(z_{ik} = 1\bigr) &= \frac{\exp\bigr(\log\pi_{k}\bigr(\textbf{x}_{i}, \tex
 \[
 \label{eq:em:7}
 \begin{aligned}
-\mathcal{L}\bigr(\textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\bigr) &= \mathsf{E}_{q}\log p\bigr(\mathbf{y}, \mathbf{Z}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr) =  \\
+\mathcal{L}&\bigr(\textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\bigr) = \mathsf{E}_{q}\log p\bigr(\mathbf{y}, \mathbf{Z}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr) =  \\
 &= \sum_{i=1}^{N}\sum_{k=1}^{K}\mathsf{E}z_{ik}\left[\log\pi_k\bigr(\textbf{x}_i, \textbf{V}\bigr) - \frac{\beta}{2}\mathsf{E}\left(y_{i} - \textbf{w}_{k}^{\mathsf{T}}\textbf{x}_{i}\right)^{2} + \frac{1}{2}\log\frac{\beta}{2\pi}\right] +\\
 &+ \sum_{k=1}^{K}\left[-\frac{1}{2}\mathsf{E}\left(\textbf{w}_{k} - \textbf{w}_{k}^{0}\right)^{\mathsf{T}}\textbf{A}_{k}^{-1}\left(\textbf{w}_{k} - \textbf{w}_{k}^{0}\right) + \frac{1}{2}\log\det\textbf{A}^{-1}_{k} - \frac{n}{2}\log2\pi\right] +\\
 &+ \sum_{k=1}^{K}\sum_{k'=1}^{K}\left[-\frac{1}{2}\left(\textbf{w}_{k}^{0}-\textbf{w}_{k'}^{0}\right)^{\mathsf{T}}\bm{\Xi}^{-1}\left(\textbf{w}_{k}^{0}-\textbf{w}_{k'}^{0}\right) +\frac{1}{2}\log\det\bm{\Xi} -\frac{n}{2}\log{2\pi}\right].
@@ -286,7 +264,145 @@ p\bigr(z_{ik} = 1\bigr) &= \frac{\exp\bigr(\log\pi_{k}\bigr(\textbf{x}_{i}, \tex
 \]
 Выражения (\ref{eq:em:4}--\ref{eq:em:11}) задают итеративную процедуру, которая сходится к некоторому локальному максимуму оптимизационной задачи \eqref{eq:em:3}.
 
-\section{Вычислительный эксперимент по анализу качества аппроксимации радужки глаза смесью экспертов}
+
+\section{Априорное распределение для аппроксимации кривых второго порядка на изображении}
+Рассматривается бинарное изображение:
+\[
+\mathbf{M} \in \{0, 1 \}^{m_1\times m_2},
+\]
+где 1 соответствует черной точке изображения, а 0 соответствует белой точке фона.
+
+Из изображения $\mathbf{M}$ строится выборка $\mathbf{C}$, элементами которой являются координаты $(x_i, y_i)$ черных точек:
+\[
+\mathbf{C} \in\mathbb{R}^{N \times 2}.
+\]
+
+Эксперт предполагает, что изображение состоит из кривой второго порядка $\Omega$.
+Пусть для набора точек $\mathbf{C}\in\mathbb{R}^{N \times 2}$, образующих кривую $\Omega,$ дана экспертная информация о фигуре $E(\Omega)$ .
+Множество $E(\Omega)$ состоит из формы $\Omega$, ожидаемой экспертом, и множества ее допустимых преобразований.
+
+На основе экспертного описания введем отображения в новую задачу аппроксимации:
+\[
+\label{eq1}
+	K_{x}\bigl(E(\Omega)\bigr): \mathbb{R}^{2} \rightarrow \mathbb{R}^{n}, \quad K_{y}\bigl(E(\Omega)\bigr): \mathbb{R}^{2} \rightarrow \mathbb{R},
+\] 
+где $K_{x}$ отображение объектов с признаковым описанием объектов, $n$ число признаков, а $K_{y}$ отображение в пространство целевых переменных для объекта. Применение отображений $K_{x}, K_{y}$ для всех элементов выборки $\mathbf{C}$:
+\[
+\label{eq2}
+	K_{x}\bigl(E(\Omega\bigr), \mathbf{c}) = \mathbf{x}, \quad  K_{y}\bigl(E(\Omega), \mathbf{c}\bigr) = y,
+\]
+где $\mathbf{c} = (x_i, y_i)$ точки из выборки $\mathbf{C}$.
+
+Применив отображения \eqref{eq2} к точкам $\mathbf{C}$ получаем выборку
+\[
+\label{eq4}
+    \mathfrak{D} = \{(\mathbf{x}, y) \; | \; \forall \mathbf{c} \in \mathbf{C} \; \mathbf{x} = K_x(\mathbf{c}), \; y = K_y(\mathbf{c}) \}.
+\]
+
+Получаем, что исходная задача аппроксимации кривой $\Omega$ сводится к аппроксимации выборки $\mathfrak{D} $. В этой статье предполагается, что выборка $\mathfrak{D}$ аппроксимируется линейной моделью:
+\[
+	g(\mathbf{x}, \mathbf{w}) = \mathbf{x}^\mathsf{T} \mathbf{w},
+\] 
+где $\mathbf{w}$ вектор параметров, который необходимо найти.
+
+Чтобы найти оптимальный вектор параметров $\hat{\mathbf{w}}$, необходимо решить следующую оптимизационную задачу:
+\[
+	\hat{\mathbf{w}} = \arg\min_{\mathbf{w}\in\mathbb{R}^n} \sum_{\left(\mathbf{x}, y\right) \in \mathfrak{D}}\|g(\mathbf{x}, \mathbf{w}) - y \|_2^2.
+\] 
+
+Таким образом, задача аппроксимации исходной кривой $\Omega$ сводится к решению задачи линейной регрессии, т.е. нахождению компонентов вектора $\hat{\mathbf{w}}$.
+
+В случае, когда на изображении $K$ кривые второго порядка $\Omega_1, \dots, \Omega_K $, для каждой из которых есть экспертная информация $E_k = E(\Omega_k), \, k \in \{ 1, \dots, K \} $ ставится задача построения мультимодели, называемой смесью $ K $ экспертов.
+
+\begin{definition}
+Мультимодель $ f $ называется смесью K экспертов
+\[
+	f = \sum\limits_{k = 1}^{K}\pi_k(\mathbf{x}, \mathbf{V})g_k(\mathbf{w}_k),  \quad \pi_k(\mathbf{x}, \mathbf{V}): \mathbb{R}^{n\times |\mathbf{V}|} \rightarrow [0, \, 1], \quad \sum\limits_{k = 1}^{K}\pi_k(\mathbf{x}, \mathbf{V}) = 1, 
+\]
+где $g_k$ является локальной моделью~--- экспертом, а $\mathbf{x}$ является признаковым описанием объекта, $\pi_k$~--- шлюзовая функция, вектор $\mathbf{w}_k$ является параметрами локальной модели, а матрица $\mathbf{V}$ является параметрами шлюзовую функции.
+\end{definition}
+
+Для каждой кривой второго порядка даны отображения (\ref{eq1}). Для удобства введем следующие обозначения: $ K_x^k \bigr(\mathbf{c} \bigr) = K_x \bigr (\Omega_k, \mathbf{c} \bigr) $ и $K_y^k \bigr (\mathbf{c}\bigr) = K_y\bigr(\Omega_k, \mathbf{c}\bigr)$.
+Затем с помощью локальных линейных моделей строится универсальная мультимодель, описывающая кривые $\Omega_1, \dots, \Omega_K$ на изображении $\mathbf{M}$:
+
+\[
+\label{5}
+	f = \sum\limits_{\mathbf{c} \in \mathbf{C}} \sum_{k = 1}^{K} \pi_k(\mathbf{c}, \mathbf{V})g_k(K^k_{x}\bigl(\mathbf{c}), \mathbf{w}_k), 
+\]
+где $\pi_k$ задает шлюзовую функцию. Рассматривается случай, когда $\mathbf{x}=K^1_{x}\bigl(\mathbf{c})=\cdots=K^K_{x}\bigl(\mathbf{c}),$ то есть выражение \eqref{5} переписывается в следующей простой форме:
+\[
+\label{5_1}
+	f = \sum\limits_{\mathbf{c} \in \mathbf{C}} \sum_{k = 1}^{K} \pi_k(\mathbf{x}, \mathbf{V})g_k(\mathbf{x}, \mathbf{w}_k), 
+\]
+где шлюзовая функция  $\pi_k$ имеет следующий вид:
+\[
+\label{6}
+	\pi_k(\mathbf{x}, \mathbf{V}): \mathbb{R}^{n\times |\mathbf{V}|} \rightarrow [0, \, 1], \; \; \; \; \sum\limits_{k = 1}^{K}\pi_k(\mathbf{x}, \mathbf{V}) = 1,
+\]
+где $\mathbf{V}$ - параметры шлюзовой функции, а $ g_k $ - локальная модель.
+    
+Рассматривается следующий вид функций:
+\[
+    \boldsymbol{\pi}(\mathbf{x}, \mathbf{V}) = \text{softmax}\bigl(\mathbf{V}_1^{\mathsf{T}}\boldsymbol{\sigma}(\mathbf{V}_2^{\mathsf{T}}\mathbf{x}) \bigr),
+\]
+где $\mathbf{V} = \{ \mathbf{V}_1, \, \mathbf{V}_2\}$ параметры шлюзовой функцииs,
+$\mathbf{V}_1 \in \mathbb{R}^{p \times k}, \, \mathbf{V}_2 \in \mathbb{R}^{n \times p}$. 
+
+Чтобы найти оптимальные параметры мультимодели, необходимо решить следующую оптимизационную задачу:
+\[\label{9}
+\mathcal{L} = \sum\limits_{(\mathbf{x}, y) \in \mathfrak{D}} \sum\limits_{k = 1}^{K} \pi_k(\mathbf{x}, \mathbf{V})(y - \mathbf{w}_k^{\mathsf{T}}\mathbf{x})^2 + R\bigl(\mathbf{V}, \mathbf{W}, E(\Omega)\bigr) \rightarrow \min_{\mathbf{V}, \mathbf{W}},
+\]
+где $\mathbf{W} = [\mathbf{w}_1, \dots, \mathbf{w}_k]$~--- параметры локальных моделей, $R\bigl(\mathbf{V}, \mathbf{W}, E(\Omega)\bigr)$ регуляризационный параметр на основе экспертной информации.
+
+\paragraph{Единое пространство для кривых второго порядка.} Произвольная кривая второго порядка, главная ось которой не параллельна оси ординат, задается следующим выражением:
+\[
+\label{st:coef}
+x^2 = B'xy+C'y^2+D'x+E'y+F',
+\]
+где на коэффициенты $B', C'$ действуют ограничения, зависящие от типа кривой. Выражение \eqref{eq2} принимает следующий вид:
+\[
+\label{st:K_map}
+K_x\bigr(\mathbf{c}_i\bigr)=\left[x_iy_i, y_i^2, x_i, y_i, 1\right], \quad K_y\bigr(\mathbf{c}_i\bigr)=x_i^2,
+\]
+откуда получается задача линейной регрессии для восстановления параметров $B', C', D', E', F'$ по выбранной выборке.
+
+\paragraph{Окружность.} Как частный случай кривой второго порядка, рассматривается окружность.
+Пусть $(x_0, y_0)$ - это центр окружности, которую нужно найти на бинарном изображении $\mathbf{M}$, а $r$ - его радиус.
+Элементы $(x_i, y_i)\in\mathbf{C}$ представляют собой геометрическое место точек, которое аппроксимируется уравнением окружности:
+\[
+(x_i - x_0)^2 + (y_i - y_0)^2 = r^2.
+\]
+Раскладывая скобки, получаем:
+\[(2x_0)\cdot x_i + (2y_0)\cdot y_i + (r^2 - x_0^2 - y_0^2)\cdot 1 = x_i^2 + y_i^2 . 
+\]
+Тогда выражение \eqref{eq2} принимает следующий вид:
+\[
+\label{10}
+K_{x}(\mathbf{c}_i) = [x_i, \, y_i, \, 1] = \mathbf{x}, \,  K_{y}(\mathbf{c}_i) = x_i^2+y_i^2 = y.
+\] 
+Получаем задачу линейной регрессии \eqref{eq4}.
+Компоненты вектора $\mathbf{w} = [w_0, \, w_1, \, w_2]^\mathsf{T}$ связывают признаковое описание $\mathbf{x}$ и целевую переменную $y$. Параметры окружности, через параметры линейной модели: \[ x_0 = \frac{w_0}{2}, \; y_0 = \frac{w_1}{2}, \; r = \sqrt{w_3 + x_0^2 + y_0 ^2}.\]
+
+\paragraph{Композиция кривых второго порядка на изображении.}
+\label{sec:4}
+Для построения композиции из фигур воспользуемся выражением \eqref{9}, которое принимает следующий вид:
+\[ 
+\label{statment:optim:task}
+\begin{aligned}
+\mathcal{L} = \sum\limits_{\mathbf{c} \in \mathbf{C}} \sum\limits_{k = 1}^{K} \pi_k(\mathbf{c}, \mathbf{V})\left(K^{k}_y\bigr(\mathbf{c}\bigr) - \mathbf{w}_k^{\mathsf{T}}K^{k}_x\bigr(\mathbf{c}\bigr)\right)^2 + R\bigl(\mathbf{V}, \mathbf{W}, E(\Omega)\bigr) \rightarrow \min_{\mathbf{V}, \mathbf{W}},
+\end{aligned}
+\] 
+где $K^{k}_x, K^{k}_y$ экспертное представление $k$-го эксперта. Предполагая, что все кривые на изображении описываются одним признаковым описанием $\mathbf{x} =K^{1}_x\bigr(\mathbf{c}\bigr)=\cdots=K^{K}_x\bigr(\mathbf{c}\bigr), x= K^{1}_y\bigr(\mathbf{c}\bigr)=\cdots=K^{K}_y\bigr(\mathbf{c}\bigr),$ получаем следующую задачу оптимизации:
+\[ 
+\label{statment:optim:task:simp}
+\begin{aligned}
+\mathcal{L} = \sum\limits_{\left(\mathbf{x}, y\right) \in \mathfrak{D}} \sum\limits_{k = 1}^{K} \pi_k(\mathbf{x}, \mathbf{V})\left(y - \mathbf{w}_k^{\mathsf{T}}\mathbf{x}\right)^2 + R\bigl(\mathbf{V}, \mathbf{W}, E(\Omega)\bigr) \rightarrow \min_{\mathbf{V}, \mathbf{W}},
+\end{aligned}
+\] 
+
+В качестве регуляризатора $R$ рассматриваются дополнительные ограничения на векторы параметров модели. Для решения задачи оптимизации \eqref{statment:optim:task:simp} предлагается использовать EM-алгоритм.
+
+\section{Анализу качества аппроксимации смесью экспертов}
 Для анализа качества различных мультимоделей для аппроксимации окружности проводится вычислительный эксперимент.
 В эксперимент рассматриваются следующие мультимодели: мультимодель $\textbf{f}_1$ без использования априорных распределений, мультимодель $\textbf{f}_2,$ которая использует априорные распределения \eqref{eq:ce:1} для параметров и мультимодель $\textbf{f}_3,$ которая использует регуляризацию априорных распределений.
 Точность аппроксимации мультимодели $\textbf{f}_i$ задается следующим образом:
@@ -323,7 +439,7 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 
 \begin{table}[h!t]
 \begin{center}
-\caption{Качество аппроксимации \eqref{eq:ce:ex:0:1} для всех мультимоделей}
+\caption{Качество аппроксимации мультимодели в зависимости от априорных распределений}
 \label{tb:ce:1}
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -351,25 +467,25 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 
 \begin{figure}[h!t]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_synt_likelihood_progress}
-\caption{График зависимости логарифма правдоподобия \eqref{eq:st:new:1} от номера итерации.}
+\caption{График зависимости логарифма правдоподобия \eqref{eq:st:new:1} от номера итерации}
 \label{experiment:st:2:2}
 \end{figure}
 
 \begin{figure}[h!t]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_synt_regular_progress}
-\caption{Визуализации процесса сходимости мультимодели с использованием априорной регуляриции.}
+\caption{Визуализации процесса сходимости мультимодели с использованием априорной регуляриции}
 \label{experiment:st:2:3}
 \end{figure}
 
 \begin{figure}[h!t]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_synt_prior_progress}
-\caption{Визуализации процесса сходимости мультимодели с использованием априорного распределением.}
+\caption{Визуализации процесса сходимости мультимодели с использованием априорного распределением}
 \label{experiment:st:2:4}
 \end{figure}
 
 \begin{figure}[h!t]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_synt_not_prior_progress}
-\caption{Визуализации процесса сходимости мультимодели без использования априорного распределения.}
+\caption{Визуализации процесса сходимости мультимодели без использования априорного распределения}
 \label{experiment:st:2:5}
 \end{figure}
 Данная часть эксперимента анализирует качество сходимости ЕМ-алгоритма для разных мультимоделей $\textbf{f}_1, \textbf{f}_2, \textbf{f}_3$.
@@ -398,7 +514,8 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 
 \begin{figure}[h!t]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_synt_likelihood_progress_noise}
-\caption{График зависимости логарифма правдоподобия \eqref{eq:st:new:1} от уровня шума.}
+\caption{График зависимости логарифма правдоподобия \eqref{eq:st:new:1} от уровня шума
+}
 \label{experiment:st:3:2}
 \end{figure}
 
@@ -414,7 +531,7 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 \paragraph{Реальные данные.}
 \begin{figure}[h!t]\center
 \includegraphics[width=0.9\textwidth]{results/priorexpert/experiment_real_compare}
-\caption{Мультимодель в зависимости от разных априорных предположений на реальном изображении: (a) исходное изображение; (b) бинаризованое изображение; (c) мультимодель без априорных предположений; (d) мультимодель с априорными распределениями на параметрах локальных моделей; (e) мультимодель с регуляризаций на априорных распределениях параметров локальных моделей.}
+\caption{Мультимодель в зависимости от разных априорных предположений на реальном изображении: (a) исходное изображение; (b) бинаризованое изображение; (c) мультимодель без априорных предположений; (d) мультимодель с априорными распределениями на параметрах локальных моделей; (e) мультимодель с регуляризаций на априорных распределениях параметров локальных моделей}
 \label{experiment:2}
 \end{figure}
 
@@ -425,22 +542,120 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 
 \begin{figure}[h!t]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_real_not_prior}
-\caption{Визуализации процесса сходимости мультимодели без использования априорного распределения.}
+\caption{Визуализации процесса сходимости мультимодели без использования априорного распределения}
 \label{experiment:3}
 \end{figure}
 
 \begin{figure}[h!t]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_real_prior}
-\caption{Визуализации процесса сходимости мультимодели с использованием априорного распределением.}
+\caption{Визуализации процесса сходимости мультимодели с использованием априорного распределением}
 \label{experiment:4}
 \end{figure}
 
 \begin{figure}[h!t]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_real_regular}
-\caption{Визуализации процесса сходимости мультимодели с использованием априорной регуляриции.}
+\caption{Визуализации процесса сходимости мультимодели с использованием априорной регуляриции}
 \label{experiment:5}
 \end{figure}
 
 На рис. \ref{experiment:3}-\ref{experiment:5} показан процесс аппроксимации для разных мультимоделей $\textbf{f}_1, \textbf{f}_2, \textbf{f}_3$.
 
 Данная часть эксперимента показывает, что мультимодели $\textbf{f}_2, \textbf{f}_3$ аппроксимируют окружности на реальных изображениях лучше, чем мультимодель $\textbf{f}_1$.
+
+Проведен вычислительный эксперимент по анализу качества моделей кривых второго порядка на изображении. Эксперимент разделен на несколько частей. Первая часть - это эксперимент с несколькими окружностями на изображении. Во второй части анализируется сходимость метода в зависимости от уровня шума в данных и от указанной экспертной информации. В третьей части проводится эксперимент по аппроксимации радужной оболочки глаза.
+
+\begin{figure}[h!]
+\center
+	\subfloat[]{\includegraphics[height = 0.2\textheight]{results/priorexpertfig/900.eps}} 
+	\subfloat[]{\includegraphics[height = 0.2\textheight]{results/priorexpertfig/901.eps}}
+	\subfloat[]{\includegraphics[height = 0.2\textheight]{results/priorexpertfig/902.eps}} 
+\caption{Мультимодель в зависимости от различных предварительных предположений и уровня шума. Слева направо: окружности без шума; шум в радиусе круга; шум в радиусе круга, а также произвольные точки по всему изображению}
+\label{ce:fig3}
+\end{figure}
+
+\begin{figure}[ht]
+\center
+	\subfloat[]{\includegraphics[height = 0.2\textheight]{results/priorexpertfig/900noise.eps}} 
+	\subfloat[]{\includegraphics[height = 0.2\textheight]{results/priorexpertfig/901noise.eps}}\\
+	\subfloat[]{\includegraphics[height = 0.2\textheight]{results/priorexpertfig/902noise.eps}} 
+
+\caption{Зависимость параметров $r$, $x_0$ и $y_0$ от номера итерации для различных априорных распределений. Слева направо: окружности без шума; шум в радиусе круга; шум в радиусе круга, а также произвольные точки по всему изображению}
+\label{ce:fig4}
+\end{figure}
+
+В этой части эксперимента показан пример обучения мультимодели для аппроксимации нескольких фигур второго порядка одновременно. В качестве данных используется синтетическая выборка, который получается путем создания трех произвольных непересекающихся окружностей, а также добавления шума к этим окружностям. Шум был добавлен к радиусу круга для каждой точки, а также случайные точки были добавлены к выборке.
+
+На рисунке \ref{ce:fig3} показан результат построения ансамбля локально аппроксимирующих моделей, которые аппроксимируют образец. Каждая локальная модель аппроксимирует одну окружность, а при добавлении еще большего шума качество аппроксимации падает.
+На рисунке \ref{ce:fig4} показан график зависимости радиуса окружностей $ r $ и их центров $(x_0, y_0)$ от номера итерации.
+
+\begin{figure}[h!t]
+\center
+\includegraphics[width=0.8\textwidth]{results/priorexpertfig/beta_gamma}
+\caption{Результат аппроксимации для данных с разными уровнями шума $\beta$ и дисперсией априорного распределения $\gamma$}
+\label{ce:fig6}
+\end{figure}
+
+\begin{figure}[h!t]
+\center
+\includegraphics[width=0.5\textwidth]{results/priorexpertfig/3dplot}
+\caption{Зависимость моделей от уровня шума $\beta$ в данных, а также от дисперсии априорного распределения $\gamma$}
+\label{ce:fig5}
+\end{figure}
+
+В этой части эксперимента анализируется качество аппроксимации $S$ в зависимости от уровня шума $\beta$ в данных и по параметру априорных распределений $\gamma$. Пример получается следующим образом: сначала случайным образом выбираются два вектора параметров: $\mathbf{w}^\text{true}_{1}$ и $\mathbf{w}^\text{true}_{2}$ коэффициенты двух парабол. Векторы $\mathbf{w}^\text{true}_{1}$ и $\mathbf{w}^\text{true}_{2}$ используются для создания точек $x_i$ и $y_i$ с добавлением нормального шума $\varepsilon\sim\mathcal{N}\bigr(0, \beta\bigr) $. При обучении мультимодели, априорное распределение параметров считается $\mathbf{w}_1\sim\mathcal{N}\bigr(\mathbf{w}^\text{true}_{1}, \gamma\mathbf{I}\bigr), \mathbf{w}_2\sim\mathcal{N}\bigr(\mathbf{w}^\text{true}_{2},\gamma\mathbf{I}\bigr)$.
+
+Рассмотри критерий качества:
+\[
+S = ||\mathbf{w}^\text{pred}_{1} - \mathbf{w}^\text{true}_{1}||^{2}_{2} + ||\mathbf{w}^\text{pred}_{2} - \mathbf{w}^\text{true}_{2}||^{2}_{2},
+\]
+где $\mathbf{w}^\text{pred}_{1}$ аппроксимация вектора параметров первой локальной модели, а $\mathbf{w}^\text{pred}_{2} $ аппроксимация вектора параметров второй локальной модели.
+
+На рисунке \ref{ce:fig5} показана зависимость критерия качества $S$ от уровня шума $\beta$ и параметра априорного распределения $\gamma$. График показывает, что при низком уровне шума $\beta$ качество приближения не зависит от параметра $\gamma$, а с увеличением шума $\beta$ качество приближения $S$ снижается.
+
+На рисунке \ref{ce:fig5} показан пример того, как алгоритм работает с разными параметрами $\beta$ и $\gamma$. Видно, что в отсутствие шума $\beta$ обе локальные модели аппроксимируют образец. С увеличением уровня шума качество аппроксимации снижается: при $\beta = 0{,}2$ при увеличении $\gamma$ первая локальная модель от параболы переходит в эллипс; при $\beta = 0{,}4$ при увеличении $\gamma$ первая локальная модель из параболы переходит в эллипс, а вторая модель из параболы переходит в гиперболу.
+
+\begin{figure}[h!]
+\center
+	\subfloat[]{\includegraphics[height = 0.17\textheight]{results/priorexpertfig/not_prior_real_example}} 
+	\subfloat[]{\includegraphics[height = 0.17\textheight]{results/priorexpertfig/prior_real_example}}
+	\subfloat[]{\includegraphics[height = 0.17\textheight]{results/priorexpertfig/prior_regular_real_example}} 
+\caption{Визуализация приближения радужной оболочки: а) если указан регуляризатор $ R_0 $; б) если указан регуляризатор $ R_1 $; б) если указан регуляризатор $ R_2 $}
+\label{ce:fig6}
+\end{figure}
+
+
+\begin{figure}
+\center
+     \includegraphics[width=\textwidth]{results/priorexpertfig/experiment_real_not_prior}\\
+     \caption{Визуализация процесса сходимости параметров мультимодели в случае регуляризатора $ R_0 $}
+    \label{ce:fig7}
+\end{figure}
+
+\begin{figure}
+\center
+     \includegraphics[width=\textwidth]{results/priorexpertfig/experiment_real_prior}
+     \caption{Визуализация процесса сходимости параметров мультимодели в случае регуляризатора $ R_1 $}
+    \label{ce:fig8}
+\end{figure}
+
+\begin{figure}
+\center
+     \includegraphics[width=\textwidth]{results/priorexpertfig/experiment_real_regular}
+     \caption{Визуализация процесса сходимости параметров мультимодели в случае регуляризатора $ R_2 $}
+    \label{ce:fig9}
+\end{figure}
+
+Анализ качества аппроксимации проводится для задачи аппроксимации радужной оболочки глаза на изображении. Радужная оболочка глаза состоит из двух концентрических окружностей, поэтому рассматривается мультимодель, состоящая из двух экспертов: каждый эксперт аппроксимирует одно из обстоятельств. В вычислительном эксперименте сравнивается качество аппроксимации окружностей при задании разных регуляризаторов $ R_0, R_1, R_2 $. Регуляризатор $ R_0 \bigl(\mathbf{V}, \mathbf{W}, E(\Omega) \bigr) = 0, $ то есть регуляризатора нет. Регуляризатор:
+
+\[
+R_1\bigl(\mathbf{V}, \mathbf{W}, E(\Omega)\bigr)= -\sum_{k=1}^{K}\mathbf{w}_k^{\mathsf{T}}\mathbf{w}_k,
+\]
+который удаляет околонулевые параметры локальных моделей.
+Регуляризатор
+\[
+R_2\bigl(\mathbf{V}, \mathbf{W}, E(\Omega)\bigr)= -\sum_{k=1}^{K}\mathbf{w}_k^{\mathsf{T}}\mathbf{w}_k + \sum_{k=1}^{K}\sum_{k'=1}^{K}\sum_{j=1}^2\left(w_k^j-w_k'^j\right)^2,
+\]
+что способствует совпадению центров окружностей и близким к нулю параметрам модели.
+На рисунке \ref{ce:fig6} показан результат алгоритма аппроксимации радужной оболочки глаза после 10 итераций. Видно, что при отсутствии регуляризатора одна из окружностей находится некорректно. Если задан регуляризатор $ R_1 $, модель аппроксимирует обе окружности с хорошим качеством, но окружности не концентрические. В случае задания регуляризатора $ R_2 $ мы получим концентрические окружности на изображении.
+
+На рисунках \ref{ce:fig7}-\ref{ce:fig9} показан процесс сходимости мультимоделей в случае задания разных регуляризаторов $ R_0, R_1, R_2 $. Видно, что модели с типом регуляризатора $ R_1 $ и $ R_2 $ аппроксимируют обе окружности, а мультимодель с регуляризатором $ R_0 $ аппроксимирует только большую окружность.

@@ -3,35 +3,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
 
-\usepackage{amsthm}
-\usepackage{graphicx}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage{subfig}
-\usepackage{caption}
-\usepackage{color}
-\usepackage{bm}
-\usepackage{tabularx}
-\usepackage{url}
-\usepackage{multirow}
+\usepackage{fullpage}
 \usepackage{lastpage}
-
-\usepackage[toc,page]{appendix}
-
-\usepackage{comment}
-\usepackage{rotating}
-
-\DeclareMathOperator*{\argmax}{arg\,max}
-\DeclareMathOperator*{\argmin}{arg\,min}
-
-\newtheorem{theorem}{Теорема}
-\newtheorem{lemma}[theorem]{Лемма}
-\newtheorem{definition}{Определение}[section]
-
-\numberwithin{equation}{section}
-
-\newcommand*{\No}{No.}
 
 \usepackage{geometry}
 \geometry{left=2.5cm}
@@ -42,9 +15,6 @@
 
 \newcommand{\paragraph}[1]{\noindent\textbf{#1}\quad}
 
-\def\[#1\]{%
-  {\small \begin{equation}#1\end{equation}}%
-}
 
 %https://tex.stackexchange.com/questions/163451/total-number-of-citations
 \usepackage{totcount}
@@ -67,6 +37,34 @@
 
 \reversemarginpar
 
+%%% Библиография %%%
+\makeatletter
+\bibliographystyle{utf8gost71u}     % Оформляем библиографию по ГОСТ 7.1 (ГОСТ Р 7.0.11-2011, 5.6.7)
+\makeatother
+
+
+% Нужные мне пакеты
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage{color}
+\usepackage{bm}
+\usepackage{tabularx}
+\usepackage{url}
+\usepackage{multirow}
+
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}[theorem]{Лемма}
+\newtheorem{definition}{Определение}
+
+\usepackage{comment}
+\usepackage{rotating}
+
+\usepackage{autonum}
 
 \begin{document}
 
@@ -80,46 +78,61 @@
 \tableofcontents
 
 % Введение
+\newpage{}
+\addcontentsline{toc}{section}{Введение}
+\chapter*{Введение}
 \input{dis_intro}
 
 % Основная часть
 \clearpage
-\chapter{Априорные распределения для задачи смеси экспертов}
-\input{priorexpert.tex}
+\input{chapter1}
 
 \clearpage
-\chapter{Модели привилегированного обучения и дистиляции}
-\input{privlearn.tex}
+\input{chapter2}
 
 \clearpage
-\chapter{Байесовская дистилляция моделей глубокого обучения}
-\input{bayesdistil.tex}
+\input{chapter3}
 
 \clearpage
-\chapter{Введение отношения порядка на множестве параметров аппроксимирующих моделей}
-\input{order.tex}
+\input{chapter4}
 
 \clearpage
-\chapter{Релевантность параметров параметрических моделей}
-\input{relevant.tex}
+
+\input{chapter5}
 
 \clearpage
-\chapter{Оптимальный размер выборки для построения линейных моделей}
-\input{samplesize.tex}
+\input{chapter6}
 
-\clearpage
-\chapter{Аппроксимация кривых второго порядка при помощи обучения с экспертом}
-\input{priorexpertfig.tex}
-
-\clearpage
-\chapter{Локальные модели в задачах кластеризации временных рядов}
-\input{series.tex}
 
 % Выводы
-\input{dis_conclusion.tex}
+\clearpage
+\addcontentsline{toc}{section}{Заключение}
+\chapter*{Заключение}
+\input{dis_conclusion}
+
+\clearpage
+\addcontentsline{toc}{chapter}{Список оcновных обозначений}
+\chapter*{Список оcновных обозначений}
+\input{dis_notations}
+
+\clearpage 
+\addcontentsline{toc}{section}{Список иллюстраций}
+\listoffigures
+
+\clearpage
+\addcontentsline{toc}{section}{Список таблиц}
+\listoftables
 
 % Библиографические ссылки
-\input{bibliography.tex}
+% \input{bibliography.tex}
+
+\clearpage
+
+\addcontentsline{toc}{section}{Список литературы}
+\renewcommand{\bibname}{Список литературы}
+%\addcontentsline{toc}{chapter}{Список использованных источников}
+\nocite{*}
+\bibliography{dis_literature}
 
 % Приложения
 %\input{./appendices.tex}
