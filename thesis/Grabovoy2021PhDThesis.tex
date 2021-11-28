@@ -5,6 +5,13 @@
 
 \usepackage{fullpage}
 \usepackage{lastpage}
+\usepackage{enumerate}
+
+\usepackage[all]{xy}
+% colors
+\usepackage{xcolor}
+\definecolor{darkgreen}{rgb}{0.0, 0.2, 0.13}
+\definecolor{darkcyan}{rgb}{0.0, 0.55, 0.55}
 
 \usepackage{geometry}
 \geometry{left=2.5cm}
@@ -36,6 +43,10 @@
 \makeatother
 
 \reversemarginpar
+
+\renewcommand{\contentsname}{Содержание}
+\renewcommand{\contentsdesc}{Стр.}
+\renewcommand{\chaptername}{Глава}
 
 %%% Библиография %%%
 \makeatletter
@@ -111,7 +122,7 @@
 \input{dis_conclusion}
 
 \clearpage
-\addcontentsline{toc}{chapter}{Список оcновных обозначений}
+\addcontentsline{toc}{section}{Список оcновных обозначений}
 \chapter*{Список оcновных обозначений}
 \input{dis_notations}
 

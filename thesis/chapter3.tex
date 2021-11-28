@@ -4,8 +4,31 @@
 Вводятся понятия учителя и ученика. Предполагается, что модель ученика имеет меньшее число параметров, чем модель учителя. 
 Предлагается байесовский подход к выбору модели ученика. 
 Предложен метод назначения априорного распределения параметров ученика на основе апостериорного распределения параметров модели учителя. 
-Так как пространства параметров учителя и ученика не совпадают, предлагается механизм приведения пространства параметров модели учителя к пространству параметров модели ученика путем изменения структуры модели учителя.
-Проводится теоретический анализ предложенного механизма приведения.
+Так как пространства параметров учителя и ученика не совпадают, предлагается механизм выравнивания пространства параметров модели учителя и пространства параметров модели ученика путем изменения структуры модели учителя.
+В данном разделе приводится теоретический анализ предложенного механизма выравнивания.
+
+В данной главе представлены методы основанный на байесовском выводе.
+В качестве априорного распределения параметров модели ученика предлагается использовать апостериорное распределение параметров модели учителя.
+Решается задача выравнивание пространства параметров модели учителя и модели ученика.
+Предлагается подход, основанный на последовательном выравнивании пространств параметров модели ученика и учителя. 
+\begin{definition}
+\label{def:structure}
+Структура модели --- множество структурных параметров модели, которые задают вид суперпозиции.
+\end{definition}
+\begin{definition}
+\label{def:sopos}
+Выравнивание параметрических моделей --- изменение структуры модели (одной или нескольких моделей) в результате которого векторы параметров различных моделей лежат в одном пространстве.
+\end{definition}
+В следствии этого выравнивания в качестве априорного распределения параметров модели ученика выбирается апостериорное распределение параметров модели учителя.
+В данной работе в качестве параметрической моделей рассматривается полносвязная нейронная сеть и рекурентная нейронная сеть.
+В качестве структурных параметров модели выбраны число слоев, а также размер каждого скрытого слоя.
+
+В рамках предложенного метода выравнивания параметрических моделей не оговорен выбор порядка на множестве параметров модели учителя.
+Для этого предлагается упорядочивать параметры модели учителя на основе их значимости.
+Первый нейрон является наиболее значимым, а последний нейрон наименее значимым.
+Порядок задается на основе отношения плотности распределения упорядочивваемого параметра к плотности распределения параметра в нуле~\cite{graves2011} или на основе метода Белсли~\cite{grabovoy2019}.
+
+В рамках вычислительного эксперимента проводится теоретический анализ. Предложенный метод дистилляции анализируется на примере синтетической выборки, а также на реальной выборке FashionMnist~\cite{fashionmnist}.
 
 \section{Постановка задачи дистилляции в терминах байесовского подхода}
 Задана выборка
@@ -48,15 +71,15 @@ N_{\text{tr}} = \sum_{t=1}^{T}n_tn_{t-1}.
 f\bigr(\mathbf{x}\bigr) = \bm{\sigma} \circ \mathbf{U}_3 \bm{\sigma} \circ \mathbf{U}_2\bm{\sigma}\circ \mathbf{U}_1\mathbf{x},
 \end{aligned}
 \]
-вектор параметров $\mathbf{u}$ принимает ви
+вектор параметров $\mathbf{u}$ принимает вид
 \[
 \label{eq:st:4}
 \begin{aligned}
 \mathbf{u} = \bigr[u_1^{1,1}, \cdots, u_1^{1,n},
                                                \cdots, 
-                             u_1^{n_1,1}, \cdots, u_1^{n_1,n},  
-                             u_2^{1, 1}, \cdots, u_2^{1, n_1}, 
-                                                \cdots, 
+                             u_1^{n_1,1}, &\cdots, u_1^{n_1,n},  
+                             u_2^{1, 1}, \cdots, u_2^{1, n_1}, \\
+                                                & \cdots, 
                             u_2^{n_2, 1}, \cdots, u_2^{n_2, n_1},
                             u_3^{1, 1}, \cdots, u_3^{1, n_2}\bigr].
 \end{aligned}
@@ -83,7 +106,7 @@ g = \bm{\sigma} \circ \mathbf{W}_L\bm{\sigma}  \circ \cdots \circ \mathbf{W}_1, 
 \end{aligned}
 \]
 где $p\bigr(\mathbf{w}| \mathbf{A}\bigr)$ --- априорное распределение вектора параметров модели ученика.
-Так как взятие интеграла \eqref{eq:st:6} является вычислительно сложной задачей, используется вариационный подход~\cite{graves2011, grabovoy2019}. Для этого задается вариационное распределение параметров модели ученика $q\bigr(\mathbf{w}|\bm{\mu}, \bm{\Sigma}\bigr),$ которое аппроксимирует неизвестное апостериорное распределение $p\bigr(\mathbf{w}|\mathfrak{D}\bigr)$
+Так как взятие интеграла \eqref{eq:st:6} является вычислительно сложной задачей, используется вариационный вывод~\cite{graves2011, grabovoy2019}. Для этого задается вариационное распределение параметров модели ученика $q\bigr(\mathbf{w}|\bm{\mu}, \bm{\Sigma}\bigr),$ которое аппроксимирует неизвестное апостериорное распределение $p\bigr(\mathbf{w}|\mathfrak{D}\bigr)$
 \[
 \label{eq:st:new:1}
 \begin{aligned}
@@ -113,14 +136,14 @@ p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\
 \paragraph{Учитель и ученик принадлежат одному семейству.}
 \label{section:one:space}
 Рассмотрим следующие условия:
-\begin{enumerate}
+\begin{enumerate}[1)]
     \item число слоев модели учителя равняется числу слоев модели ученика $L=T$;
     \item размеры соответствующих слоев совпадают, другими словами, для всех $t, l$ таких, что $t=l$ выполняется $n_l = n_t,$ где $n_t$ обозначает размер $t$-го слоя учителя, а $n_l$ размер $l$-го слоя ученика.
 \end{enumerate}
 В случае выполнения этих условий, априорное распределение параметров модели ученика приравнивается к апостериорному распределения параметров учителя $p\bigr(\mathbf{w}|\mathbf{A}\bigr) = p\bigr(\mathbf{u}|\mathfrak{D}\bigr)$.
 
 \paragraph{Удаление нейрона в слое учителя.}
-Проведем согласование модели учителя и модели ученика, согласно определению \ref{def:sopos} при помощи последовательных преобразований параметров $\mathbf{u}$. Рассмотрим преобразование:
+Проведем согласование модели учителя и модели ученика, согласно определению \ref{def:sopos} при помощи последовательных преобразований параметров $\mathbf{u}$. Рассмотрим преобразование
 \[
 \label{eq:ap:2}
 \begin{aligned}
@@ -128,31 +151,15 @@ p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\
 \end{aligned}
 \]
 вектора $\mathbf{u},$ которое описывает удаление одного нейрона из $t$-го слоя учителя.
-%Другими словами, преобразование $\phi\bigr(t\bigr)$ зануляет одну из строк матрицы $\mathbf{U}_t$. Заметим, что данное зануление влечет зануление соответствующего столбца матрицы $\mathbf{U}_{t+1}$.
 Обозначим новый вектор параметров $\bm{\upsilon} =  \phi\bigr(t, \mathbf{u}\bigr),$ а элементы вектора, которые были удалены как $\bar{\bm{\upsilon}}.$ Заметим, что векторы $\bm{\upsilon}$ и $\bar{\bm{\upsilon}}$ являются случайными величинами. 
-%Введем следующие обозначения:
-%\[
-%\label{eq:ap:def:1}
-%\begin{aligned}
-%\bm{\upsilon} _{0} = \mathsf{E}\bm{\upsilon} , \quad \bar{\bm{\upsilon}}_0 = \mathsf{E}\bar{\bm{\upsilon}}, \quad  \bm{\Sigma}_{\bm{\upsilon},\bm{\upsilon}} = \text{cov}\bigr(\bm{\upsilon},\bm{\upsilon}\bigr), \quad  \bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}} = \text{cov}\bigr(\bm{\upsilon},\bar{\bm{\upsilon}}\bigr), \quad  \bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}} = \text{cov}\bigr(\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}\bigr),\\
-%\end{aligned}
-%\]
-%где $ \text{cov}\bigr(\bm{\upsilon},\bm{\upsilon}\bigr)$ обозначает ковариационную матрицу.
+
 \begin{theorem}
-\label{theorem:ap:neural}
-Пусть выполняются следующие условия:
-\begin{enumerate}
-\item апостериорное распределение $p\bigr(\mathbf{u}|\mathfrak{D}\bigr)$ параметров модели учителя является нормальным распределением \eqref{eq:ap:1};
-\item число слоев модели учителя равняется числу слоев модели ученика $L=T$;
-\item размеры соответствующих слоев не совпадают, другими словами, для всех $t, l$ таких, что $t=l$ выполняется $n_t \leq n_l,$.
-\end{enumerate}
-Тогда апостериорное распределения параметров модели учителя $p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)$ также является нормальным распределением.
-%\[
-%\label{eq:ap:3}
-%\begin{aligned}
-%p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\bm{\upsilon}_{0}+\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1}\left(\mathbf{0} - \bar{\bm{\upsilon}}\right), \bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1}\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bigr).
-%\end{aligned}
-%\]
+Пусть задано распределения вектора параметров~$p\bigr(\mathbf{u}\bigr).$ Тогда распределение вектора параметров~$p\bigr(\bm{\upsilon}\bigr)$ представимо в виде:
+\[
+\setlength\abovedisplayskip{0pt}
+p\bigr(\bm{\upsilon}\bigr)  = \int\limits_{ \bm{\nu}_2 \in \mathbb{R}^{n_{t-1}}}p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr) d \bm{\nu}_2.
+\setlength\belowdisplayskip{0pt}
+\]
 \end{theorem}
 \begin{proof}
 Не уменьшая общности, пусть $\phi\bigr(t, \mathbf{u}\bigr)$ удаляет $j$-й нейрон в $t$-м слое, что является удалением $j$-й строки матрицы $\mathbf{U}_t$. Заметим, что удаление $j$-й строки матрицы $\mathbf{U}_t$ влечет удаление $j$-й компоненты вектора $z_{t+1}$, где
@@ -172,7 +179,19 @@ p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\
 p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)  = \int_{\bm{\nu}_2}p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr) d\bm{\nu}_2.
 \end{aligned}
 \]
+\end{proof}
 
+\begin{theorem}
+\label{theorem:ap:neural}
+Пусть выполняются следующие условия:
+\begin{enumerate}[1)]
+\item апостериорное распределение параметров $p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\bigr),$
+\item число слоев модели учителя равняется числу слоев модели ученика $T=L$,
+\item размеры соответствующих слоев не совпадают, другими словами, для всех $t, l,$ таких что $t=l,$ выполняется $n_t \geq n_l.$
+\end{enumerate}
+Тогда распределение параметров~$p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)$ также является нормальным.
+\end{theorem}
+\begin{proof}
 Из свойств нормального распределения следует, что распределение
 \[
 \label{eq:ap:tr:neural:2}
@@ -188,7 +207,7 @@ p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr)
  \bm{\Xi} &= \bm{\Sigma}_{\bar{\bm{\nu}}_1,\bar{\bm{\nu}}_1} - \bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1} \bm{\Sigma}_{\bm{\nu}_1,\bm{\nu}_1}^{-1} \bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1},
 \end{aligned}
 \]
-где введены обозначения $\mathbf{m}_{\bar{\bm{\nu}}_1}, \mathbf{m}_{\bm{\nu}_1}$ соответствует подвектору вектора $\mathbf{m},$ который относится к параметрам $\bar{\bm{\nu}}_1$ и $\bm{\nu}_1$ соответсвенно. Ковариационная матрица $\bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1}$ обозначает подматрицу матрицы $\bm{\Sigma},$ которая соответсвует ковариационной матрицей между параметрами $\bar{\bm{\nu}}_1$ и $\bm{\nu}_1.$
+где обозначения $\mathbf{m}_{\bar{\bm{\nu}}_1}, \mathbf{m}_{\bm{\nu}_1}$ соответствует подвектору вектора $\mathbf{m},$ который относится к параметрам $\bar{\bm{\nu}}_1$ и $\bm{\nu}_1$ соответсвенно. Ковариационная матрица $\bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1}$ обозначает подматрицу матрицы $\bm{\Sigma},$ которая соответсвует ковариационной матрицей между параметрами $\bar{\bm{\nu}}_1$ и $\bm{\nu}_1.$
 
 Распределение $p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)$ найдем при помощи маргинализации распределения \eqref{eq:ap:tr:neural:2} по параметрам $\bm{\nu}_2.$ Используя свойства нормального распределения получаем распределения:
 \[
@@ -202,12 +221,70 @@ p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\bm{\mu}_{\bm{\upsilo
 
 Теорема \ref{theorem:ap:neural} задает апостериорное распределение параметров \eqref{eq:ap:3} после зануления нейронов в модели нейросети --- учителя. Заметим, что аналогичным образом можно удалить сразу подмножество нейронов в рамках одного слоя. В случае, если число нейронов отличается в нескольких слоях модели нейросети учителя, то выполняется последовательно применения отображения $\phi\bigr(t, \mathbf{u}\bigr)$ для каждого $t$-го слоя.
 
+
+Приведем следующее пояснение доказательство теоремы. Введем следующее обозначение:
+
+\[
+\hat{\mathbf{w}}, \hat{\bm{\mu}}, \hat{\bm{\Sigma}} = \arg \min_{\bm{\mu}, \bm{\Sigma}, \mathbf{w}} \text{D}_{\text{KL}}\bigr(q\bigr(\mathbf{w}|\bm{\mu}, \bm{\Sigma}\bigr)||p\bigr(\mathbf{w}|\mathbf{A}\bigr)\bigr) - \sum_{i=1}^{m}\log p\bigr(y_i|\mathbf{x}_{i}, \mathbf{w}\bigr).
+\]
+Параметры~$\mathbf{u}$ модели~$\mathbf{f}$ делятся на {\color{red} удаляемые~$\bm{\nu}_2$}, {\color{blue} зануляемые~$\bm{\nu}_1$}, {оставшиеся~$\bm{\upsilon}$}.
+
+Суперпозиция слоев модели учителя~$\mathbf{f}$ в окрестности~$t$-го слоя:
+{\small
+\[
+\setlength\abovedisplayskip{0pt}
+\mathbf{f}\bigr(\mathbf{x}\bigr) = \cdots \circ
+\underbrace{
+\begin{pmatrix}
+u_{1,1} & \cdots & {\color{blue} u_{1,j}} & \cdots & u_{1,n_{t}} \\
+\vdots  & \ddots & {\color{blue} \vdots}  & \ddots & \vdots \\
+u_{n_{t+1},1} & \cdots & {\color{blue} u_{n_{t+1},j}} & \cdots & u_{n_{t+1},n_{t}} \\
+\end{pmatrix} 
+}_{\mathbf{U}_{t+1}}
+\bm{\sigma} 
+\circ 
+\underbrace{
+\begin{pmatrix}
+u_{1,1} & \cdots & u_{1,n_{t-1}} \\
+\vdots  & \ddots & \vdots        \\
+{\color{red} u_{j,1}} & {\color{red}\cdots} & {\color{red} u_{j,n_{t-1}}} \\
+\vdots  & \ddots & \vdots        \\
+u_{n_{t},1} & \cdots & u_{n_{t},n_{t-1}} \\
+\end{pmatrix}
+}_{\mathbf{U}_{t}}
+\bm{\sigma}
+\circ 
+\cdots
+\circ 
+\mathbf{U}_1
+\mathbf{x}
+\setlength\belowdisplayskip{0pt}
+\]
+}
+Апостериорное распределение параметров~$\bm{\upsilon}$ модели~$\mathbf{f}$:
+\[
+\setlength\abovedisplayskip{0pt}
+p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)  = \int\limits_{{\color{red} \bm{\nu}_2} \in \mathbb{R}^{n_{t-1}}}p\bigr({\color{blue}\bar{\bm{\nu}}_1}|\mathfrak{D}, {\color{blue}\bm{\nu}_1}=\mathbf{0}\bigr) d{\color{red} \bm{\nu}_2}.
+\setlength\belowdisplayskip{0pt}
+\]
+Из свойства распределения 
+\[
+    p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr) = \mathcal{N}\bigr(\bm{\mu}, \bm{\Xi}\bigr),
+\]
+с параметрами~$\bm{\mu}, \bm{\Xi}$:
+\[
+\begin{aligned}
+\bm{\mu} &= \mathbf{m}_{\bar{\bm{\nu}}_1}+\bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1} \bm{\Sigma}_{\bm{\nu}_1,\bm{\nu}_1}^{-1} \left(\mathbf{0} - \mathbf{m}_{\bm{\nu}_1}\right), \\
+ \bm{\Xi} &= \bm{\Sigma}_{\bar{\bm{\nu}}_1,\bar{\bm{\nu}}_1} - \bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1} \bm{\Sigma}_{\bm{\nu}_1,\bm{\nu}_1}^{-1} \bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1},
+\end{aligned}
+\]
+Маргинализация нормального распределения
+\[
+p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\bm{\mu}_{\bm{\upsilon}},  \bm{\Xi}_{\bm{\upsilon}, \bm{\upsilon}}\bigr),
+\]
+что соответствует теореме~\ref{theorem:ap:neural}.
+
 \paragraph{Удаление слоя учителя.}
-%Пусть в модели учителя требуется убрать $t$-й слой. Рассмотрим следующие условия:
-%\begin{enumerate}
- %   \item соответствующие размеры слоев совпадают, $n_t=n_{t-1}$;
-  %  \item функция активации удовлетворяет следующему свойству $\bm{\sigma} \circ \bm{\sigma} = \bm{\sigma}$.
-%\end{enumerate}
 Проведем согласование модели учителя и модели ученика, согласно определению \ref{def:sopos} при помощи последовательных преобразований вектора параметров $\mathbf{u}$. Рассмотрим преобразование:
 \[
 \label{eq:ap:4}
@@ -223,18 +300,21 @@ p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\bm{\mu}_{\bm{\upsilo
 \begin{theorem}
 \label{theorem:ap:layer}
 Пусть выполняются следующие условия:
-\begin{enumerate}
-\item апостериорное распределение параметров $p\bigr(\mathbf{u}|\mathfrak{D}\bigr)$ модели учителя является нормальным распределением \eqref{eq:ap:1};
-\item соответствующие размеры слоев совпадают, $n_t=n_{t-1},$ то есть матрица $\mathbf{U}_t$ является квадратной;
+\begin{enumerate}[1)]
+\item апостериорное распределение параметров $p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\bigr),$
+\item соответствующие размеры слоев совпадают, $n_t=n_{t-1},$ т.е. матрица~$\mathbf{U}_t$ является квадратной,
 \item функция активации удовлетворяет свойству идемпотентности $\bm{\sigma} \circ \bm{\sigma} = \bm{\sigma}$.
 \end{enumerate}
-Тогда апостериорное распределения также описывается нормальным распределением со следующей плотностью распределения:
+Тогда апостериорное распределение также описывается нормальным распределением с плотностью распределения:
 \[
 \label{eq:ap:5}
 \begin{aligned}
 p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsilon}}+\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}} \bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1} \left(\mathbf{i} - \bar{\bm{\upsilon}}\right), \bm{\Sigma}_{\bm{\upsilon},\bm{\upsilon}} - \bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1}\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bigr),
 \end{aligned}
 \]
+где вектор~$
+\mathbf{i}=[\underbrace{1, 0, \ldots, 0}_{n_t}, \underbrace{0, 1, \ldots, 0}_{n_t}, \underbrace{0, 0, 1, \ldots, 0}_{n_t}, \underbrace{0, \ldots, 1}_{n_t}]^{\mathsf{T}},
+$
 где вектор $\mathbf{i}$ задается следующим образом:
 \[
 \mathbf{i}=[\underbrace{1, 0, \cdots, 0}_{n_t}, \underbrace{0, 1, \cdots, 0}_{n_t}, \underbrace{0, 0, 1, \cdots, 0}_{n_t}, \underbrace{0, \cdots, 1}_{n_t}]^{\mathsf{T}}.
@@ -243,15 +323,19 @@ p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsi
 \begin{proof}
 Рассмотрим структуру нейронной сети с $T$ слоями и $T+1$ слоем. Не уменьшая общности для удаления рассматривается $t$-й слой, для которого выполняются условия этой теоремы. Заметим, что если $t$-й слой нейронной сети с $T+1$ слоем приравнять к единичной матрице, то он будет эквивалентным архитектуре с $T$ слоями:
 \[
-\label{eq:ap:tr:2:1}
 \begin{aligned}
 f &= \bm{\sigma} \circ \mathbf{U}_{T+1}\bm{\sigma} \circ \mathbf{U}_T \cdots \bm{\sigma} \circ \mathbf{U}_t\bm{\sigma} \circ \cdots  \mathbf{U}_2\bm{\sigma} \circ \mathbf{U}_1 =\\
 &=  \bm{\sigma} \circ \mathbf{U}_{T+1}\bm{\sigma} \circ \mathbf{U}_T \cdots \bm{\sigma} \circ \mathbf{I}\bm{\sigma} \circ \cdots  \mathbf{U}_2\bm{\sigma} \circ \mathbf{U}_1 =\\
-&=  \bm{\sigma} \circ \mathbf{U}_{T+1}\bm{\sigma} \circ \mathbf{U}_T \cdots \bm{\sigma} \circ \bm{\sigma} \circ \cdots  \mathbf{U}_2\bm{\sigma} \circ \mathbf{U}_1 =^{1}\\
-&=^{1}  \bm{\sigma} \circ \mathbf{U}_{T+1}\bm{\sigma} \circ \mathbf{U}_T \cdots \bm{\sigma} \circ \cdots  \mathbf{U}_2\bm{\sigma} \circ \mathbf{U}_1.
+&=  \bm{\sigma} \circ \mathbf{U}_{T+1}\bm{\sigma} \circ \mathbf{U}_T \cdots \bm{\sigma} \circ \bm{\sigma} \circ \cdots  \mathbf{U}_2\bm{\sigma} \circ \mathbf{U}_1,
 \end{aligned}
 \]
-\footnotetext[1]{Выполняется в силу условия теоремы об идемпотентности функции активации.}
+используя свойство идемпотентности функции~$\bm{\sigma}$ получаем:
+\[
+\label{eq:ap:tr:2:1}
+\begin{aligned}
+f &= \bm{\sigma} \circ \mathbf{U}_{T+1}\bm{\sigma} \circ \mathbf{U}_T \cdots \bm{\sigma} \circ \cdots  \mathbf{U}_2\bm{\sigma} \circ \mathbf{U}_1.
+\end{aligned}
+\]
 Получаем, что удаление $t$-го слоя нейросети эквивалентно приравнивают матрицы параметров $t$-го слоя к единичной матрице. Распределение параметров после приравнивая к единичной матрице вычисляется при помощи условного распределения. В силу общих свойств нормального распределения условное распределения также является нормальным распределением с параметрами $\bm{\mu}, \bm{\Xi}:$
 \[
 \label{eq:ap:tr:2:2}
@@ -265,16 +349,115 @@ f &= \bm{\sigma} \circ \mathbf{U}_{T+1}\bm{\sigma} \circ \mathbf{U}_T \cdots \bm
 
 Теорема \ref{theorem:ap:layer} задает апостериорное распределение \eqref{eq:ap:5} параметров после удаления слоя нейросети. Полученное распределение $p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) $ является оценкой апостериорного распределения модели без одного слоя.
 
-\paragraph{Выполнение последовательных преобразований.}
-Преобразования $\phi, \psi$ согласовывают пространства параметров учителя $f$ и ученика $g$. После сопоставления параметрических моделей получаем, что параметры модели учителя и модели учителя принадлежат одному семейству \ref{section:one:space}.
-%После сопоставления параметров в качестве априорного распределения параметров ученика $p\bigr(\mathbf{w}|\mathfrak{D}\bigr)$ рассматривается полученное апостериорное распределение параметров учителя $p\bigr(\mathbf{u}'|\mathfrak{D}\bigr)$. Получаем, следующее приближение априорного распределения:
-%\[
-%\label{eq:ap:6}
-%\begin{aligned}
-%p_g\bigr(\mathbf{w}|\mathfrak{D}\bigr) = p_{f'}\bigr(\mathbf{w}|\mathfrak{D}\bigr),
-%\end{aligned}
-%\]
-%где данное априорное распределение используется для поиска оптимальных параметров модели ученика $\hat{\mathbf{w}}$ с помощью \eqref{eq:st:7}.
+\paragraph{Выравнивание рекурентных сетей.}
+
+Структура модели RNN задается размерностью скрытых слоев~$n_1, n_2, \ldots, n_T.$
+
+Отображение
+$
+\setlength\abovedisplayskip{0pt}
+\phi_{\text{RNN}}\bigr(t, \mathbf{u}\bigr) : \mathbb{R}^{\text{p}_{\text{tr}}} \to \mathbb{R}^{\text{p}_{\text{tr}}-2n_t}
+\setlength\belowdisplayskip{0pt}
+$
+описывает уменьшение размерности пространства после~$t$-го слоя. Вектор параметров $\bm{\upsilon} =  \phi\bigr(t, \mathbf{u}\bigr).$ Исходный вектор~$\mathbf{u}$ условно делиться на подвекторы $\bm{\nu}_2, {\bm{\nu}}_1, \bm{\upsilon}.$
+
+\begin{theorem}
+Пусть задано распределения вектора параметров~$p\bigr(\mathbf{u}\bigr).$ Тогда распределение вектора параметров~$p\bigr(\bm{\upsilon}\bigr)$ представимо в виде:
+\[
+\setlength\abovedisplayskip{0pt}
+p\bigr(\bm{\upsilon}\bigr)  = \int\limits_{ \bm{\nu}_2 \in \mathbb{R}^{n_{t-1}}}p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr) d \bm{\nu}_2.
+\setlength\belowdisplayskip{0pt}
+\]
+\end{theorem}
+\begin{proof}
+TODO
+\end{proof}
+
+\begin{theorem}
+Пусть выполняются следующие условия:
+\begin{enumerate}
+\item[1)] апостериорное распределение параметров $p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\bigr),$
+\item[2)] число слоев модели учителя равняется числу слоев модели ученика $T=L$,
+\item[3)] размеры соответствующих пространств не совпадают~$n_t \geq n_t.$
+\end{enumerate}
+Тогда распределение параметров~$p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)$ также является нормальным.
+\end{theorem}
+\begin{proof}
+TODO
+\end{proof}
+
+Преобразования $t$-го слоя учителя:
+\[
+\begin{aligned}
+\psi_{\text{RNN}}\bigr(t\bigr) : \mathbb{R}^{\text{p}_{\text{tr}}} \to \mathbb{R}^{\text{p}_{\text{tr}}-n_tn_{t-1}}
+\end{aligned}
+\]
+описывает удаление~$t$-го слоя. Новый новый вектор параметров $\bm{\upsilon} = \psi\bigr(t, \mathbf{u}\bigr),$ а элементы вектора, которые были удалены как $\bar{\bm{\upsilon}}.$
+
+\begin{theorem}
+Пусть выполняются следующие условия:
+\begin{enumerate}
+\item[1)] апостериорное распределение параметров $p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\bigr),$
+\item[2)] соответствующие размеры пространств совпадают, $n_t=n_{t+1}.$
+\item[3)] функция активации удовлетворяет свойству идемпотентности $\bm{\sigma} \circ \bm{\sigma} = \bm{\sigma}$.
+\end{enumerate}
+Тогда апостериорное распределение также описывается нормальным распределением с плотностью распределения:
+\[
+\label{eq:ap:5}
+\begin{aligned}
+p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsilon}}+\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}} \bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1} \left(\mathbf{i} - \bar{\bm{\upsilon}}\right), \bm{\Sigma}_{\bm{\upsilon},\bm{\upsilon}} - \bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1}\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bigr).
+\end{aligned}
+\]
+\end{theorem}
+\begin{proof}
+TODO
+\end{proof}
+
+\section{Последовательность выравнивающих преобразований}
+
+Множество всех структур задается последовательностью натуральных чисел:
+\[
+\mathfrak{H} = \left\{(n_1, n_2, \ldots, n_{T}), \quad n_i \in \mathbb{N}, T \in \mathbb{N}\right\}.
+\]
+Множество структур, порождаемое структурой~$(n_{1}', n_{2}', \ldots, n_{L}')$ учителя~$\mathbf{f}$:
+\[
+\mathfrak{H}_{\mathbf{f}} = \left\{\left(n_1, n_2, \ldots, n_{T}\right); \quad n_i \in \mathbb{N}, L \in \mathbb{N}; \quad n_i \leq n_{i}',~3\leq T\leq L; \quad n_{T-1} \leq n_{i}',~i > T\right\},
+\]
+описывает конечное подмножество структур в континуальном множестве.
+
+
+\begin{theorem}
+\label{th-9:visual}
+Для произвольной структуры~$s \in \mathfrak{H}_{\mathbf{f}}$ существует последовательность локальных выравнивающих преобразований $\tau = (\ldots, \phi, \ldots, \psi, \ldots)$ сохраняющее распределение параметров модели~$\mathbf{f}$.
+\end{theorem}
+\begin{proof}
+TODO
+\end{proof}
+
+Рассмотрим теорему~\ref{th-9:visual} на примере. Рассмотрим учителя~$\mathbf{f}$ имеет структуру~$(10, 6, 7, 10)$, модель ученика~$\mathbf{g}$ имеет структуру~$(10,4,6,10)$.
+\[
+\xymatrix{
+% First Line
+\mathbf{f}_{\tau_1}''\ar@[red][d]_{\color{red}\phi\bigr(3\bigr)}
+& 
+\mathbf{f}_{\tau_1}'\ar@[red][l]_{\color{red}\phi\bigr(2\bigr)}\ar@[darkcyan][d]
+&
+\mathbf{f}\ar@[red][l]_{\color{red}\phi\bigr(2\bigr)}\ar@[blue][d]^{\color{blue}\phi\bigr(3\bigr)}
+\\
+% Second Line
+\mathbf{g}
+& 
+\mathbf{f}_{\tau_2}''\ar@[blue][l]^{\color{blue}\phi\bigr(2\bigr)}
+&
+\mathbf{f}_{\tau_2}'\ar@[blue][l]^{\color{blue}\phi\bigr(2\bigr)}
+}
+\]
+Последовательности выравнивающих преобразований модели учителя~$\mathbf{f}$ в модель ученика $\mathbf{g}$:
+\[
+{\color{red}\tau_1=\left(\phi\bigr(2\bigr), \phi\bigr(2\bigr), \phi\bigr(3\bigr)\right)}, {\color{blue}\tau_2=\left(\phi\bigr(3\bigr), \phi\bigr(2\bigr), \phi\bigr(2\bigr)\right)}, {\color{darkcyan}\tau_3=\left(\phi\bigr(2\bigr), \phi\bigr(3\bigr), \phi\bigr(2\bigr)\right)},
+\]
+где цветом выделены разные последовательности преобразований.
+Из примера видно, что последовательность выравнивающих преобразований существует, но не является единственным. Преобразования $\phi, \psi$ согласовывают пространства параметров учителя $f$ и ученика $g$. После выравнивания параметрических моделей получаем, что параметры модели учителя и модели учителя принадлежат одному семейству \ref{section:one:space}.
 
 \section{Анализ байесовской дистилляции полносвязных нейронных сетей}
 Проводится вычислительный эксперимент для анализа предложенного метода дистилляции на основе апостериорного распределения параметров модели учителя.
@@ -347,9 +530,9 @@ g = \bm{\sigma} \circ \mathbf{W}_2\bm{\sigma} \circ \mathbf{W}_1,
 \label{exp:fig2}
 \end{figure}
 
-Рис. \ref{exp:fig2} сравнивает модели ученика со структурой \eqref{eq:ex:5}. Аналогично рис. \ref{exp:fig1}, на рис. \ref{exp:fig2} представлено сравнение модели без дистилляции (student), модели с дистилляцией параметра среднего значение (distil-student) и модели с полной дистилляцией (distil-student-all). В рамках данного эксперимента, по дистилляции модели учителя в модель ученика с меньшим числом параметров получены результаты, которые подтверждают, что задание априорного распределения параметров ученика позволяет улучшить число итераций при выборе оптимальных параметров модели ученика.
+Рис.~\ref{exp:fig2} сравнивает модели ученика со структурой \eqref{eq:ex:5}. Аналогично рис. \ref{exp:fig1}, на рис. \ref{exp:fig2} представлено сравнение модели без дистилляции (student), модели с дистилляцией параметра среднего значение (distil-student) и модели с полной дистилляцией (distil-student-all). В рамках данного эксперимента, по дистилляции модели учителя в модель ученика с меньшим числом параметров получены результаты, которые подтверждают, что задание априорного распределения параметров ученика позволяет улучшить число итераций при выборе оптимальных параметров модели ученика.
 
-В рамках данного эксперимента проводился анализ байесовского подхода к дистилляции на реальных данных.  В качестве реальных данных выбрана выборка FashionMnist~\cite{fashionmnist} которая является задачей классификации изображений на 10 классов.
+В этой части эксперимента проводился анализ байесовского подхода к дистилляции на реальных данных.  В качестве реальных данных выбрана выборка FashionMnist~\cite{fashionmnist} описывающая задачу классификации изображений на 10 классов.
 
 В качестве модели учителя рассматривалась модель многослойный перцептрон с двумя скрытыми слоями \eqref{eq:st:3}. Матрицы линейных преобразований имеют размер:
 \[
