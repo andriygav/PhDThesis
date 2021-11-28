@@ -31,7 +31,7 @@
 1. [Модуль для определения достаточного объема выборки](https://github.com/andriygav/SampleSizeLib)
 2. [Модуль для построения смеси экспертов](https://github.com/andriygav/MixtureLib)
 
-## Исходный код вычислительного эксперимента
+## Исходный код вычислительных экспериментов в рамках диссертационной работы
 1. [Определения достаточного объема выборки](https://github.com/ttgadaev/SampleSizeEstimation)
 2. [Анализ моделей привилегированного обучения и дистилляции](https://github.com/andriygav/PrivilegeLearning)
 3. [Байесовская дистилляция моделей глубокого обучения](https://github.com/andriygav/BayesianDistilation)
