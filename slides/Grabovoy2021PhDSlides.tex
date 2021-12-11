@@ -50,12 +50,15 @@
 %----------------------------------------------------------------------------------------------------------
 
 \title[Априорное распределение параметров в задачах выбора моделей глубокого обучения]{Априорное распределение параметров \\в задачах выбора моделей глубокого обучения}
+% \title[Байесовское выравнивание нейросетевых моделей]{Байесовское выравнивание нейросетевых моделей}
 \author{А.\,В.\,Грабовой}
 
-\institute[]{Диссертация на соискание ученой степени\\
-кандидата физико-математических наук\\05.13.17~--- Теоретические основы информатики\\Научный руководитель: д.ф.-м.н. В.\,В. Стрижов\\}     
-%\institute[МФТИ]{Московский Физико-Технический Институт (Государственный Университет)}
-\date[2021]{\small Московский физико-технический институт\\21\;сентября\;2021\,г.}
+% \institute[]{Диссертация на соискание ученой степени\\
+% кандидата физико-математических наук\\05.13.17~--- Теоретические основы информатики\\Научный руководитель: д.ф.-м.н. В.\,В. Стрижов\\}
+% \institute[]{Конференция МФТИ}
+% \date[2021]{\small Московский физико-технический институт\\04\;декабря\;2021\,г.}
+\institute[]{Конференция \\ <<Математические методы распознавания образов>>}
+\date[2021]{\small 10\;декабря\;2021\,г.}
 
 %---------------------------------------------------------------------------------------------------------
 \begin{document}
@@ -503,6 +506,7 @@ p\bigr(\mathbf{y}, \mathbf{S}|\mathbf{X}, \mathbf{g}, \mathcal{I}\bigr)=\prod_{i
 \]
 
 \begin{rustheorem}[Грабовой, 2020]
+\justifying
 \label{theorem:st:dist}
 Пусть всех $k$ выполняется $1 > 1- \varepsilon > g_k\bigr(\mathbf{x}\bigr) > \varepsilon > 0,$ тогда при
 \[
@@ -536,6 +540,7 @@ C=\left(-1\right)^{K}\frac{K^{K/2}}{2^{K(K-1)/2}}\prod_{k=1}^{K}g_k\bigr(\mathbf
 \]
 
 \begin{rustheorem}[Грабовой, 2020]
+\justifying
 \label{theorem:st:reg}
 Пусть~$\mathfrak{G}_{rg}$ --- класс линейных функций~$g\bigr(\mathbf{x}\bigr) = \mathbf{w}^{\mathsf{T}}\mathbf{x}.$ Тогда решение оптимизационной задачи эквивалентно решению задачи линейной регрессии $\mathbf{y''} = \mathbf{X}\mathbf{w} + \bm{\varepsilon},~\bm{\varepsilon} \sim \mathcal{N}\bigr(\mathbf{0}, \bm{\Sigma}\bigr)$ ,
 где $\bm{\Sigma}^{-1}=\text{diag}\bigr(\bm{\sigma'}\bigr)$ и $\mathbf{y''}$ имеют следующий вид:
@@ -643,6 +648,7 @@ p\bigr(\mathbf{w}|\mathbf{A}\bigr) = p\bigr(\mathbf{w}|\mathbf{X}, \mathbf{y}\bi
 описывает удаление одного нейрона из~$t$-го слоя. Новый вектор параметров $\bm{\upsilon} =  \phi\bigr(t, \mathbf{u}\bigr).$ Исходный вектор~$\mathbf{u}$ условно делиться на подвекторы $\bm{\nu}_2, {\bm{\nu}}_1, \bm{\upsilon}.$
 
 \begin{rustheorem}[Грабовой, 2021]
+\justifying
 Пусть задано распределения вектора параметров~$p\bigr(\mathbf{u}\bigr).$ Тогда распределение вектора параметров~$p\bigr(\bm{\upsilon}\bigr)$ представимо в виде:
 \[
 \setlength\abovedisplayskip{0pt}
@@ -652,6 +658,7 @@ p\bigr(\bm{\upsilon}\bigr)  = \int\limits_{ \bm{\nu}_2 \in \mathbb{R}^{n_{t-1}}}
 \end{rustheorem}
 
 \begin{rustheorem}[Грабовой, 2021]
+\justifying
 Пусть выполняются следующие условия:
 \begin{enumerate}[1)]
 \item апостериорное распределение параметров $p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\bigr),$
@@ -664,6 +671,7 @@ p\bigr(\bm{\upsilon}\bigr)  = \int\limits_{ \bm{\nu}_2 \in \mathbb{R}^{n_{t-1}}}
 \end{frame}
 %----------------------------------------------------------------------------------------------------------
 \section{Решение задачи выравнивания структур моделей}
+\justifying
 \begin{frame}{Решение задачи выравнивания структур моделей}\vspace{-.4cm}
 \[
 \hat{\mathbf{w}}, \hat{\bm{\mu}}, \hat{\bm{\Sigma}} = \arg \min_{\bm{\mu}, \bm{\Sigma}, \mathbf{w}} \text{D}_{\text{KL}}\bigr(q\bigr(\mathbf{w}|\bm{\mu}, \bm{\Sigma}\bigr)||p\bigr(\mathbf{w}|\mathbf{A}\bigr)\bigr) - \sum_{i=1}^{m}\log p\bigr(y_i|\mathbf{x}_{i}, \mathbf{w}\bigr).
@@ -728,7 +736,7 @@ $
 %----------------------------------------------------------------------------------------------------------
 \section{Число скрытых слоев учителя и ученика различны}
 \begin{frame}{Число скрытых слоев учителя и ученика различны}
-
+\justifying
 Преобразования $t$-го слоя учителя:
 \[
 \begin{aligned}
@@ -738,6 +746,7 @@ $
 описывает удаление~$t$-го слоя. Новый новый вектор параметров $\bm{\upsilon} = \psi\bigr(t, \mathbf{u}\bigr),$ а элементы вектора, которые были удалены как $\bar{\bm{\upsilon}}.$
 
 \begin{rustheorem}[Грабовой, 2021]
+\justifying
 Пусть выполняются следующие условия:
 \begin{enumerate}[1)]
 \item апостериорное распределение параметров $p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\bigr),$
@@ -760,6 +769,7 @@ $
 
 %----------------------------------------------------------------------------------------------------------
 \section{Обобщение для рекурентной сети RNN}
+\justifying
 \begin{frame}{Обобщение для рекурентной сети RNN}
 Структура модели RNN задается размерностью скрытых слоев~$n_1, n_2, \ldots, n_T.$
 
@@ -772,6 +782,7 @@ $
 описывает уменьшение размерности пространства после~$t$-го слоя. Вектор параметров $\bm{\upsilon} =  \phi\bigr(t, \mathbf{u}\bigr).$ Исходный вектор~$\mathbf{u}$ условно делиться на подвекторы $\bm{\nu}_2, {\bm{\nu}}_1, \bm{\upsilon}.$
 
 \begin{rustheorem}[Грабовой, 2021]
+\justifying
 Пусть задано распределения вектора параметров~$p\bigr(\mathbf{u}\bigr).$ Тогда распределение вектора параметров~$p\bigr(\bm{\upsilon}\bigr)$ представимо в виде:
 \[
 \setlength\abovedisplayskip{0pt}
@@ -781,6 +792,7 @@ p\bigr(\bm{\upsilon}\bigr)  = \int\limits_{ \bm{\nu}_2 \in \mathbb{R}^{n_{t-1}}}
 \end{rustheorem}
 
 \begin{rustheorem}[Грабовой, 2021]
+\justifying
 Пусть выполняются следующие условия:
 \begin{enumerate}[1)]
 \item апостериорное распределение параметров $p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\bigr),$
@@ -794,7 +806,7 @@ p\bigr(\bm{\upsilon}\bigr)  = \int\limits_{ \bm{\nu}_2 \in \mathbb{R}^{n_{t-1}}}
 
 \section{Обобщение для рекурентной сети RNN}
 \begin{frame}{Обобщение для рекурентной сети RNN}
-    
+\justifying
 Преобразования $t$-го слоя учителя:
 \[
 \begin{aligned}
@@ -804,6 +816,7 @@ p\bigr(\bm{\upsilon}\bigr)  = \int\limits_{ \bm{\nu}_2 \in \mathbb{R}^{n_{t-1}}}
 описывает удаление~$t$-го слоя. Новый новый вектор параметров $\bm{\upsilon} = \psi\bigr(t, \mathbf{u}\bigr),$ а элементы вектора, которые были удалены как $\bar{\bm{\upsilon}}.$
 
 \begin{rustheorem}[Грабовой, 2021]
+\justifying
 Пусть выполняются следующие условия:
 \begin{enumerate}[1)]
 \item апостериорное распределение параметров $p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\bigr),$
@@ -825,7 +838,7 @@ p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsi
 
 \section{Последовательность выравнивающих преобразований}
 \begin{frame}{Последовательность выравнивающих преобразований}
-
+\justifying
 Множество всех структур задается последовательностью натуральных чисел:
 \[
 \mathfrak{H} = \left\{(n_1, n_2, \ldots, n_{T}), \quad n_i \in \mathbb{N}, T \in \mathbb{N}\right\}.
@@ -839,6 +852,7 @@ p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsi
 \begin{minipage}[t]{.65\textwidth}
 
 \begin{rustheorem}[Грабовой, 2021]
+\justifying
 Для произвольной структуры~$s \in \mathfrak{H}_{\mathbf{f}}$ существует последовательность локальных выравнивающих преобразований $\tau = (\ldots, \phi, \ldots, \psi, \ldots)$ сохраняющее распределение параметров модели~$\mathbf{f}$.
 \end{rustheorem}
 
@@ -876,6 +890,7 @@ ${\color{red}\tau_1=\left(\phi\bigr(2\bigr), \phi\bigr(2\bigr), \phi\bigr(3\bigr
 
 %----------------------------------------------------------------------------------------------------------
 \section{Введение отношения порядка на множестве параметров}
+\justifying
 \begin{frame}{Введение отношения порядка на множестве параметров}
 Полный порядок при выборе моделей задается:
 \begin{enumerate}[1)]
@@ -1117,8 +1132,8 @@ $$
     \item \textit{A. Grabovoy, V. Strijov.} Quasi-periodic time series clustering for human // Lobachevskii Journal of Mathematics, 2020.
     \item \textit{Грабовой А.В., Бахтеев О. Ю., Стрижов В.В.} Введение отношения порядка на множестве параметров аппроксимирующих моделей~// Информатика и ее применения, 2020.
     \item \textit{Грабовой А.В., Бахтеев О.Ю., Стрижов В.В.} Определение релевантности параметров нейросети~// Информатика и ее применения, 2019.
-    \item \textit{Грабовой А.В., Стрижов В.В.} Вероятностная интерпретация задачи дистилляции~// Автоматика и телемеханика (на рецензировании), 2021.
-    \item \textit{A. Grabovoy, T. Gadaev, A. Motrenko, V. Strijov} Numerical methods of minimum sufficient sample size estimation for linear models~// Lobachevskii Journal of Mathematics (на рецензировании), 2021.
+    \item \textit{Грабовой А.В., Стрижов В.В.} Вероятностная интерпретация задачи дистилляции~// Автоматика и телемеханика, 2022.
+    \item \textit{A. Grabovoy, T. Gadaev, A. Motrenko, V. Strijov} Numerical methods of minimum sufficient sample size estimation for linear models~// Lobachevskii Journal of Mathematics, 2023.
     \item \textit{Bazarova A.I., Grabovoy A.V., Strijov V.V.} Analysis of the properties of probabilistic models in learning problems with an expert~// Journal of Computational Mathematics (на рецензировании), 2021.
 \end{enumerate}
 
