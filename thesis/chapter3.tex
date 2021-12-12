@@ -1,4 +1,4 @@
-\chapter{Байесовская дистиляции моделей глубокого обучения}
+\chapter{Байесовская дистилляция моделей глубокого обучения}
 Исследуется проблема понижения сложности аппроксимирующих моделей. 
 Рассматриваются методы, основанные на дистилляции моделей глубокого обучения. 
 Вводятся понятия учителя и ученика. Предполагается, что модель ученика имеет меньшее число параметров, чем модель учителя. 
@@ -38,7 +38,7 @@
 \mathfrak{D} = \left\{\left(\mathbf{x}_i, y_i\right)\right\}_{i=1}^{m}, \qquad \mathbf{x}_i \in \mathbb{R}^{n}, \quad y_i \in \mathbb{Y},
 \end{aligned}
 \]
-где $\mathbf{x}_i, y_i$ --- признаковое описание и целевая переменная $i$-го объекта, число объектов в обучающей выборке обозначается $m$. Размер признакового описания объектов обозначается $n$. Множество $\mathbb{Y}=\{1,\ldots,K\}$ для задачи классификации, где $K$ число классов, множество $\mathbb{Y}=\mathbb{R}$ для задачи регрессии.
+где $\mathbf{x}_i, y_i$ --- признаковое описание и целевая переменная $i$-го объекта, число объектов в обучающей выборке обозначается $m$. Размер признакового описания объектов обозначается $n$. Множество $\mathbb{Y}=\{1,\ldots,R\}$ для задачи классификации, где $R$ число классов, множество $\mathbb{Y}=\mathbb{R}$ для задачи регрессии.
 
 Задана модель учителя в виде суперпозиций линейных и нелинейных преобразований:
 \[
@@ -55,7 +55,7 @@ f = \bm{\sigma} \circ \mathbf{U}_T \bm{\sigma} \circ \mathbf{U}_{T-1}\circ \ldot
 \end{aligned}
 \]
 где $\text{vec}$ операция векторизации соединенных матриц.
-Каждая матрица $\mathbf{U}_t$ имеет размер $n_t\times n_{t-1},$ где $n_0=n,$ а  $n_T={1}$ для задачи регрессии и $n_T=K$ для задачи классификации на $K$ классов. Число параметров $N_{\text{tr}}$ учителя $f$
+Каждая матрица $\mathbf{U}_t$ имеет размер $n_t\times n_{t-1},$ где $n_0=n,$ а  $n_T={1}$ для задачи регрессии и $n_T=R$ для задачи классификации на $R$ классов. Число параметров $N_{\text{tr}}$ учителя $f$
 \[
 \label{ch:3:eq:st:2.2}
 \begin{aligned}
@@ -156,9 +156,7 @@ p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\
 \begin{theorem}
 Пусть задано распределение вектора параметров~$p\bigr(\mathbf{u}\bigr).$ Тогда распределение вектора параметров~$p\bigr(\bm{\upsilon}\bigr)$ представимо в виде:
 \[
-\setlength\abovedisplayskip{0pt}
 p\bigr(\bm{\upsilon}\bigr)  = \int\limits_{ \bm{\nu}_2 \in \mathbb{R}^{n_{t-1}}}p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr) d \bm{\nu}_2.
-\setlength\belowdisplayskip{0pt}
 \]
 \end{theorem}
 \begin{proof}
@@ -232,7 +230,6 @@ p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\bm{\mu}_{\bm{\upsilo
 Суперпозиция слоев модели учителя~$\mathbf{f}$ в окрестности~$t$-го слоя:
 {\small
 \[
-\setlength\abovedisplayskip{0pt}
 \mathbf{f}\bigr(\mathbf{x}\bigr) = \ldots \circ
 \underbrace{
 \begin{pmatrix}
@@ -258,14 +255,11 @@ u_{n_{t},1} & \ldots & u_{n_{t},n_{t-1}} \\
 \circ 
 \mathbf{U}_1
 \mathbf{x}
-\setlength\belowdisplayskip{0pt}
 \]
 }
 Апостериорное распределение параметров~$\bm{\upsilon}$ модели~$\mathbf{f}$:
 \[
-\setlength\abovedisplayskip{0pt}
 p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)  = \int\limits_{{\color{red} \bm{\nu}_2} \in \mathbb{R}^{n_{t-1}}}p\bigr({\color{blue}\bar{\bm{\nu}}_1}|\mathfrak{D}, {\color{blue}\bm{\nu}_1}=\mathbf{0}\bigr) d{\color{red} \bm{\nu}_2}.
-\setlength\belowdisplayskip{0pt}
 \]
 Из свойства распределения 
 \[
@@ -344,28 +338,37 @@ f &= \bm{\sigma} \circ \mathbf{U}_{T+1}\bm{\sigma} \circ \mathbf{U}_T \ldots \bm
 
 Теорема \ref{theorem:ap:layer} задает апостериорное распределение \eqref{ch:3:eq:ap:5} параметров после удаления слоя нейросети. Полученное распределение $p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) $ является оценкой апостериорного распределения модели без одного слоя.
 
-\paragraph{Выравнивание рекурентных сетей.}
-
-Структура модели RNN задается размерностью скрытых слоев~$n_1, n_2, \ldots, n_T.$
+\paragraph{Выравнивание рекурентных сетей.} Структура модели RNN задается размерностью скрытых слоев~$n_1, n_2, \ldots, n_T.$ Скрытое представление~$q$-го элемента последовательности~$h^{q}_{t}$ для~$t$-го слоя задается выражением:
+\[
+    \mathbf{h}^{q}_t = \sigma\bigr(\mathbf{U}^{1}_{t}\mathbf{h}^{q}_{t-1}+\mathbf{U}^{2}_{t}\mathbf{h}^{q-1}_{t}\bigr),
+\]
+где матрицы~$\left\{\mathbf{U}^{1}_{t}, \mathbf{U}^{2}_{t}\right\}_{t=1}^{T}$ задают матрицы линейных отображений в модели RNN.
 
 Отображение
-$
-\setlength\abovedisplayskip{0pt}
-\bm{\phi}_{\text{RNN}}\bigr(t, \mathbf{u}\bigr) : \mathbb{R}^{\text{p}_{\text{tr}}} \to \mathbb{R}^{\text{p}_{\text{tr}}-2n_t}
-\setlength\belowdisplayskip{0pt}
-$
-описывает снижение размерности пространства после~$t$-го слоя. Вектор параметров $\bm{\upsilon} =  \bm{\phi}\bigr(t, \mathbf{u}\bigr).$ Исходный вектор~$\mathbf{u}$ состоит из следующих подвекторов $\bm{\nu}_2, {\bm{\nu}}_1, \bm{\upsilon},$ которые описывают удаляемые, зануляемые и оставшиеся параметры соответственно.
+\[
+\bm{\phi}_{\text{RNN}}\bigr(t, \mathbf{u}\bigr) : \mathbb{R}^{\text{p}_{\text{tr}}} \to \mathbb{R}^{\text{p}_{\text{tr}}-3n_t}
+\]
+описывает снижение размерности пространства после~$t$-го слоя на единицу. Полученный вектор параметров после снижения размерности обозначается:
+\[
+\bm{\upsilon} = \bm{\phi}\bigr(t, \mathbf{u}\bigr).
+\]
+Исходный вектор~$\mathbf{u}$ состоит из подвекторов $\bm{\nu}_2, {\bm{\nu}}_1, \bm{\upsilon},$ которые описывают удаляемые, зануляемые и оставшиеся параметры соответственно.
 
 \begin{theorem}
 Пусть задано распределение вектора параметров~$p\bigr(\mathbf{u}\bigr).$ Тогда распределение вектора параметров~$p\bigr(\bm{\upsilon}\bigr)$ представимо в виде:
 \[
-\setlength\abovedisplayskip{0pt}
 p\bigr(\bm{\upsilon}\bigr)  = \int\limits_{ \bm{\nu}_2 \in \mathbb{R}^{n_{t-1}}}p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr) d \bm{\nu}_2.
-\setlength\belowdisplayskip{0pt}
 \]
 \end{theorem}
 \begin{proof}
-TODO
+Пусть~$\bm{\phi}\bigr(t, \mathbf{u}\bigr)$ удаляет~$j$-ю компоненту вектора скрытого представления~$\mathbf{h}^{q}_{t}.$ Удаление~$j$-й компоненты вектора~$\mathbf{h}^{q}_{t}$ эквивалентно занулению~$j$-го столбца матрицы~$\mathbf{U}^{1}_{t+1}.$ Тогда предсказания модели не заввисит от параметров в~$j$-й строке матрицы~$\mathbf{U}^{1}_{t}$ и~$\mathbf{U}^2_{t},$ а следовательно этими параметрами можно пренебречь.
+
+Найдем распределение вектора $\bm{\upsilon}.$ Для поиска распределения вектора параметров после зануления $j$-го столбца матрицы $\mathbf{U}^{1}_{t+1}$ воспользуемся формулой условной вероятности $p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr)$, а для удаления $j$-й строки матриц $\mathbf{U}^{1}_{t}$ и $\mathbf{U}^{2}_{t}$ воспользуемся маргинализацией распределения $p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr)$. Обозначим зануляемые параметры модели как $\bm{\nu}_1,$ а удаляемые параметры как $\bm{\nu}_2.$ Также обозначим все параметры, которые не занулены как $\bar{\bm{\nu}}_1 = [\bm{\upsilon}^{\mathsf{T}}, \bm{\nu}_2^{\mathsf{T}}].$ Итоговое распределение параметров принимает  вид:
+\[
+\begin{aligned}
+p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)  = \int_{\bm{\nu}_2}p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr) d\bm{\nu}_2.
+\end{aligned}
+\]
 \end{proof}
 
 \begin{theorem}
@@ -378,7 +381,28 @@ TODO
 Тогда распределение параметров~$p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)$ также является нормальным.
 \end{theorem}
 \begin{proof}
-TODO
+Из свойств нормального распределения следует, что распределение
+\[
+\begin{aligned}
+p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr)
+\end{aligned}
+\]
+также является нормальным распределением с параметрами $\bm{\mu}, \bm{\Xi}$:
+\[
+\begin{aligned}
+\bm{\mu} &= \mathbf{m}_{\bar{\bm{\nu}}_1}+\bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1} \bm{\Sigma}_{\bm{\nu}_1,\bm{\nu}_1}^{-1} \left(\mathbf{0} - \mathbf{m}_{\bm{\nu}_1}\right), \\
+ \bm{\Xi} &= \bm{\Sigma}_{\bar{\bm{\nu}}_1,\bar{\bm{\nu}}_1} - \bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1} \bm{\Sigma}_{\bm{\nu}_1,\bm{\nu}_1}^{-1} \bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1},
+\end{aligned}
+\]
+где векторы $\mathbf{m}_{\bar{\bm{\nu}}_1}, \mathbf{m}_{\bm{\nu}_1}$ являются подвекторами вектора $\mathbf{m},$ который относится к параметрам $\bar{\bm{\nu}}_1$ и $\bm{\nu}_1$ соответсвенно. Ковариационная матрица $\bm{\Sigma}_{\bar{\bm{\nu}}_1,\bm{\nu}_1}$ обозначает подматрицу матрицы $\bm{\Sigma},$ которая соответсвует ковариационной матрицей между параметрами $\bar{\bm{\nu}}_1$ и $\bm{\nu}_1.$
+
+Распределение $p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)$ найдем при помощи маргинализации распределения \eqref{ch:3:eq:ap:tr:neural:2} по параметрам $\bm{\nu}_2.$ Используя свойства нормального распределения получаем распределения:
+\[
+\begin{aligned}
+p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\bm{\mu}_{\bm{\upsilon}},  \bm{\Xi}_{\bm{\upsilon}, \bm{\upsilon}}\bigr),
+\end{aligned}
+\]
+где $\bm{\mu}_{\bm{\upsilon}}$ обозначает подвектор вектора $\bm{\mu},$ который относится к параметру $\bm{\upsilon}$, а матрица $\bm{\Xi}_{\bm{\upsilon}, \bm{\upsilon}}$ является подматрицей матрицы $\bm{\Xi}$, которая относится к вектору параметрамов $\bm{\upsilon}.$
 \end{proof}
 
 Преобразования $t$-го слоя учителя:
@@ -390,6 +414,7 @@ TODO
 описывает удаление~$t$-го слоя. Новый новый вектор параметров $\bm{\upsilon} = \bm{\psi}\bigr(t, \mathbf{u}\bigr),$ а элементы вектора, которые удалены как $\bar{\bm{\upsilon}}.$
 
 \begin{theorem}
+\label{ch-3:th:rnn:later}
 Пусть выполняются условия:
 \begin{enumerate}
 \item[1)] апостериорное распределение параметров $p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\bigr),$
@@ -398,15 +423,41 @@ TODO
 \end{enumerate}
 Тогда апостериорное распределение также описывается нормальным распределением с плотностью распределения:
 \[
-\label{ch:3:eq:ap:5}
 \begin{aligned}
-p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsilon}}+\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}} \bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1} \left(\mathbf{i} - \bar{\bm{\upsilon}}\right), \bm{\Sigma}_{\bm{\upsilon},\bm{\upsilon}} - \bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1}\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bigr).
+p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsilon}}+\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}} \bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1} \left(\mathbf{i} - \bar{\bm{\upsilon}}\right), \bm{\Sigma}_{\bm{\upsilon},\bm{\upsilon}} - \bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1}\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bigr),
 \end{aligned}
+\]
+где
+\[
+\mathbf{i}=[\underbrace{1, 0, \ldots, 0}_{n_t}, \underbrace{0, 1, \ldots, 0}_{n_t}, \underbrace{0, 0, 1, \ldots, 0}_{n_t}, \underbrace{0, \ldots, 1}_{n_t}, \underbrace{0, \ldots, 0}_{n_t\times n_t}]^{\mathsf{T}}.
 \]
 \end{theorem}
 \begin{proof}
-TODO
+Рассмотрим две структуры нейронной сети с~$T$ слоями и~$T+1$ слоем соответственно. Рассмотрим~$t$-й слой, для которого выполняется условие теоремы. Заметим, что если в~$t$-м слое матрицу~$\mathbf{U}^{1}_{t}$ приравнять к единичной, а матрицу~$\mathbf{U}^{2}_t$ к нулевой, то полученная нейросеть с~$T+1$ слоем будет эквивалентной нейросети с~$T$ слоями:
+\[
+\begin{aligned}
+\mathbf{h}^{q}_{t+1} &= \bm{\sigma}\bigr(\mathbf{U}_{t+1}^{1}\bm{\sigma}\bigr(\mathbf{U}^{1}_{t}\bm{\sigma}\bigr(\mathbf{U}^{1}_{t-1}\mathbf{h}^{q}_{t-2}+\mathbf{U}^{2}_{t-1}\mathbf{h}^{q-1}_{t-1}\bigr)+\mathbf{U}^{2}_{t}\mathbf{h}_{t}^{q-1}\bigr)+\mathbf{U}_{t}^{2}\mathbf{h}^{q-1}_{t+1}\bigr) = \\
+&= \bm{\sigma}\bigr(\mathbf{U}_{t+1}^{1}\bm{\sigma}\bigr(\bm{\sigma}\bigr(\mathbf{U}^{1}_{t-1}\mathbf{h}^{q}_{t-2}+\mathbf{U}^{2}_{t-1}\mathbf{h}^{q-1}_{t-1}\bigr)\bigr)+\mathbf{U}_{t}^{2}\mathbf{h}^{q-1}_{t+1}\bigr),
+\end{aligned}
+\]
+где используя свойство идемпотентности получаем:
+\[
+\begin{aligned}
+\mathbf{h}^{q}_{t+1} &= \bm{\sigma}\bigr(\mathbf{U}_{t+1}^{1}\bm{\sigma}\bigr(\mathbf{U}^{1}_{t-1}\mathbf{h}^{q}_{t-2}+\mathbf{U}^{2}_{t-1}\mathbf{h}^{q-1}_{t-1}\bigr)+\mathbf{U}_{t}^{2}\mathbf{h}^{q-1}_{t+1}\bigr) = \\
+&= \bm{\sigma}\bigr(\mathbf{U}_{t+1}^{1}\mathbf{h}^{q}_{t-1}+\mathbf{U}_{t}^{2}\mathbf{h}^{q-1}_{t+1}\bigr).
+\end{aligned}
+\]
+Получаем, что удаление $t$-го слоя нейросети эквивалентно приравниванию матриц параметров $t$-го слоя к единичной и нулевой матрице соответственно. Распределение параметров вычисляется при помощи условного распределения. В силу общих свойств нормального распределения, условное распределения также является нормальным распределением с параметрами $\bm{\mu}, \bm{\Xi}:$
+\[
+\begin{aligned}
+\bm{\mu} &= \mathbf{m}_{\bm{\upsilon}}+\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}} \bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1} \left(\mathbf{i} - \bar{\bm{\upsilon}}\right), \\
+\bm{\Xi} &= \bm{\Sigma}_{\bm{\upsilon},\bm{\upsilon}} - \bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1}\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bigr),
+\end{aligned}
+\]
+где вектор $\mathbf{m}_{\bm{\upsilon}}$ является подвектором вектора $\mathbf{m}$ соответсвующий параметрам $\bm{\upsilon},$ а матрица $\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}$ является подматрицей ковариационной матрицы $\bm{\Sigma}$ соответсвующий векторам параметров $\bm{\upsilon}$ и $\bar{\bm{\upsilon}}.$
 \end{proof}
+Теорема~\ref{ch-3:th:rnn:later} задает апостериорное распределение параметров после удаления одного слоя модели RNN. Полученное распределение~$p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)$ является оценкой апостериорного распределения модели без одного слоя.
+
 
 \section{Последовательность выравнивающих преобразований}
 
