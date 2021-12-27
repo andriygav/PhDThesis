@@ -2,7 +2,7 @@
 
 Данный раздел посвящен анализу свойств смеси экспертов. Рассматриваются различные способы выбора априорного распределения. Анализируется случай, когда выбраны как информативное так и неинформативное априорные распределения параметров каждого эксперта. Экспертами назначаются линейные модели. Смесь экспертов это комбинация экспертов при помощи шлюзовой функции. Рассматривается задача поиска окружностей на изображении. Каждой окружности на изображении соответствует свой эксперт. Рассматривается два случая с зависимыми и независимыми априорными распределениями параметрами локальных моделей~--- экспертов. Требуется найти на изображении синтетически сгенерированные окружности с разным уровнем шума. Сравнивается устойчивость к шуму смеси с заданными априорными распределениями на вектора параметров экспертов и без задания априорного распределения.
 
-\begin{figure}[h!t]\center
+\begin{figure}[!ht]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/statment}
 \caption{Пример окружностей с разным уровнем шума: (a) окружности без шума; (b) окружности с зашумленным радиусом; (c) окружности с зашумленным радиусом, а также с равномерным шумом по всему изображению}
 \label{example-exp:1}
@@ -16,7 +16,7 @@
 
 Решается задача аппроксимации кривых второго порядка на контурном изображении. Кривые второго порядка выбираются для анализа, так как они легко описываются линейными моделями. В этом случае эти фигуры необходимо восстанавливать в таких прикладных задачах, как задача распознавания радужной оболочки глаза~\cite{Matveev2010,Matveev2014,Bowyer2010}, задача описания трека частицы в адронный коллайдер~\cite{Dalila2018}. Экспертная информация о кривой второго порядка позволяет отображать точки на плоскости в новое описание объекта, где каждая кривая аппроксимируется одной линейной моделью. Модель аппроксимирующая одну кривую, называется \textit{локальной моделью}. Для аппроксимации всего контурного изображения необходимо аппроксимировать несколько кривых второго порядка с помощью нескольких локальных моделей. Вводятся ограничения на изображения: а) изображение состоит только из кривых второго порядка; б) изображение аппроксимируется небольшим количеством кривых второго порядка; в) количество и тип кривых на изображении известны.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \center
      \includegraphics[width=\textwidth]{results/priorexpertfig/explanation}
      \caption{Пример: а) экспертная информация первого эксперта; б) исходные данные; в) экспертная информация второго эксперта}
@@ -30,7 +30,7 @@
 
 В качестве примера рассматривается задача аппроксимации изображения радужной оболочки глаза. На рисунке \ref{intro:fig1:real} показан пример изображения для аппроксимации. Рассматриваем обработанное изображение, которое дано в виде схемы, пример такого изображения показан на рисунке \ref{intro:fig1:outer}. На рисунке \ref{intro:fig1:outer} показаны две модели окружностей, которые аппроксимируют радужную оболочку глаза. Окружности~--- простой пример кривой второго порядка.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \center
 	\subfloat[]{\includegraphics[height = 0.2\textheight]{results/priorexpertfig/real_image}\label{intro:fig1:real}} 
 	\subfloat[]{\includegraphics[height = 0.2\textheight]{results/priorexpertfig/outline_image}\label{intro:fig1:outer}} 
@@ -455,7 +455,7 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 где~$\textbf{w}^{0}_1 = [0, 0, 0.1],\ \textbf{w}^{0}_2 = [0, 0, 2]$.
 
 \paragraph{Синтетические данные с разным типом шума в изображении.}
-\begin{figure}[h!t]\center
+\begin{figure}[!ht]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_synthetic}
 \caption{Мультимодель в зависимости от разных априорных предположений и в зависимости от разного уровня шума: (a)--(с) модель с регуляризаций априорных распределений; (d)--(g) модель с заданными априорными распределениями на параметрах локальных моделей; (e)--(j) модель без заданных априорных предположений}
 \label{ch4-experiment:1}
@@ -467,7 +467,7 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 Все модели оптимизировались при помощи 50 итераций EM-алгоритма.
 Мультимодели~$\textbf{f}_2, \textbf{f}_3$ аппроксимируют окружности лучше чем мультимодель~$\textbf{f}_1$. В табл. \ref{tb:ce:1} показано качество аппрроксимации \eqref{ch4-eq:ce:ex:0:1} для всех мультимоделей.
 
-\begin{table}[h!t]
+\begin{table}[!ht]
 \begin{center}
 \caption{Качество аппроксимации мультимодели в зависимости от априорных распределений}
 \label{tb:ce:1}
@@ -489,31 +489,31 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 \end{table}
 
 \paragraph{Анализ сходимости на синтетической выборке.}
-\begin{figure}[h!t]\center
+\begin{figure}[!ht]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_synthetic_param_progress}
 \caption{График зависимости центра и радиуса окружностей от номера итерации: (a)--(b) модель с регуляризацией априорных распределений; (c)--(d) модель с заданными априорными распределениями на параметры моделей; (e)--(f) модель без задания априорных распределений}
 \label{ch4-experiment:st:2:1}
 \end{figure}
 
-\begin{figure}[h!t]\center
+\begin{figure}[!ht]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_synt_likelihood_progress}
 \caption{График зависимости логарифма правдоподобия \eqref{ch4-eq:st:new:1} от номера итерации}
 \label{ch4-experiment:st:2:2}
 \end{figure}
 
-\begin{figure}[h!t]\center
+\begin{figure}[!ht]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_synt_regular_progress}
 \caption{Визуализации процесса сходимости мультимодели с использованием априорной регуляриции}
 \label{ch4-experiment:st:2:3}
 \end{figure}
 
-\begin{figure}[h!t]\center
+\begin{figure}[!ht]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_synt_prior_progress}
 \caption{Визуализации процесса сходимости мультимодели с использованием априорного распределением}
 \label{ch4-experiment:st:2:4}
 \end{figure}
 
-\begin{figure}[h!t]\center
+\begin{figure}[!ht]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_synt_not_prior_progress}
 \caption{Визуализации процесса сходимости мультимодели без использования априорного распределения}
 \label{ch4-experiment:st:2:5}
@@ -536,13 +536,13 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 
 
 \paragraph{Анализ мультимоделей в зависимости от уровня шума.} 
-\begin{figure}[h!t]\center
+\begin{figure}[!ht]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_synthetic_param_progress_noise}
 \caption{График зависимости центра и радиуса окружностей от номера итерации: (a)--(b) модель с регуляризацией априорных распределений; (c)--(d) модель с заданными априорными распределениями на параметры моделей; (e)--(f) модель без задания априорных распределений}
 \label{ch4-experiment:st:3:1}
 \end{figure}
 
-\begin{figure}[h!t]\center
+\begin{figure}[!ht]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_synt_likelihood_progress_noise}
 \caption{График зависимости логарифма правдоподобия \eqref{ch4-eq:st:new:1} от уровня шума
 }
@@ -559,7 +559,7 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 Данная часть вычислительного эксперимента показывает, что мультимодель~$\textbf{f}_3$ с регуляризацией априорного распределения является более устойчива к шуму, чем остальные.
 
 \paragraph{Реальные данные.}
-\begin{figure}[h!t]\center
+\begin{figure}[!ht]\center
 \includegraphics[width=0.9\textwidth]{results/priorexpert/experiment_real_compare}
 \caption{Мультимодель в зависимости от разных априорных предположений на реальном изображении: (a) исходное изображение; (b) бинаризованое изображение; (c) мультимодель без априорных предположений; (d) мультимодель с априорными распределениями на параметрах локальных моделей; (e) мультимодель с регуляризаций на априорных распределениях параметров локальных моделей}
 \label{ch4-experiment:2}
@@ -570,19 +570,19 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 Мультимодель~$\textbf{f}_1$  не верно аппроксимирует меньшую окружность.
 Мультимодели~$\textbf{f}_2, \textbf{f}_3$ аппроксимируют обе окружности верно.
 
-\begin{figure}[h!t]\center
+\begin{figure}[!ht]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_real_not_prior}
 \caption{Визуализации процесса сходимости мультимодели без использования априорного распределения}
 \label{ch4-experiment:3}
 \end{figure}
 
-\begin{figure}[h!t]\center
+\begin{figure}[!ht]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_real_prior}
 \caption{Визуализации процесса сходимости мультимодели с использованием априорного распределением}
 \label{ch4-experiment:4}
 \end{figure}
 
-\begin{figure}[h!t]\center
+\begin{figure}[!ht]\center
 \includegraphics[width=1\textwidth]{results/priorexpert/experiment_real_regular}
 \caption{Визуализации процесса сходимости мультимодели с использованием априорной регуляриции}
 \label{ch4-experiment:5}
@@ -594,7 +594,7 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 
 Проведен вычислительный эксперимент по анализу качества моделей кривых второго порядка на изображении. Эксперимент разделен на несколько частей. Первая часть - это эксперимент с несколькими окружностями на изображении. Во второй части анализируется сходимость метода в зависимости от уровня шума в данных и от указанной экспертной информации. В третьей части проводится эксперимент по аппроксимации радужной оболочки глаза.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \center
 	\subfloat[]{\includegraphics[height = 0.2\textheight]{results/priorexpertfig/900.eps}} 
 	\subfloat[]{\includegraphics[height = 0.2\textheight]{results/priorexpertfig/901.eps}}
@@ -603,7 +603,7 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 \label{ch4-ce:fig3}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
 \center
 	\subfloat[]{\includegraphics[height = 0.2\textheight]{results/priorexpertfig/900noise.eps}} 
 	\subfloat[]{\includegraphics[height = 0.2\textheight]{results/priorexpertfig/901noise.eps}}\\
@@ -618,14 +618,14 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 На рисунке \ref{ch4-ce:fig3} показан результат построения ансамбля локально аппроксимирующих моделей, которые аппроксимируют образец. Каждая локальная модель аппроксимирует одну окружность, а при добавлении еще большего шума качество аппроксимации падает.
 На рисунке \ref{ch4-ce:fig4} показан график зависимости радиуса окружностей~$ r~$ и их центров~$(x_0, y_0)$ от номера итерации.
 
-\begin{figure}[h!t]
+\begin{figure}[!ht]
 \center
 \includegraphics[width=0.8\textwidth]{results/priorexpertfig/beta_gamma}
 \caption{Результат аппроксимации для данных с разными уровнями шума~$\beta$ и дисперсией априорного распределения~$\gamma$}
-\label{ch4-ce:fig6}
+\label{ch4-ce:fig4-1}
 \end{figure}
 
-\begin{figure}[h!t]
+\begin{figure}[!ht]
 \center
 \includegraphics[width=0.5\textwidth]{results/priorexpertfig/3dplot}
 \caption{Зависимость моделей от уровня шума~$\beta$ в данных, а также от дисперсии априорного распределения~$\gamma$}
@@ -634,17 +634,17 @@ p^{1}\bigr(\textbf{w}_1\bigr)\sim\mathcal{N}\bigr(\textbf{w}^{0}_{1}, \textbf{I}
 
 В этой части эксперимента анализируется качество аппроксимации~$S$ в зависимости от уровня шума~$\beta$ в данных и по параметру априорных распределений~$\gamma$. Алгоритм генерации: сначала случайным образом выбираются два вектора параметров:~$\mathbf{w}^\text{true}_{1}$ и~$\mathbf{w}^\text{true}_{2}$ коэффициенты двух парабол. Векторы~$\mathbf{w}^\text{true}_{1}$ и~$\mathbf{w}^\text{true}_{2}$ используются для создания точек~$x_i$ и~$y_i$ с добавлением нормального шума~$\varepsilon\sim\mathcal{N}\bigr(0, \beta\bigr)~$. При обучении мультимодели, априорное распределение параметров считается~$\mathbf{w}_1\sim\mathcal{N}\bigr(\mathbf{w}^\text{true}_{1}, \gamma\mathbf{I}\bigr), \mathbf{w}_2\sim\mathcal{N}\bigr(\mathbf{w}^\text{true}_{2},\gamma\mathbf{I}\bigr)$.
 
-Рассмотри критерий качества:
+Рассмотрим критерий качества:
 \[
 S = ||\mathbf{w}^\text{pred}_{1} - \mathbf{w}^\text{true}_{1}||^{2}_{2} + ||\mathbf{w}^\text{pred}_{2} - \mathbf{w}^\text{true}_{2}||^{2}_{2},
 \]
 где~$\mathbf{w}^\text{pred}_{1}$ аппроксимация вектора параметров первой локальной модели, а~$\mathbf{w}^\text{pred}_{2}~$ аппроксимация вектора параметров второй локальной модели.
 
-На рисунке \ref{ch4-ce:fig5} показана зависимость критерия качества~$S$ от уровня шума~$\beta$ и параметра априорного распределения~$\gamma$. График показывает, что при низком уровне шума~$\beta$ качество приближения не зависит от параметра~$\gamma$, а с увеличением шума~$\beta$ качество приближения~$S$ снижается.
+На рисунке \ref{ch4-ce:fig4-1} показана зависимость критерия качества~$S$ от уровня шума~$\beta$ и параметра априорного распределения~$\gamma$. График показывает, что при низком уровне шума~$\beta$ качество приближения не зависит от параметра~$\gamma$, а с увеличением шума~$\beta$ качество приближения~$S$ снижается.
 
 На рисунке \ref{ch4-ce:fig5} показан пример того, как алгоритм работает с разными параметрами~$\beta$ и~$\gamma$. Видно, что в отсутствие шума~$\beta$ обе локальные модели аппроксимируют образец. С увеличением уровня шума качество аппроксимации снижается: при~$\beta = 0{,}2$ при увеличении~$\gamma$ первая локальная модель от параболы переходит в эллипс; при~$\beta = 0{,}4$ при увеличении~$\gamma$ первая локальная модель из параболы переходит в эллипс, а вторая модель из параболы переходит в гиперболу.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \center
 	\subfloat[]{\includegraphics[height = 0.17\textheight]{results/priorexpertfig/not_prior_real_example}} 
 	\subfloat[]{\includegraphics[height = 0.17\textheight]{results/priorexpertfig/prior_real_example}}

@@ -472,7 +472,10 @@ p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsi
 \]
 Множество структур, порождаемое структурой~$(n_{1}', n_{2}', \ldots, n_{L}')$ учителя~$\mathbf{f}$:
 \[
-\mathfrak{H}_{\mathbf{f}} = \left\{\mathbf{n} = \left(n_1, \ldots, n_{T}\right)|~ n_i \in \mathbb{N}; \quad n_i \leq n_{i}',~3\leq T\leq L,~n_{T}=n^{'}_{L}; \quad n_{T-1} \leq n_{i}',~i > T\right\},
+\begin{aligned}
+    \mathfrak{H}_{\mathbf{f}} = \Big\{\mathbf{n} = \left(n_1, \ldots, n_{T}\right)|~&n_i \in \mathbb{N}; \\
+    & n_i \leq n_{i}',~3\leq T\leq L,~n_{T}=n^{'}_{L}; \quad n_{T-1} \leq n_{i}',~i > T\Big\},
+\end{aligned}
 \]
 описывает конечное подмножество структур в континуальном множестве.
 
@@ -584,7 +587,7 @@ g = \bm{\sigma} \circ \mathbf{W}_3\bm{\sigma} \circ \mathbf{W}_2\bm{\sigma} \cir
 \]
 В качестве функции активации выбрана~$\text{ReLu}$.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \includegraphics[width=0.5\textwidth]{results/bayesdistil/synthetic_likelihood_3_layers.eps}
 \includegraphics[width=0.5\textwidth]{results/bayesdistil/synthetic_D_KL_3_layers.eps}
 \caption{Структура \eqref{ch:3:eq:ex:3} модели ученика $g$. Слева: правдоподобие выборки в зависимости от номера итерации при обучении. Справа: KL--дивергенция между вариационным и априорным распределениями параметров модели}
@@ -609,7 +612,7 @@ g = \bm{\sigma} \circ \mathbf{W}_2\bm{\sigma} \circ \mathbf{W}_1,
 \]
 В качестве функции активации выбрана~$\text{ReLu}$.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \includegraphics[width=0.5\textwidth]{results/bayesdistil/synthetic_likelihood_2_layers.eps}
 \includegraphics[width=0.5\textwidth]{results/bayesdistil/synthetic_D_KL_2_layers.eps}
 \caption{Структура \eqref{ch:3:eq:ex:5} модели ученика $g$. Слева: правдоподобие выборки в зависимости от номера итерации при обучении. Справа: KL--дивергенция между вариационным и априорным распределениями параметров модели}
@@ -639,7 +642,7 @@ g = \bm{\sigma} \circ \mathbf{W}_2\bm{\sigma} \circ \mathbf{W}_1,
 \]
 В качестве функции активации выбрана~$\text{ReLu}$.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \includegraphics[width=0.5\textwidth]{results/bayesdistil/fashionmnist_likelihood_2_layers.eps}
 \includegraphics[width=0.5\textwidth]{results/bayesdistil/fashionmnist_D_KL_2_layers.eps}
 \caption{Слева: правдоподобие выборки в зависимости от номера итерации при обучении. Справа: KL--дивергенция между вариационным и априорным распределениями параметров модели}
