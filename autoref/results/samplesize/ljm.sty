@@ -1,0 +1,496 @@
+% Style for La-TeX version of LJM ver. 07.02.17
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        HEADINGS             %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[tbtags]{amsmath}
+\usepackage{amscd}
+\usepackage{amsthm}
+\usepackage{mathtext}
+\usepackage[T2A]{fontenc}
+\usepackage[cp1251]{inputenc}
+\usepackage[russian,english]{babel}
+\usepackage{literat}
+\usepackage{pifont}
+\usepackage{bm}
+\usepackage{array}
+\usepackage{dcolumn}
+\usepackage{hhline}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{rotating}
+\usepackage{calc}
+\usepackage{tabularx}
+\usepackage{afterpage}
+\usepackage{ifthen}
+\usepackage{caption2}
+\usepackage{substr}
+\usepackage[mathscr]{eucal}  %% My addition
+\usepackage{mathrsfs}        %% My addition
+\usepackage{hypbmsec}        %% My addition
+\usepackage{latexsym}        %% My addition
+\usepackage{xypic}           %% My addition
+\RequirePackage{soul}
+\RequirePackage{verbatim}    %% My addition
+\RequirePackage{chapterbib}
+\RequirePackage{enumerate}
+
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+%%%%%%% для caption2 %%%%%%%%
+\setcaptionwidth{\linewidth}
+\renewcommand{\captionlabeldelim}{.~}
+\renewcommand{\captionlabelfont}{\bfseries}
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand \thefigure{\@arabic\c@figure}
+\renewcommand \thetable{\@arabic\c@table}
+\renewcommand{\arraystretch}{1.5}
+\setlength{\extrarowheight}{2pt}
+\setlength{\extratabsurround}{2pt}
+
+\renewcommand{\topfraction}{.90}
+\renewcommand{\dbltopfraction}{.90}
+\renewcommand{\bottomfraction}{.90}
+\renewcommand{\textfraction}{0.10}
+\renewcommand{\floatpagefraction}{0.90}
+\renewcommand{\dblfloatpagefraction}{0.90}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{6}
+%
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\let\PBS=\PreserveBackslash
+\def\settabpars#1#2#3{\vskip#1mm \tabcolsep=#2pt \def\arraystretch{#3}}
+\newdimen\tabwidth\newdimen\tbwdth
+\newcommand{\stretchtab}[2][1.0]{\setbox0=\hbox{\tabcolsep=0sp\ignorespaces#2}
+          \setbox1=\hbox{\tabcolsep=1sp\ignorespaces#2}
+          \tabwidth=#1\hsize \advance\tabwidth by -\wd0
+          %\multiply\tabwidth by 1
+          \tbwdth=\wd1\advance\tbwdth by -\wd0
+          \divide\tabwidth by \tbwdth
+          \tabcolsep=\tabwidth #2}
+\newcommand\figcaption{\def\@captype{figure}\caption}
+\newcommand\tabcaption{\let\captionfont\small\def\@captype{table}\caption}
+\renewcommand*\caption@@@normal{%
+\parfillskip0pt plus 2fil%
+  \caption@label\captiontext\par}
+\newcaptionstyle{nonumber}{%
+  \usecaptionmargin%
+  \captionfont%
+  \onelinecaption%
+    {{\parbox[t]{\realcaptionwidth}{\parfillskip0pt plus 2fil\captiontext}}}%
+    {\parfillskip0pt plus 2fil\captiontext}
+}%
+\newcommand{\commes}[1]{#1}
+\def\place@bibnumber@inl#1{#1.}%
+\flushbottom
+\def\refitem#1{\relax}
+
+%%%%%%%%%%%
+
+\advance \topsep by 2pt
+\newdimen\remarktopsep
+\remarktopsep=\topsep
+\divide\remarktopsep by 2
+
+\theoremstyle{plain}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\textheight=23.5cm
+\hoffset 6mm
+\fussy
+\lineskip 1.5pt plus 0.4pt
+\normallineskip 1.5pt plus 0.4pt
+\lineskiplimit 1.5pt
+\@lowpenalty   51
+\@medpenalty  151
+\@highpenalty 301
+\@beginparpenalty -\@lowpenalty
+\@endparpenalty   -\@lowpenalty
+\@itempenalty     -\@lowpenalty
+\arraycolsep 3pt
+\tabcolsep 2pt
+\arrayrulewidth .4pt
+\doublerulesep 2pt
+\skip\@mpfootins = 0pt
+\fboxsep  = 3.0pt
+\fboxrule = 0.4pt
+
+\pretolerance=500
+\tolerance=900
+\hyphenpenalty=750
+\emergencystretch=5pt
+\binoppenalty=700
+\relpenalty=500
+\clubpenalty=10000 % TeXBook 128,323
+\widowpenalty=10000 %
+\thinmuskip=3mu
+\medmuskip=4mu plus 0mu minus 1mu
+\thickmuskip=5mu plus 0mu
+
+
+
+\newcommand{\ljm}{Lobachevskii Journal of Mathematics}
+\def\addspaceskip#1#2{\spaceskip=#1\fontdimen2\the\font plus#2\fontdimen3\the\font%
+\xspaceskip=\spaceskip}
+
+\def\@oddfoot{\footnotesize \hspace{12pt} \MakeUppercase{\ljm} \hfil}
+\def\@evenfoot{\hfil \footnotesize \MakeUppercase{\ljm}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\S{{\mathsurround=0pt $\mathchar632$}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\thepart          {\Roman{part}} %
+\def\thesection       {\arabic{section}}
+\def\p@section        {}
+\def\thesubsection    {\thesection.\arabic{subsection}}
+\def\p@subsection     {\thesection.}
+\def\thesubsubsection {\thesection.\arabic{subsection}.\arabic{subsubsection}}
+\def\p@subsubsection  {\thesection\,\thesubsection\,}
+\def\theparagraph     {\alph{paragraph}}
+\def\thesubparagraph  {\theparagraph.\arabic{subparagraph}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%  11pt %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\normalsize{%
+    \@setfontsize\normalsize\@xipt{11.2}%
+    \abovedisplayskip 6pt %6\p@ \@plus2\p@ \@minus2\p@
+    \belowdisplayskip 6pt %6\p@ \@plus2\p@ \@minus2\p@
+    \abovedisplayshortskip  \abovedisplayskip
+    \belowdisplayshortskip \belowdisplayskip
+    \let\@listi\@listI
+}%
+\def\small{%
+   \@setfontsize\small\@xpt{10.2}
+   \abovedisplayskip 5pt %5\p@ \@plus1\p@ \@minus1\p@
+    \abovedisplayshortskip  \abovedisplayskip
+   \belowdisplayshortskip 5pt %5\p@ \@plus1\p@ \@minus1\p@
+   \def\@listi{\leftmargin\leftmargini
+               \topsep 6pt %6\p@ \@plus2\p@ \@minus2\p@
+               \parsep 3pt %3\p@ \@plus2\p@ \@minus\p@
+               \itemsep \parsep
+   }%
+   \belowdisplayskip \abovedisplayskip
+}%
+\def\footnotesize{%
+   \@setfontsize\footnotesize\@ixpt{9.2}%
+   \abovedisplayskip 4\p@ \@plus1\p@ \@minus0\p@
+   \abovedisplayshortskip  \abovedisplayskip
+   \belowdisplayshortskip 4\p@ \@plus1\p@ \@minus0\p@
+%!!
+   \def\@listi{\leftmargin\leftmargini
+               \topsep 4\p@ \@plus2\p@ \@minus2\p@
+               \parsep 2\p@ \@plus\p@ \@minus\p@
+               \itemsep \parsep
+   }%
+   \belowdisplayskip \abovedisplayskip
+}%
+\oddsidemargin -9mm
+\evensidemargin -9mm
+\marginparwidth 60pt
+\topmargin -1.29cm %! 2.54-1.25
+\headheight 11pt %!
+\headsep 2cm %! 2cm - 1.25cm - 11pt
+\addtolength{\headsep}{-1.25cm} %!
+\addtolength{\headsep}{-\headheight} %!
+\topskip 11pt %!
+\footskip 0.5cm %!
+\addtolength{\footskip}{11pt}
+
+\textwidth 16.5cm %!
+\columnsep 0pt  %!
+\skip\footins 5mm plus 4pt minus 2pt %!
+\def\footnoterule{\kern-5.25pt\hrule width3cm\kern4.85pt} %!
+\floatsep        0.6cm plus .15cm minus .1cm %!
+\textfloatsep    0.6cm plus .15cm minus .1cm %!
+\intextsep       0.6cm plus .15cm minus .1cm %!
+\dblfloatsep     0.6cm plus .15cm minus .1cm %!
+\dbltextfloatsep 0.6cm plus .15cm minus .1cm %!
+\marginparpush 7pt
+\parskip 2pt plus 6pt minus 2pt
+\parindent .5cm %!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\section{%
+  \@startsection
+    {section}%
+    {1}%
+    {\z@}%
+    {18pt \@plus 2pt \@minus 8pt}%
+    {4pt \@plus 2pt \@minus 3pt}%
+    {%
+      \normalfont
+      \centering
+\addspaceskip{1.5}{1.5}
+    }%
+}%
+\def\subsection{%
+  \@startsection
+    {subsection}%
+    {2}%
+    {\z@}%
+    {18pt \@plus 2pt \@minus 8pt}%
+    {4pt \@plus 2pt \@minus 3pt}%
+    {%
+     \normalfont\slshape
+     \centering
+    }%
+}% The FOLLOWING is taken from "mnpaper" (it replaces the fragment "section-add"):
+\def\subsubsection{\@startsection{subsubsection}{3}{0pt}%
+{-1ex plus -1ex minus -.2ex}{-0.8ex plus -.2ex}{\normalsize\normalfont\bfseries}}
+
+\renewenvironment{abstract}{%
+  \aftermaketitle@chk{\begin{abstract}}%
+  \global\setbox\absbox\vbox\bgroup
+   \color@begingroup
+   \columnwidth\textwidth
+   \hsize\columnwidth
+   \@parboxrestore
+   \def\@mpfn{mpfootnote}\def\thempfn{\thempfootnote}\c@mpfootnote\z@
+   \let\@footnotetext\frontmatter@footnotetext
+   \minipagefootnote@init
+   \let\@listdepth\@mplistdepth \@mplistdepth\z@
+   \@minipagerestore
+   \@setminipage
+    \frontmatter@abstractheading
+    \frontmatter@abstractfont
+    \let\footnote\mini@note
+{\small \bfseries \abstractname\normalfont}---\ignorespaces
+}{%
+    \par
+    \unskip
+    \minipagefootnote@here
+    \@minipagefalse   %% added 24 May 89
+    \color@endgroup
+  \egroup
+}%
+\def\frontmatter@abstractheading{
+\vspace{0.1cm}
+}
+ \def\frontmatter@abstractwidth{14.5cm}%
+%!!
+\def\frontmatter@abstractfont{%
+ \small
+  \advance\leftskip1cm
+  \advance\rightskip1cm
+  }%
+\@ifxundefined\footinbib@sw{\@booleantrue\footinbib@sw}{}%
+\appdef\class@documenthook{%
+  \preprintsty@sw{%
+   \@ifxundefined\titlepage@sw{\@booleantrue\titlepage@sw}{}%
+   \def\baselinestretch{1.5}%
+   \def\frontmatter@abstractwidth{.75\textwidth}%
+   \let\section\section@preprintsty
+   \let\subsection\subsection@preprintsty
+   \let\subsubsection\subsubsection@preprintsty
+  }{}%
+ }%
+\def\frontmatter@authorformat{%
+ \skip@\@flushglue
+ \@flushglue\z@ plus.3\hsize\relax
+ \centering
+ \renewcommand{\baselinestretch}{1}%\baselineskip3ex
+ \parskip\z@skip
+ \@flushglue\skip@
+\normalfont\large\bfseries
+}%
+%\def\frontmatter@above@affiliation{\smallskip}%
+%\def\frontmatter@affiliationfont{\normalfont\small\itshape}%
+\@ifxundefined\groupauthors@sw{%
+ \clo@groupedaddress
+}{}%
+\def\frontmatter@setup{\normalfont\centering}%
+\def\frontmatter@title@produce{%
+\hrule\vspace{0.08cm}\hrule
+\vspace{34pt}
+%\begingroup\Large\bfseries\@title\par\addvspace{10pt plus 1pt}\endgroup
+\begingroup\Large\bfseries\addspaceskip{1.5}{1.5}\@title\par\addvspace{10pt plus 1pt}\endgroup
+}%
+%\def\frontmatter@makefnmark{\@textsuperscript{\normalfont\@thefnmark}}%
+\def\punct@RRAP{;\egroup\ \hbox\bgroup}%
+\def\@gobble@leavemode@uppercase#1#2{\expandafter\MakeTextUppercase}%
+\def\frontmatter@RRAPformat#1{%
+ \begingroup
+  \footnotesize
+  \centering\parskip.5ex\relax
+  \everypar{\hbox\bgroup\@gobble@leavemode@uppercase}%
+  \def\par{\@ifvmode{}{\unskip\egroup\@@par}}%
+  #1\par
+ \endgroup
+}
+
+\def\bibsection{
+  \section*{\MakeTextUppercase\refname}
+}%
+
+
+\def\titlerunning#1{\gdef\@titlerunning{\uppercase{#1}}}\edef\@titlerunning{}%
+\def\authorrunning#1{\gdef\@authorrunning{\uppercase{#1}}}\edef\@authorrunning{}%
+\def\toctitle#1{\gdef\@toctitle{#1}}\edef\@toctitle{}%
+\gdef\tocauthor#1{\gdef\@tocauthor{#1}}\edef\@tocauthor{}
+
+\def\@evenhead{\hbox to \textwidth{\small\thepage\hfil\hbox{\small\rm\unboldmath\ignorespaces\addspaceskip{1.5}{1.5}\@authorrunning}\hfil\hphantom{\thepage}}%
+\figmove@sw{\special{html: evenhead: src:\the\inputlineno\CurrentInput}}{}%
+}%
+\def\@oddhead{\hbox to \textwidth{\small\hphantom{\thepage}\hfil\hbox{\small\rmfamily\unboldmath\ignorespaces\addspaceskip{1.5}{1.5}\@titlerunning}\hfil\thepage}%
+\figmove@sw{\special{html: oddhead: src:\the\inputlineno\CurrentInput}}{}%
+}%
+\def\textmakefnmark#1#2{%
+\c@footnote#1
+\def\@fnmarkadd{#2}
+\def\@makefnmark{\hbox{\@textsuperscript{\normalfont\@fnmark}}}
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\def\author#1{\gdef\@author{#1}}
+%\gdef\@author{}
+
+\def\tauthor#1{\gdef\@tauthor{#1}}
+\gdef\@tauthor{}
+
+\def\crauthor#1{\gdef\@crauthor{\uppercase{#1}}}
+\gdef\@tauthor{}
+
+\def\tit#1{\gdef\@tit{\Large{#1}}}
+\gdef\@tit{}
+
+\def\shorttit#1{\gdef\@shorttit{\uppercase{#1}}}
+\gdef\@shorttit{}
+
+\def\subclass#1{\gdef\@subclass{%
+\parbox[t]{\frontmatter@abstractwidth}{{\small \textbf{2010 Mathematical Subject Classification:}~\texttt{#1} \hfill}}{}
+}}
+\gdef\@subclass{}
+
+%\def\address{\replace@command\address\affiliation}
+\def\@keywords@name{Keywords~and~phrases:}%
+\def\@keywords@produce#1{%
+\parbox[t]{\frontmatter@abstractwidth}{{\small \@keywords@name~\textit{#1} \hfill}}{}
+}%
+
+\renewenvironment{acknowledgments}[1][\unskip]{%
+\smallskip
+\par
+\noindent
+\textbf{Acknowledgments.} #1
+\noindent}
+
+\renewcommand*\email[1][Electronic address: ]{\begingroup\sanitize@url\@email{#1}}%
+\def\@email#1#2{%
+ \endgroup
+ \@AF@join{#1\href{mailto:#2}{#2}}%
+}%
+\def\@fnsymbol#1{\ensuremath{\ifcase#1\or \hbox{*\protect\phantom{***}}\or \hbox{**\protect\phantom{**}}\or \hbox{***\protect\phantom{*}}\or \hbox{****}\or
+  \hbox{*****}\or \hbox{******}\or \hbox{*******}\or  \hbox{********}\or \hbox{*********}\or
+  \hbox{**********}\or \hbox{***********}\or \hbox{************}
+  \else\@ctrerr\fi}}
+\def\afterauthors#1{\gdef\@after@authors{#1}}\edef\@after@authors{\relax}
+
+\def\refitem#1{\relax}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\titleblock@produce{%
+ \begingroup
+  \let\footnote\footnote@latex
+  \let\@makefnmark\@makefnmark@latex
+  \let\@footnotemark\@footnotemark@latex
+  \let\thefootnote\frontmatter@thefootnote
+  \global\c@footnote\z@
+  \let\@makefnmark\frontmatter@makefnmark
+  \frontmatter@setup
+\thispagestyle{titlepage}\label{FirstPage}%
+  \frontmatter@title@produce
+  \groupauthors@sw{\frontmatter@author@produce@group
+  }{\frontmatter@author@produce@script}
+  \frontmatter@RRAPformat{%
+    \expandafter\produce@RRAP\expandafter{\@received}%
+  }%
+  \frontmatter@abstract@produce
+  %\rule{0pt}{15pt}
+  \@subclass
+  \rule{0pt}{15pt}\@keywords@produce\@keywords
+  \par
+  \frontmatter@finalspace
+ \endgroup
+}%%%%
+
+\def\afterauthors#1{\gdef\@after@authors{#1}}\edef\@after@authors{\relax}%
+
+\def\firstaffiliation#1{\appdef@eval{\@firstaffiliation}{#1}}\edef\@firstaffiliation{}%
+\def\lastaffiliation#1{\appdef@eval{\@lastaffiliation}{#1}}\edef\@lastaffiliation{}%
+\def\firstcollaboration#1{\gdef\@firstcollaboration{#1}}\edef\@firstcollaboration{}%
+
+\def\frontmatter@footnote@produce@footnote@star{%
+ \let\@TBN@opr\present@FMNS@footnote
+ \@FMNS@list
+ \global\let\@FMNS@list\@empty
+}%
+
+%\def\@affil@script#1#2#3{%
+% \@ifnum{#1=\z@}{}{%
+%  \par
+%  \begingroup
+%   \frontmatter@affiliationfont
+%   \textsuperscript{#1}%
+%   #2%
+%   \@if@empty{#3}{}{\frontmatter@footnote{#3}}%
+%   \par
+%  \endgroup
+% }%
+%}%
+
+\def\frontmatter@author@produce@script{%
+  \begingroup
+    \let\@author@present\@author@present@script
+    \let\AU@temp\@empty
+    \@tempcnta\z@
+    \let\AF@opr \@gobble
+    \def\AU@opr{\@author@count\@tempcnta}%
+    \def\CO@opr{\@collaboration@count\AU@temp\@tempcnta}%
+    \@AAC@list
+    \expandafter\CO@opr\@author@cleared
+    \begingroup
+\frontmatter@authorformat
+\let\AF@opr \@affilID@def
+\let\AU@opr \@author@present
+\def\CO@opr{\@collaboration@present\AU@temp}%
+\set@listcomma@list\AU@temp
+%\say{\@AAC@list}
+\@AAC@list \unskip\unskip
+%!
+\@after@authors
+%!!
+\par
+\endgroup
+    \begingroup
+\frontmatter@above@affiliation@script
+%!
+%% Collaboration
+\@ifempty\@firstcollaboration{}{{\vspace*{6pt}\normalfont\large\@firstcollaboration}\par\smallskip}
+%% Вставляем адрес организации представившей статью
+\@ifempty\@firstaffiliation{}{\normalfont\small\itshape\@firstaffiliation\par}
+\let\AFF@opr \@affil@script
+\noindent\parbox{\textwidth}{\@AFF@list}{}
+%\@AFF@list
+\frontmatter@footnote@produce \frontmatter@footnote@produce@footnote@star
+\par
+\endgroup
+  \endgroup
+}%
+
+
+\@ifxundefined\figmove@sw{\@booleanfalse\figmove@sw}{}%
+\def\figmovetrue{\expandafter\makeatletter\expandafter\@booleantrue\expandafter\figmove@sw\expandafter\makeatother}%
+\def\figmovefalse{\expandafter\makeatletter\expandafter\@booleanfalse\expandafter\figmove@sw\expandafter\makeatother}%
+\figmove@sw{\special{html: makecol: start column \the\pagegrid@col\space colht=\the\@colht\space colroom=\the\@colroom\space src:\the\inputlineno\CurrentInput}}{}%
+\renewcommand\onecolumngrid{\do@columngrid{one}{\@ne}\figmove@sw{\special{html: onecolumngrid:}}{}}%
+\renewcommand\twocolumngrid{\do@columngrid{mlt}{\tw@}\figmove@sw{\special{html: twocolumngrid:}}{}}%
+
+ \global\let\@FMNS@list\@empty
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
