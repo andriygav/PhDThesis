@@ -162,7 +162,7 @@
 Построение и выбор оптимальной структуры нейронной сети является вычислительно сложной процедурой~(Sutskever: 2014), которая значимо влияет на итоговое качество модели. 
 При этом большинство параметров модели перестают значимо изменяться уже после небольшого числа итераций алгоритма оптимизации~(Chunyan: 2016).
 Своевременное определение начала сходимости параметров существенно снижает вычислительные затраты на обучение моделей с большим числом параметров.
-Примерами моделей, с большим число параметров, являются AlexNet~(Krizhevsky: 2012), VGGNet~(Simonyan: 2014), ResNet~(Kaiming: 2015), BERT(Devlin: 2018, Vaswani: 2017), mT5~(Linting: 2021), GPT3~(Brown: 2020).
+Примерами таких моделей являются AlexNet~(Krizhevsky: 2012), VGGNet~(Simonyan: 2014), ResNet~(Kaiming: 2015), BERT(Devlin: 2018, Vaswani: 2017), mT5~(Linting: 2021), GPT3~(Brown: 2020).
 Рост числа параметров моделей глубокого обучения влечет снижение интерпретируемости ответов этих моделей~(Ivakhnenko: 1994).
 Проблема с неинтерпретируемыми моделями рассматривается в классе задач по состязательным атакам~(Zheng: 2020).
 
@@ -172,14 +172,14 @@
 Сложная модель с большим числом параметров называется~\textit{учитель}. Модель учителя дистиллируется в менее сложную модель с малым числом параметров, которая называется~\textit{ученик}.
 Методы дистилляции моделей глубокого обучения введены в работах Дж.\,Е. Хинтона и В.\,Н. Вапником~(Hinton: 2015, Vapnik: 2015, Lopez: 2016).
 Предлагается использовать предсказания модели учителя для повышения качества ученика.
-В~(Vapnik: 2015) В.\,Н. Вапником вводит понятие привилегированной информации. Оно использует дополнительную информацию о данных в момент обучения модели.
-Работа~(Lopez: 2016) объединяет идеи дистилляции~(Hinton: 2015) с идеями привилегированного обучения~(Vapnik 2015), предложив метод дистилляции учителя в модель ученика в случае, когда признаковое описания объектов не совпадает..
+В работе~(Vapnik: 2015) В.\,Н. Вапником вводится понятие привилегированной информации. Оно использует дополнительную информацию о данных в момент обучения модели.
+Работа~(Lopez: 2016) объединяет идеи дистилляции~(Hinton: 2015) с идеями привилегированного обучения~(Vapnik 2015). Предлагается метод дистилляции учителя в модель ученика в случае, когда признаковое описания объектов не совпадает.
 В~(Lopez: 2016) решается двухэтапная задача. На первом этапе строится модель учителя с расширенным признаковым описанием.
-На втором этапе при помощи дистилляции~(Hinton: 2015) обучается ученика в исходном признаковом описании.
+На втором этапе при помощи дистилляции~(Hinton: 2015) обучается ученик в исходном признаковом описании.
 В работе Дж.\,Е. Хинтона~(Hinton: 2015) поставлены эксперименты по дистилляции моделей глубокого обучения для задачи классификации.
 Первый эксперимент анализирует выборку MNIST. Он показывает, что предложенный метод дистилляции позволяет построить нейросетевую модель меньшей сложности на основе модели большей сложности.
 Второй эксперимент анализирует метод дистилляции ансамбля моделей в одну нейросетевую модель для решения задачи распознания речи. В работе~(Hinton: 2015) проводится сравнение дистилляции с моделью смеси экспертов.
-Дальнейшие работы по дистилляции моделей глубокого обучения исследуют методы, использующие информации о значениях параметров модели учителя, для оптимизации параметров модели ученика. В~(Zehao: 2017) предлагается метод передачи селективности~(Tatarchuk: 2014) нейрона минимизирующий специальную функцию потерь. Эта функция основывается на максимизация среднего описания между выходами слоев модели учителя и модели ученика. В рамках вычислительного эксперимента сравнивалось качество базовой дистилляции с предложенным методов на примере выборок CIFAR и ImageNet.
+Дальнейшие работы по дистилляции моделей глубокого обучения исследуют методы, использующие информации о значениях параметров модели учителя, для оптимизации параметров модели ученика. В~(Zehao: 2017) предлагается метод передачи селективности~(Tatarchuk: 2014) нейрона, минимизирующий специальную функцию потерь. Эта функция основывается на максимизация среднего описания между выходами слоев модели учителя и модели ученика. В рамках вычислительного эксперимента сравнивалось качество базовой дистилляции с предложенным методов на примере выборок CIFAR и ImageNet.
 
 Дистилляция моделей глубокого обучения предполагает, что архитектура модели ученика уже известна. Для выбора архитектуры модели ученика предлагается использовать методы прореживания нейросетевых моделей. В работах~(Maclarin: 2015, Luketina: 2015) предлагается использовать алгоритма градиентного спуска для оптимизации сети. В~(Molchanov: 2017) используются байесовские методы~(Neal: 1995) оптимизации параметров нейронных сетей. Существуют методы поиска оптимальной структуры используя удаления параметров сложной модели~(Cun: 1990, Louizos: 2017, Graves: 2011). В работе~(Cun: 1990) предлагается удалять наименее~\textit{релевантные} параметры на основе значений первой и второй производных функции ошибки. В~(Grabovoy: 2019) предложен метод определения релевантности параметров аппроксимирующих моделей при помощи метода Белсли. \textit{Релевантность} параметров в работе~(Grabovoy: 2019) определяется на основе ковариационной матрицы параметров модели.
 Другим примером задания порядка на множестве параметров служит $l_1$-регуляризация~(Tibshirani: 1996) и регуляризация ElasticNet~(Hastie: 2005) для линейных моделей.
@@ -187,7 +187,7 @@
 В случае нейросетей для регуляризации параметров используется метод исключения параметров~(Srivastava: 2014, Molchanov: 2017).
 Он также задает порядок на множестве параметров модели.
 
-Порядок на множестве параметров нейросети используется не только для удаления неимение релевантных параметров, а и для фиксации параметров в процесе оптимизации параметров. Работа~(Grabovoy: 2020) посвящена оптимизации структуры нейронной сети, а также выбору параметров, которые фиксируются после некоторой итерации градиентного метода. 
+Порядок на множестве параметров нейросети используется не только для удаления наименее релевантных параметров, а и для фиксации параметров в процессе их оптимизации. Работа~(Grabovoy: 2020) посвящена оптимизации структуры нейронной сети, а также выбору параметров, которые фиксируются после некоторой итерации градиентного метода. 
 
 
 \vspace{0.5cm}
@@ -197,12 +197,12 @@
 \item Предложить байесовский метод выбора моделей с использованием модели учителя с привилегированной и накопленной информацией.
 \item Предложить метод назначения априорного распределения параметров модели ученика с использованием апостериорного распределения параметров модели учителя.
 \item Предложить вероятностную интерпретацию дистилляции моделей глубокого обучения.
-\item Предложить метод использования экспертной информации о решаемой задачи прогнозирования при построении априорного распределения параметров.
+\item Предложить метод использования экспертной информации о решаемой задаче прогнозирования при построении априорного распределения параметров.
 \item Предложить метод назначения релевантности параметров моделей глубокого обучения для выбора модели машинного обучения.
 \end{enumerate}
 
 \vspace{0.5cm}
-\textbf{Методы исследования.} Для достижения поставленных целей используются методы вариационного байесовского вывода~(MacKay: 2002, Bishop: 2006), вероятностные~(Shiriyaev: 1980) методы к анализу моделей глубокого обучения, статистические методы~(Kobzar: 2012, Bishop: 2006) анализа распределений параметров моделей глубокого обучения.
+\textbf{Методы исследования.} Для достижения поставленных целей используются методы вариационного байесовского вывода~(MacKay: 2002, Bishop: 2006), вероятностные~(Shiriyaev: 1980) методы анализа моделей глубокого обучения, статистические методы~(Kobzar: 2012, Bishop: 2006) анализа распределений параметров моделей глубокого обучения.
 
 \vspace{0.5cm}
 \textbf{Основные положения, выносимые на защиту.}
@@ -257,14 +257,6 @@
 
 \vspace{0.5cm}
 \textbf{Публикации по теме диссертации.} Основные результаты по теме диссертации изложены в 6 печатных изданиях в журналах, рекомендованных ВАК.
-\begin{enumerate}
-    \item \textit{Грабовой\;А.В., Стрижов\;В.В.} Байесовская дистилляция моделей глубокого обучения~// Автоматика и телемеханика ---~2021. ---~Т.~11. ---~С.~16--29.
-    \item \textit{Грабовой\;А.В., Стрижов\;В.В.} Анализ выбора априорного распределения для смеси экспертов~// Журнал вычислительной математики и математической физики ---~2021. ---~Т.~61, №~7. ---~С.~1149--1161.
-    \item \textit{Grabovoy\;A., Strijov\;V.} Quasi-periodic time series clustering for human // Lobachevskii Journal of Mathematics ---~2020. Vol.~41. ---~Pp.~333--339.
-    \item \textit{Грабовой\;А.В., Бахтеев\;О.Ю., Стрижов\;В.В.} Введение отношения порядка на множестве параметров аппроксимирующих моделей~// Информатика и ее применения ---~2020. ---~Т.~14, №~2. ---~С.~58--65.
-    \item \textit{Грабовой\;А.В., Бахтеев\;О.Ю., Стрижов\;В.В.} Определение релевантности параметров нейросети~// Информатика и ее применения ---~2019. ---~Т.~13, №~2. ---~С.~62--70.
-    \item \textit{Грабовой\;А.В., Стрижов\;В.В.} Вероятностная интерпретация задачи дистилляции~// Автоматика и телемеханика ---~2022. ---~Т.~1. ---~С.~150--168.
-\end{enumerate}
 
 \vspace{0.5cm}
 \textbf{Личный вклад.} Все приведенные результаты, кроме отдельно оговоренных случаев, получены диссертантом лично при научном руководстве д.ф.-м.н. В. В. Стрижова.
@@ -297,11 +289,10 @@
 Ученик --- модель, которая выбирается согласно заданного критерия качества использующего учителя.
 \end{definition}
 
-Важным свойством дистиллированных является то, что избыточная сложность модели учителя заключается в большом числе не релевантных параметров.
+Важным свойством дистиллированных является то, что избыточная сложность модели учителя заключается в большом числе не релевантных параметров. Предлагается удалять наименее релевантные параметры модели.
 \begin{definition}
 Релевантность параметров --- численная характеристика описывающая влияние параметров на предсказания моделей.
 \end{definition}
-Предлагается удалять наименее релевантные параметры модели.
 
 Пусть на множестве признаков задана функция учителя $\mathbf{f}\bigr(\mathbf{x}\bigr)$:
 \[
@@ -315,14 +306,7 @@
 \[
 \label{eq:st:G}
 \begin{aligned}
-\mathfrak{G} = \left\{\mathbf{g}| \mathbf{g}:\mathbb{R}^{n} \to \mathbb{Y}^*\right\},
-\end{aligned}
-\]
-например для задачи классификации множество $\mathfrak{G}$ может быть параметрическим семейством функций линейных моделей:
-\[
-\label{eq:st:G:lin:cl}
-\begin{aligned}
-\mathfrak{G}_\text{lin,cl} = \left\{\mathbf{g}\bigr(\mathbf{W}, \mathbf{x}\bigr)| \mathbf{g}\bigr(\mathbf{W}, \mathbf{x}\bigr) = \textbf{softmax}\bigr(\mathbf{W}\mathbf{x}\bigr), \quad \mathbf{W} \in \mathbb{R}^{n\times R}\right\}.
+\mathfrak{G} = \left\{\mathbf{g}| \mathbf{g}:\mathbb{R}^{n} \to \mathbb{Y}^*\right\}.
 \end{aligned}
 \]
 
@@ -344,7 +328,7 @@
 \]
 где $\mathbf{v}$ --- это дифференцируемая параметрическая функция заданной структуры, $T$ --- параметр температуры.
 Параметр температуры $T$ имеет свойства:
-\begin{enumerate}
+\begin{enumerate}[1)]
     \item при $T\to 0$ получаем вектор, в котором один из классов имеет единичную вероятность;
     \item при $T\to \infty$ получаем равновероятные классы.
 \end{enumerate}
@@ -353,8 +337,8 @@
 \[
 \label{eq:hinton:1}
 \begin{aligned}
-   \mathcal{L}_{st}\bigr(\mathbf{g}\bigr) = &-\sum_{i=1}^{m}\underbrace{{\sum_{r=1}^{R}y^r_i\log\mathbf{g}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1}}}_{\text{исходная функция потерь}}\\
-   &-\sum_{i=1}^{m}\underbrace{{\sum_{r=1}^{R}\mathbf{f}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}\log\mathbf{g}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}}}_{\text{слагаемое дистилляция}},
+   \mathcal{L}_{st}\bigr(\mathbf{g}\bigr) = &-\sum_{i=1}^{m}\underbrace{{\sum_{r=1}^{R}y^r_i\log\mathbf{g}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1}}}_{\text{исходная функция потерь}}
+   -\sum_{i=1}^{m}\underbrace{{\sum_{r=1}^{R}\mathbf{f}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}\log\mathbf{g}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}}}_{\text{слагаемое дистилляция}},
 \end{aligned}
 \]
 где $\cdot\bigr|_{T=t}$ обозначает, что параметр температуры $T$ в предыдущей функции равняется $t$.
@@ -367,7 +351,7 @@
 \end{aligned}
 \]
 
-Признаковые пространства учителя и ученика могут различаться. Получаем постановку задачи:
+Признаковые пространства учителя и ученика могут различаться:
 \[
     \mathfrak{D} = \left\{\left(\mathbf{x}_i, \mathbf{x}^*_i, y_i\right)\right\}_{i=1}^{m}, \qquad \mathbf{x}_i \in \mathbb{R}^{n}, \quad \mathbf{x}^*_i \in \mathbb{R}^{n^*}, \quad y_i \in \{1, \ldots, R\},
 \]
@@ -385,12 +369,6 @@
 \]
 где $\cdot\bigr|_{T=t}$ обозначает, что параметр температуры $T$ в предыдущей функции равняется $t$.
 
-Требуется построить модель, которая использует привилегированную информацию $\mathbf{x}^*_i$ при обучении.
-\begin{enumerate}
-    \item выбираем оптимальную модель учителя $\mathbf{f} \in \mathfrak{F}_{\text{cl}}^*$;
-    \item выбираем оптимальную модель ученика $\mathbf{g} \in \mathfrak{G}_{\text{cl}}$ используя дистилляцию. 
-\end{enumerate}
-
 Модель ученика --- это функция минимизирующая \eqref{eq:hinton:L:new}. Модель учителя --- это функция минимизирующая кросс--энтропийную функции ошибки:
 \[
 \label{eq:hinton.2}
@@ -398,8 +376,6 @@
    \mathcal{L}_{th}\bigr(\mathbf{f}\bigr) = &-\sum_{i=1}^{m}{{\sum_{r=1}^{R}y^r_i\log\mathbf{f}\bigr(\mathbf{x}^*_i\bigr)}}.
    \end{aligned}
 \]
-
-Для задачи назначения релевантности параметров ...
 
 В~\textbf{главе~2} рассматривается вероятностное обоснование метода дистилляции моделей глубокого обучения.
 
@@ -429,35 +405,7 @@
 p\bigr(\mathbf{Y}, \mathbf{S}|\mathbf{X}, \mathbf{g}, \mathcal{I}\bigr)=\prod_{i\not\in \mathcal{I}}p\bigr(\mathbf{y}_i|\mathbf{x}_i, \mathbf{g}\bigr)\prod_{i\in \mathcal{I}}p\bigr(\mathbf{y}_i, \mathbf{s}_i|\mathbf{x}_i, \mathbf{g}\bigr).
 \end{aligned}
 \end{gather}
-Перепишем~$p\bigr(\mathbf{y}_i, \mathbf{s}_i|\mathbf{x}_i, \mathbf{g}\bigr)$ по формуле условной вероятности:
-\begin{gather}
-\label{eq:st:bernuli}
-\begin{aligned}
-p\bigr(\mathbf{y}_i, \mathbf{s}_i|\mathbf{x}_i, \mathbf{g}\bigr) = p\bigr(\mathbf{y}_i|\mathbf{x}_i, \mathbf{g}\bigr)p\bigr(\mathbf{s}_i|\mathbf{y}_i, \mathbf{x}_i, \mathbf{g}\bigr).
-\end{aligned}
-\end{gather}
-Подставляя выражения~\eqref{eq:st:bernuli} в~\eqref{eq:st:8}, получим
-\begin{gather}
-\label{eq:st:9}
-\begin{aligned}
-p\bigr(\mathbf{Y}, \mathbf{S}|\mathbf{X}, \mathbf{g}, \mathcal{I}\bigr)=\prod_{i\not\in \mathcal{I}}p\bigr(\mathbf{y}_i|\mathbf{x}_i, \mathbf{g}\bigr)\prod_{i\in \mathcal{I}}p\bigr(\mathbf{y}_i|\mathbf{x}_i, \mathbf{g}\bigr)\prod_{i\in \mathcal{I}}p\bigr(\mathbf{s}_i|\mathbf{y}_i, \mathbf{x}_i, \mathbf{g}\bigr).
-\end{aligned}
-\end{gather}
-Заметим, что~$\mathbf{y}_i$ и~$\mathbf{s}_i$ зависимы только через переменную~$\mathbf{x}_i$, тогда~$p\bigr(\mathbf{s}_i|\mathbf{y}_i, \mathbf{x}_i, \mathbf{g}\bigr)=p\bigr(\mathbf{s}_i|\mathbf{x}_i, \mathbf{g}\bigr)$. Получаем совместное правдоподобие
-\begin{gather}
-\label{eq:st:10}
-\begin{aligned}
-p\bigr(\mathbf{Y}, \mathbf{S}|\mathbf{X}, \mathbf{g}, \mathcal{I}\bigr)=\prod_{i\not\in \mathcal{I}}p\bigr(\mathbf{y}_i|\mathbf{x}_i, \mathbf{g}\bigr)\prod_{i\in \mathcal{I}}p\bigr(\mathbf{y}_i|\mathbf{x}_i, \mathbf{g}\bigr)\prod_{i\in \mathcal{I}}p\bigr(\mathbf{s}_i|\mathbf{x}_i, \mathbf{g}\bigr).
-\end{aligned}
-\end{gather}
-Используя~\eqref{eq:st:10}, получаем оптимизационную задачу для поиска~$\hat{\mathbf{g}}$
-\begin{gather}
-\label{eq:st:11}
-\begin{aligned}
-\hat{\mathbf{g}} = \arg\max_{\mathbf{g}\in \mathcal{G}} \prod_{i\not\in \mathcal{I}}p\bigr(\mathbf{y}_i|\mathbf{x}_i, \mathbf{g}\bigr)\prod_{i\in \mathcal{I}}p\bigr(\mathbf{y}_i|\mathbf{x}_i, \mathbf{g}\bigr)\prod_{i\in \mathcal{I}}p\bigr(\mathbf{s}_i|\mathbf{x}_i, \mathbf{g}\bigr).
-\end{aligned}
-\end{gather}
-Для удобства минимизируется логарифм выражения. Тогда из~\eqref{eq:st:11} получаем, что
+Требуется минимизировать логарифм правдоподобия:
 \begin{gather}
 \label{eq:st:12}
 \begin{aligned}
@@ -469,20 +417,14 @@ p\bigr(\mathbf{Y}, \mathbf{S}|\mathbf{X}, \mathbf{g}, \mathcal{I}\bigr)=\prod_{i
 На рис.~\ref{fg:st:plate} показан вид вероятностной модели в графовой нотации для произвольной функции~$\mathbf{g}$.
 
 \begin{figure}[!ht]\center
-\includegraphics[width=0.35\textwidth]{results/privlearn/general_model}
-\caption{Вероятностная модель в графовой нотации.}
-\label{fg:st:plate}
+\subfloat[]{\includegraphics[width=0.35\textwidth]{results/privlearn/general_model}\label{fg:st:plate}}
+\subfloat[]{\includegraphics[width=0.35\textwidth]{results/privlearn/linear_model}\label{fg:ex:synt:plate}}
+\caption{Вероятностная модель в графовой нотации: a) произвольная функция; b) линейная модель.}
 \end{figure}
 
 Для каждой реализации~$\mathbf{g}$ соответствующий блок требует уточнения. На рис.~\ref{fg:ex:synt:plate} показана более подробная реализация в случае, когда~$\mathbf{g}$~--- линейная модель.
 
-\begin{figure}[!ht]\center
-\includegraphics[width=0.35\textwidth]{results/privlearn/linear_model}
-\caption{Вероятностная модель используемая в синтетическом эксперименте}
-\label{fg:ex:synt:plate}
-\end{figure}
-
-\paragraph{Классификация.} Для задачи многоклассовой классификации рассматриваются вероятностные 
+Для задачи многоклассовой классификации рассматриваются вероятностные 
 {\sl{п\,р\,е\,д\,п\,о\,л\,о\,ж\,е\,н\,и\,я:}}
 \begin{enumerate}[1)]
 \label{st:class:1}
@@ -501,47 +443,16 @@ p\bigr(\mathbf{Y}, \mathbf{S}|\mathbf{X}, \mathbf{g}, \mathcal{I}\bigr)=\prod_{i
 \begin{theorem}
 \label{theorem:st:dist}
 Пусть вероятность каждого класса отделима от нуля и единицы, т.е. для всех~$r$ выполняется условие
-\[1 > 1- \varepsilon > g_r\bigr(\mathbf{x}\bigr) > \varepsilon > 0.
-\]
-
+\begin{gather}
+1 > 1- \varepsilon > g_r\bigr(\mathbf{x}\bigr) > \varepsilon > 0.
+\end{gather}
 Тогда при
 \begin{gather}
 C=\left(-1\right)^{R}\frac{R^{R/2}}{2^{R(R-1)/2}}\prod_{r=1}^{R}g_r\bigr(\mathbf{x}\bigr)\log g_r\bigr(\mathbf{x}\bigr)
 \end{gather}
 функция $p\bigr(\mathbf{s}|\mathbf{x}, \mathbf{g}\bigr)$, определенная в~\eqref{reg:dist}, является плотностью распределения.
 \end{theorem}
-\begin{proof}
-	Во-первых, покажем, что для произвольного вектора ответов $\mathbf{s} \in \mathcal{S}_R$ выполняется $p\bigr(\mathbf{s}|\mathbf{x}, \mathbf{g}\bigr) \geq 0$. Заметим, что для всех~$r$ выполняется
-	\[\log g_r\bigr(\mathbf{x}\bigr) < 0,\] тогда
-\begin{gather}
-\begin{aligned}
-	C=\underbrace{\frac{R^{R/2}}{2^{R(R-1)/2}}}_{>0}\prod_{r=1}^{R}\underbrace{g_r\bigr(\mathbf{x}\bigr)}_{>\varepsilon}\underbrace{\left(-\log g_r\bigr(\mathbf{x}\bigr)\right)}_{>0} > 0.
-\end{aligned}
-\end{gather}
-Так как~$g_r\bigr(\mathbf{x}\bigr) >0$ и~$C>0$, получаем, что $p\bigr(\mathbf{s}|\mathbf{x}, \mathbf{g}\bigr) \geq 0$.
-	Во-вторых, покажем, что интеграл по всему пространству ответов~$\mathcal{S}_R$ является конечным:
-	\begin{gather}
-	\label{theorem:st:dist:eq:1}
-	\begin{aligned}
-		\int\limits_{\mathcal{S}_R}&p\bigr(\mathbf{s}|\mathbf{x}, \mathbf{g}\bigr)ds = \int\limits_{\mathcal{S}_R}\prod_{r=1}^{R}g_r\bigr(\mathbf{x}\bigr)^{s^r}ds = \prod_{r=1}^{R}\int\limits_{\mathcal{S}_R}g_r\bigr(\mathbf{x}\bigr)^{s^r}ds =\\ 
-		& = \prod_{r=1}^{R}\int\limits_{0}^{1}\frac{r^{R-1}\sqrt{R}}{\left(R-1\right)!\sqrt{2^{R-1}}}g_r\bigr(\mathbf{x}\bigr)^{r}dr = \prod_{r=1}^{R}\underbrace{\frac{\sqrt{R}}{\left(R-1\right)!\sqrt{2^{R-1}}}}_{D}\int\limits_{0}^{1}r^{R-1}g_r\bigr(\mathbf{x}\bigr)^{r}dr =\\
-		& = D^R\prod_{r=1}^{R} \int\limits_{0}^{1}r^{R-1}\exp\bigr(r\log g_r\bigr(\mathbf{x}\bigr)\bigr)dr =\\
-		& = \left(-D\right)^R\prod_{r=1}^{R}\log g_r\bigr(\mathbf{x}\bigr)\left(\Gamma\bigr(R\bigr) - \Gamma\bigr(R, -\log g_r\bigr(\mathbf{x}\bigr)\bigr)\right) =\\
-		& = \left(-D\right)^R\left(R-1\right)!^R\prod_{r=1}^{R}\log g_r\bigr(\mathbf{x}\bigr)\left(1 -g_r\bigr(\mathbf{x}\bigr) \exp_{R-1}\bigr(-\log g_r\bigr(\mathbf{x}\bigr)\bigr)+g_r\bigr(\mathbf{x}\bigr)\right) =\\
-		& = \frac{\left(-\sqrt{R}\right)^R}{2^{R(R-1)/2}}\prod_{r=1}^{R}\log g_r\bigr(\mathbf{x}\bigr)\left(1 -g_r\bigr(\mathbf{x}\bigr) \exp_{R-1}\bigr(-\log g_r\bigr(\mathbf{x}\bigr)\bigr)+g_r\bigr(\mathbf{x}\bigr)\right) < \infty,
-	\end{aligned}
-	\end{gather}
-где~$\Gamma\bigr(R\bigr)$ является гамма-функцией, $\Gamma\bigr(R, -\log g_r\bigr(\mathbf{x}\bigr)\bigr)$ является неполной гамма функцией, $\exp_{r}\bigr(x\bigr)$ является суммой Тейлора из первых~$r$ слагаемых. В рамках приближенных расчетов считается, что $\exp_{r}\bigr(x\bigr)\approx\exp\bigr(x\bigr),$ тогда с учетом~\eqref{theorem:st:dist:eq:1} получаем
-	\begin{gather}
-	\label{theorem:st:dist:eq:2}
-	\begin{aligned}
-		C\bigr(\mathbf{g}, \mathbf{x}\bigr) = \int\limits_{\mathcal{S}_R}p\bigr(\mathbf{s}|\mathbf{x}, \mathbf{g}\bigr)ds \approx \left(-1\right)^{R}\frac{R^{R/2}}{2^{R(R-1)/2}}\prod_{r=1}^{R}g_r\bigr(\mathbf{x}\bigr)\log g_r\bigr(\mathbf{x}\bigr).
-	\end{aligned}
-	\end{gather}
-Полученное выражение~\eqref{theorem:st:dist:eq:2} заканчивает доказательство теоремы~1.
-\end{proof}
 
-Из теоремы~\ref{theorem:st:dist} следует, что плотность, введенная для меток учителя, является плотностью распределения. Поэтому можно воспользоваться выражением~\eqref{eq:st:12}.
 Используя предположения 1--4 и подставляя в~\eqref{eq:st:12}, получаем  оптимизационную задачу:
 \begin{gather}
 \label{eq:st:class:1}
@@ -558,28 +469,18 @@ C=\left(-1\right)^{R}\frac{R^{R/2}}{2^{R(R-1)/2}}\prod_{r=1}^{R}g_r\bigr(\mathbf
 	\item второе распределение~--- это распределение, задаваемое моделью ученика~$\text{Cat}\bigr(\mathbf{g}\bigr(\mathbf{x}\bigr)\bigr)$.
 \end{enumerate}
 
-Следовательно, модель ученика восстанавливает плотность не исходных меток, а новую плотность, которая является выпуклой комбинацией плотности исходных меток и меток учителя.
-
-\paragraph{Регрессия.} Для задачи регрессии рассматриваются вероятностные \emph{п\,р\,е\,д\,п\,о\,л\,о\,ж\,е\,н\,и\,я:}
+Для задачи регрессии рассматриваются вероятностные \emph{п\,р\,е\,д\,п\,о\,л\,о\,ж\,е\,н\,и\,я:}
 
 \begin{enumerate}[1)]
 	\item \emph{рассматривается функция учителя~$\mathbf{f}\in\mathfrak{F}_{\text{rg}}^{*}$,
-	%\begin{gather}
-	%\label{eq:F:set:priv}
-	%\begin{aligned}
 	\[
 	\mathfrak{F}_{\text{rg}}^* = \left\{\mathbf{f}| \mathbf{f} = \mathbf{v}^*\bigr(\mathbf{x}^*\bigr), \quad \mathbf{v}^*: \mathbb{R}^{n^*} \to \mathbb{R} \right\},
 	\]
-	%\end{aligned}
-	%\end{gather}
 	где~$\mathbf{v}^*$~--- дифференцируемая параметрическая функция;}
 	\item \emph{рассматривается функция ученика~$\mathbf{g}\in\mathfrak{G}_{\text{rg}}$,
-    %\begin{gather}
-    %\label{eq:G:set:rg}
     \[
     \mathfrak{G}_{\text{rg}} = \left\{\mathbf{g}| \mathbf{g} = \mathbf{z}\bigr(\mathbf{x}\bigr), \quad \mathbf{z}: \mathbb{R}^n \to \mathbb{R}^R \right\},
     \]
-    %\end{gather}
     где~$\mathbf{z}$~--- дифференцируемая параметрическая функция;}
 	\item \emph{истинные метки имеют нормальное распределение
 	\begin{gather}
@@ -625,55 +526,6 @@ y'_i &= \begin{cases}
 \end{aligned}
 \end{gather}
 \end{theorem}
-\begin{proof}
-Обозначим~$\mathbf{a}_{\mathcal{J}} = [a_i| i \in \mathcal{J}]^{\mathsf{T}},$ где~$\mathbf{a}$~--- произвольный вектор, а $\mathcal{J}$~--- произвольное непустое индексное множество. Подвектор вектора ответов~$\mathbf{y}$, для элементов которого доступна привилегированная информация, обозначим $\mathbf{y}_{\mathcal{I}} = [y_i| i \in \mathcal{I}]^{\mathsf{T}}$. Аналогично обозначим матрицу~$\mathbf{X}_\mathcal{I}=[\mathbf{x}_{i}| i \in \mathcal{I}]^{\mathsf{T}}$.
-
-В случае линейной модели~$\mathbf{g}\bigr(\mathbf{x}\bigr) = \mathbf{w}^{\mathsf{T}}\mathbf{x}$ выражение \eqref{eq:st:reg:1} принимает вид:
-\begin{gather}
-\label{eq:st:reg:2}
-\begin{aligned}
-\hat{\mathbf{w}} = \arg&\min_{\mathbf{w}\in \mathbb{W}} ~ \sigma^2\left(\mathbf{y}_{\bar{\mathcal{I}}}-\mathbf{X}_{\bar{\mathcal{I}}}\mathbf{w}\right)^{\mathsf{T}}\left(\mathbf{y}_{\bar{\mathcal{I}}}-\mathbf{X}_{\bar{\mathcal{I}}}\mathbf{w}\right) +\\
-&+ \sigma^2\left(1-\lambda\right)\left(\mathbf{y}_{\mathcal{I}}-\mathbf{X}_{\mathcal{I}}\mathbf{w}\right)^{\mathsf{T}}\left(\mathbf{y}_{\mathcal{I}}-\mathbf{X}_{\mathcal{I}}\mathbf{w}\right) + \sigma^2_s\lambda\left(\mathbf{s}_{\mathcal{I}}-\mathbf{X}_{\mathcal{I}}\mathbf{w}\right)^{\mathsf{T}}\left(\mathbf{s}_{\mathcal{I}}-\mathbf{X}_{\mathcal{I}}\mathbf{w}\right).
-\end{aligned}
-\end{gather}
-
-Раскроем скобки и сгруппируем:
-\begin{gather}
-\label{eq:st:reg:3}
-\begin{aligned}
-\hat{\mathbf{w}} = \arg&\min_{\mathbf{w}\in \mathbb{W}} ~ \sigma^2\left(\mathbf{w}^{\mathsf{T}}\mathbf{X}^{\mathsf{T}}_{\bar{\mathcal{I}}}\mathbf{X}_{\bar{\mathcal{I}}}\mathbf{w} - 2\mathbf{y}^{\mathsf{T}}_{\bar{\mathcal{I}}}\mathbf{X}_{\bar{\mathcal{I}}}\mathbf{w}\right) +\\
-&+ \left(1-\lambda\right)\sigma^2\left(\mathbf{w}^{\mathsf{T}}\mathbf{X}^{\mathsf{T}}_{\mathcal{I}}\mathbf{X}_{\mathcal{I}}\mathbf{w}- 2\mathbf{y}^{\mathsf{T}}_{\mathcal{I}}\mathbf{X}_{\mathcal{I}}\mathbf{w}\right) + \lambda\sigma^2_s\left(\mathbf{w}^{\mathsf{T}}\mathbf{X}^{\mathsf{T}}_{\mathcal{I}}\mathbf{X}_{\mathcal{I}}\mathbf{w}- 2\mathbf{s}^{\mathsf{T}}_{\mathcal{I}}\mathbf{X}_{\mathcal{I}}\mathbf{w}\right).
-\end{aligned}
-\end{gather}
-Продифференцируем выражение, приравняем к нулю и сгруппируем элементы:
-\begin{gather}
-\label{eq:st:reg:4}
-\begin{aligned}
-\left(\sigma^{2}\mathbf{X}^{\mathsf{T}}_{\bar{\mathcal{I}}}\mathbf{X}_{\bar{\mathcal{I}}} + \left(1-\lambda\right)\sigma^2\mathbf{X}^{\mathsf{T}}_{\mathcal{I}}\mathbf{X}_{\mathcal{I}} + \lambda\sigma^{2}_s\mathbf{X}^{\mathsf{T}}_{\mathcal{I}}\mathbf{X}_{\mathcal{I}}\right) \mathbf{w}& = 2\sigma^2\mathbf{X}^{\mathsf{T}}_{\bar{\mathcal{I}}}\mathbf{y}_{\bar{\mathcal{I}}}+\\
-&+ 2\left(1-\lambda\right)\sigma^2\mathbf{X}^{\mathsf{T}}_{\mathcal{I}}\mathbf{y}_{\mathcal{I}} + 2\lambda\sigma_s^2\mathbf{X}^{\mathsf{T}}_{\mathcal{I}}\mathbf{s}_{\mathcal{I}}.
-\end{aligned}
-\end{gather}
-Воспользуемся равенствами:
-\begin{gather}
-\label{eq:st:reg:simp}
-\begin{aligned}
-\sigma^{2}\mathbf{X}^{\mathsf{T}}_{\bar{\mathcal{I}}}\mathbf{X}_{\bar{\mathcal{I}}} + \left(1-\lambda\right)\sigma^2\mathbf{X}^{\mathsf{T}}_{\mathcal{I}}\mathbf{X}_{\mathcal{I}} + \lambda\sigma^{2}_s\mathbf{X}^{\mathsf{T}}_{\mathcal{I}}\mathbf{X}_{\mathcal{I}} &= \mathbf{X}^{\mathsf{T}}\bm{\Sigma}^{-1}\mathbf{X},\\
-2\sigma^2\mathbf{X}^{\mathsf{T}}_{\bar{\mathcal{I}}}\mathbf{y}_{\bar{\mathcal{I}}} + 2\left(1-\lambda\right)\sigma^2\mathbf{X}^{\mathsf{T}}_{\mathcal{I}}\mathbf{y}_{\mathcal{I}} + 2\lambda\sigma_s^2\mathbf{X}^{\mathsf{T}}_{\mathcal{I}}\mathbf{s}_{\mathcal{I}} &= 2\mathbf{X}\mathbf{y'},
-\end{aligned}
-\end{gather}
-где~$\bm{\Sigma}$ и~$\mathbf{y'}$ из условия задачи~\eqref{eq:st:reg:th:st:2}.
-
-Подставляя~\eqref{eq:st:reg:simp} в~\eqref{eq:st:reg:4}, получаем:
-\begin{gather}
-\label{eq:st:reg:5}
-\begin{aligned}
-\mathbf{w} = 2\left(\mathbf{X}^{\mathsf{T}}\bm{\Sigma}^{-1}\mathbf{X}\right)^{-1}\mathbf{X}\bm{\Sigma}^{-1}\mathbf{y''},
-\end{aligned}
-\end{gather}
-что соответствует решению задачи~\eqref{eq:st:reg:th:st:1}. Теорема 2 доказана.
-\end{proof}
-
-Теорема~\ref{theorem:st:reg} показывает, что обучение с учителем для задачи регрессии можно свести к задаче оптимизации в линейной регрессии.
 
 В~\textbf{главе~3} представлен подход байесовской дистилляции. Предлагается подход, основанный на последовательном выравнивании пространств параметров модели ученика и учителя. 
 \begin{definition}
@@ -700,35 +552,7 @@ f = \bm{\sigma} \circ \mathbf{U}_T \bm{\sigma} \circ \mathbf{U}_{T-1}\circ \ldot
 \end{aligned}
 \]
 где $\text{vec}$ операция векторизации соединенных матриц.
-Каждая матрица $\mathbf{U}_t$ имеет размер $n_t\times n_{t-1},$ где $n_0=n,$ а  $n_T={1}$ для задачи регрессии и $n_T=R$ для задачи классификации на $R$ классов. Число параметров $N_{\text{tr}}$ учителя $f$
-\[
-\label{ch:3:eq:st:2.2}
-\begin{aligned}
-N_{\text{tr}} = \sum_{t=1}^{T}n_tn_{t-1}.
-\end{aligned}
-\]
-Для построения вектора параметров $\mathbf{u}$ задается полный порядок на элементов матриц $\mathbf{U}_t$. Для полносвязнной нейронной сети вводится естественный порядок, индуцированный номером слоя $t$, номером нейрона, и номером элемента вектора параметров нейрона: выбирается матрица $\mathbf{U}_t$, строка этой матрицы и элемент строки.
-
-Например, для модели учителя в задаче регрессии:
-\[
-\label{ch:3:eq:st:3}
-\begin{aligned}
-f\bigr(\mathbf{x}\bigr) = \bm{\sigma} \circ \mathbf{U}_3 \bm{\sigma} \circ \mathbf{U}_2\bm{\sigma}\circ \mathbf{U}_1\mathbf{x},
-\end{aligned}
-\]
-вектор параметров $\mathbf{u}$ принимает вид
-\[
-\label{ch:3:eq:st:4}
-\begin{aligned}
-\mathbf{u} = \bigr[u_1^{1,1}, \ldots, u_1^{1,n},
-                                               \ldots, 
-                             u_1^{n_1,1}, &\ldots, u_1^{n_1,n},  
-                             u_2^{1, 1}, \ldots, u_2^{1, n_1}, \\
-                                                & \ldots, 
-                            u_2^{n_2, 1}, \ldots, u_2^{n_2, n_1},
-                            u_3^{1, 1}, \ldots, u_3^{1, n_2}\bigr].
-\end{aligned}
-\]
+Каждая матрица $\mathbf{U}_t$ имеет размер $n_t\times n_{t-1},$ где $n_0=n,$ а  $n_T={1}$ для задачи регрессии и $n_T=R$ для задачи классификации на $R$ классов. Для построения вектора параметров $\mathbf{u}$ задается полный порядок на элементов матриц $\mathbf{U}_t$.
 
 Пусть для вектора параметров учителя $f$ известно апостериорное распределение параметров $p\bigr(\mathbf{u}|\mathfrak{D}\bigr)$. 
 На основе выборки $\mathfrak{D}$ и апостериорного распределения параметров учителя $f$ требуется выбрать модель ученика из параметрического семейства функций:
@@ -739,8 +563,6 @@ g = \bm{\sigma} \circ \mathbf{W}_L\bm{\sigma}  \circ \ldots \circ \mathbf{W}_1, 
 \end{aligned}
 \]
 где $L$ число слоев модели ученика.
-Число параметров $N_{\text{st}}$ модели ученика $g$ вычисляется аналогично выражению \eqref{ch:3:eq:st:2.2}.
-Вектор параметров модели ученика $\mathbf{w}$ строится аналогичным образом \eqref{ch:3:eq:st:2.1}.
 Модель $g$ задается своим вектором параметров $\mathbf{w}$.
 Следовательно, задача выбора модели $g$ эквивалентна задаче оптимизации вектора параметров $\mathbf{w}\in\mathbb{R}^{N_{\text{st}}}$.
 
@@ -752,13 +574,7 @@ g = \bm{\sigma} \circ \mathbf{W}_L\bm{\sigma}  \circ \ldots \circ \mathbf{W}_1, 
 \end{aligned}
 \]
 где $p\bigr(\mathbf{w}| \mathbf{A}\bigr)$ --- априорное распределение вектора параметров модели ученика.
-Так как взятие интеграла \eqref{ch:3:eq:st:6} является вычислительно сложной задачей, используется вариационный вывод. Для этого задается вариационное распределение параметров модели ученика $q\bigr(\mathbf{w}|\bm{\mu}, \bm{\Sigma}\bigr),$ которое аппроксимирует неизвестное апостериорное распределение $p\bigr(\mathbf{w}|\mathfrak{D}\bigr)$
-\[
-\label{ch:3:eq:st:new:1}
-\begin{aligned}
-q\bigr(\mathbf{w}|\bm{\mu}, \bm{\Sigma}\bigr) \approx  p\bigr(\mathbf{w}|\mathfrak{D}\bigr).
-\end{aligned}
-\]
+Так как взятие интеграла \eqref{ch:3:eq:st:6} является вычислительно сложной задачей, используется вариационный вывод. Для этого задается вариационное распределение параметров модели ученика $q\bigr(\mathbf{w}|\bm{\mu}, \bm{\Sigma}\bigr),$ которое аппроксимирует неизвестное апостериорное распределение $p\bigr(\mathbf{w}|\mathfrak{D}\bigr).$
 Оптимизация параметров $\mathbf{w}$ сводится к решению  задачи:
 \[
 \label{ch:3:eq:st:7}
@@ -814,9 +630,7 @@ p\bigr(\bm{\upsilon}\bigr)  = \int\limits_{ \bm{\nu}_2 \in \mathbb{R}^{n_{t-1}}}
 Тогда распределение параметров~$p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)$ также является нормальным.
 \end{theorem}
 
-Теорема \ref{theorem:ap:neural} задает апостериорное распределение параметров после зануления нейронов в модели нейросети --- учителя. Заметим, что аналогичным образом можно удалить подмножество нейронов в одном слое. Если число нейронов отличается в нескольких слоях модели нейросети учителя, то выполняется последовательно применения отображения $\bm{\phi}\bigr(t, \mathbf{u}\bigr)$ для каждого $t$-го слоя.
-
-Проведем выравнивание модели учителя и модели ученика, согласно определению \ref{def:sopos} при помощи последовательных преобразований вектора параметров $\mathbf{u}$. Рассмотрим преобразование:
+Рассмотрим преобразование:
 \[
 \label{ch:3:eq:ap:4}
 \begin{aligned}
@@ -846,10 +660,9 @@ p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsi
 \mathbf{i}=[\underbrace{1, 0, \ldots, 0}_{n_t}, \underbrace{0, 1, \ldots, 0}_{n_t}, \underbrace{0, 0, 1, \ldots, 0}_{n_t}, \underbrace{0, \ldots, 1}_{n_t}]^{\mathsf{T}}.
 \]
 \end{theorem}
+Теорема \ref{theorem:ap:layer} задает апостериорное распределение \eqref{ch:3:eq:ap:5} параметров после удаления слоя нейросети.
 
-Теорема \ref{theorem:ap:layer} задает апостериорное распределение \eqref{ch:3:eq:ap:5} параметров после удаления слоя нейросети. Полученное распределение $p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) $ является оценкой апостериорного распределения модели без одного слоя.
-
-Рассматривается задача аппроксимации последовательности:
+Далее рассматривается задача аппроксимации последовательности:
 \[
     \left[\mathbf{x}_1, \ldots, \mathbf{x}_{q}, \ldots, \mathbf{x}_{Q}\right],
 \]
@@ -907,7 +720,7 @@ p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsi
 \]
 \end{theorem}
 
-Теорема~\ref{ch-3:th:rnn:later} задает апостериорное распределение параметров после удаления одного слоя модели RNN. Полученное распределение~$p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr)$ является оценкой апостериорного распределения модели без одного слоя.
+Теорема~\ref{ch-3:th:rnn:later} задает апостериорное распределение параметров после удаления одного слоя модели RNN.
 
 Множество всех структур задается последовательностью натуральных чисел:
 \[
@@ -1006,16 +819,12 @@ p\bigr(\mathbf{y}, \mathbf{W}|\mathbf{X}, \mathbf{V}\bigr) = \prod_{k=1}^{K}p^{k
 \end{aligned}
 \]
 
-Для построения смеси экспертов, введем вероятностные предположения о данных:
-
+Для построения смеси экспертов, введены вероятностные предположения о данных:
 \begin{enumerate}[1)]
 	\item правдоподобие~$p_{k}\bigr(y_{i}|\mathbf{w}_{k}, \mathbf{x}_{i}\bigr) = \mathcal{N}\bigr(y_{i}|\mathbf{w}_{k}^{\mathsf{T}}\mathbf{x}_{i}, \beta^{-1}\bigr),$ где параметр~$\beta$ является уровнем шума,
 	\item априорное распределение параметров~$p^{k}\bigr(\mathbf{w}_{k}\bigr) = \mathcal{N}\bigr(\mathbf{w}_{k}|\mathbf{w}^{0}_{k}, \mathbf{A}_{k}\bigr),$ где~$\mathbf{w}^{0}_{k}$~--- вектор размерности~$n\times1$, а ~$\mathbf{A}_{k}$~--- ковариационная матрица размерности~$n\times n$,
 	\item регуляризация априорного распределения~$p\bigr(\bm{\varepsilon}_{k,k'}|\bm{\Xi}\bigr) = \mathcal{N}\bigr(\bm{\varepsilon}_{k,k'}|\mathbf{0},  \bm{\Xi}\bigr),$ где~$\bm{\Xi}$~--- ковариационная матрица, а~$\bm{\varepsilon}_{k,k'} = \mathbf{w}_{k}^{0}-\mathbf{w}_{k'}^{0}.$
 \end{enumerate}
-Предположение 2) задает априорное распределение вектора параметров локальных модели~$\textbf{w}_k$. Оно задает ограничения на локальную модель. Например, если~$\textbf{w}_k^{0} = [0,0,1]$, то~$k$-я локальная модель аппроксимирует окружность с параметрами~$x_0=0, y_0=0, r=1$ с большей вероятностью.
-
-Предположение 3) задает регуляризацию априорных распределений. Данная регуляризация учитывает связь между априорными ограничениями разных локальных моделей. Например, если~$\text{diag}\bigr(\bm{\Xi}\bigr)=[0.001, 0.001, 1]$, то  центры разных окружностей совпадают.
 
 Используя предположения~$1), 2), 3)$ и выражение \eqref{ch4-eq:st:4} получаем полное правдоподобие:
 \[
@@ -1026,8 +835,8 @@ p\bigr(\mathbf{y}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}
 \end{aligned}
 \]
 где~$\mathbf{A} = \left\{\mathbf{A}_1, \ldots, \mathbf{A}_K\right\}.$
- 
-Получаем новую задачу оптимизации обоснованности. Функция обоснованности получается при интегрировании по параметрам~$\textbf{W}, \textbf{Z}$:
+
+Функция обоснованности получается при интегрировании по параметрам~$\textbf{W}, \textbf{Z}$:
 \[
 \label{ch4-eq:em:3}
 \begin{aligned}
@@ -1038,11 +847,7 @@ p\bigr(\mathbf{y}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}
 \[
 \label{ch4-eq:em:new:1}
 \begin{aligned}
-\log p&\bigr(\mathbf{y}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr) = \int_{\textbf{W}, \textbf{Z}} q\bigr(\textbf{W}, \textbf{Z}\bigr) \log p\bigr(\mathbf{y}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)d\textbf{W}d\textbf{Z} =\\
-&= \int_{\textbf{W}, \textbf{Z}} q\bigr(\textbf{W}, \textbf{Z}\bigr)\log \frac{p\bigr(\mathbf{y}, \textbf{W}, \textbf{Z}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)}{p\bigr(\textbf{W}, \textbf{Z}|\mathbf{y}, \mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)}d\textbf{W}d\textbf{Z}=\\
-&= \int_{\textbf{W}, \textbf{Z}} q\bigr(\textbf{W}, \textbf{Z}\bigr)\log \frac{p\bigr(\mathbf{y}, \textbf{W}, \textbf{Z}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)q\bigr(\textbf{W}, \textbf{Z}\bigr)}{p\bigr(\textbf{W}, \textbf{Z}|\mathbf{y}, \mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)q\bigr(\textbf{W}, \textbf{Z}\bigr)}d\textbf{W}d\textbf{Z}=\\
-&= \int_{\textbf{W}, \textbf{Z}} q\bigr(\textbf{W}, \textbf{Z}\bigr)\frac{p\bigr(\mathbf{y}, \textbf{W}, \textbf{Z}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)}{q\bigr(\textbf{W}, \textbf{Z}\bigr)}d\textbf{W}d\textbf{Z}+\\
-&+\int_{\textbf{W}, \textbf{Z}} q\bigr(\textbf{W}, \textbf{Z}\bigr)\frac{q\bigr(\textbf{W}, \textbf{Z}\bigr)}{p\bigr(\textbf{W}, \textbf{Z}|\mathbf{y}, \mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)}d\textbf{W}d\textbf{Z}=\\
+\log p&\bigr(\mathbf{y}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr) =\\
 &=\mathcal{L}\bigr(q, \textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\bigr)+\mathsf{D}_{KL}\left(q\bigr(\textbf{W}, \textbf{Z}\bigr)||p\bigr(\textbf{W}, \textbf{Z}|\mathbf{y}, \mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)\right)
 \end{aligned}
 \]
@@ -1053,12 +858,12 @@ p\bigr(\mathbf{y}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}
 \log p\bigr(\mathbf{y}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)\geq \mathcal{L}\bigr(q, \textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\bigr),
 \end{aligned}
 \]
-где~$\mathcal{L}\bigr(q, \textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\bigr)$ называется нижней оценкой обоснованости.
+где~$\mathcal{L}\bigr(q, \textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\bigr)$ называется нижней оценкой обоснованности.
 
-Используем EM--алгоритм для решения оптимизационной задачи \eqref{ch4-eq:em:3}. Заметим, что EM--алгоритм вместо оптимизации~$\log p\bigr(\mathbf{y}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)$ оптимизирует нижнюю оценку~$\mathcal{L}\left(q, \textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\right)$.
+Используем EM--алгоритм для решения оптимизационной задачи \eqref{ch4-eq:em:3}. EM--алгоритм вместо оптимизации~$\log p\bigr(\mathbf{y}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)$ оптимизирует нижнюю оценку~$\mathcal{L}\left(q, \textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\right)$.
 
 
-\paragraph{E-шаг.} E-шаг решает оптимизационую задачу
+Сначала решается оптимизационная задача:
 \[
 \label{ch4-eq:em:new:3}
 \begin{aligned}
@@ -1069,13 +874,11 @@ p\bigr(\mathbf{y}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}
 
 Пусть совместное распределение~$q\bigr(\mathbf{Z}, \mathbf{W}\bigr)$ удовлетворяет условию независимости~$q\bigr(\mathbf{Z}, \mathbf{W}\bigr) = q\bigr(\mathbf{Z}\bigr)q\bigr(\mathbf{W}\bigr)$. 
 Далее символом~$\propto$ обозначим то, что обе стороны выражения равны с точностью до аддитивной константы.
-Сначала найдем распределение~$q\bigr(\textbf{Z}\bigr)$:
+Сначала находится распределение~$q\bigr(\textbf{Z}\bigr)$:
 \[
 \label{ch4-eq:em:4}
 \begin{aligned}
-\log q\bigr(\textbf{Z}\bigr) &= \mathsf{E}_{q/\textbf{Z}} \log p\bigr(\mathbf{y}, \mathbf{Z}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr)  \propto\\
-&\propto \sum_{i+1}^{N}\sum_{k=1}^{K}z_{ik}\left[\log\pi_{k}\bigr(\textbf{x}_{i}, \textbf{V}\bigr) - \frac{\beta}{2}\left(y_{i}^{2} -\textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k} + \textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k}\textbf{w}_{k}^{\mathsf{T}}\textbf{x}_{i}\right) + \frac{1}{2}\log\frac{\beta}{2\pi}\right]\\
-p\bigr(z_{ik} = 1\bigr) &= \frac{\exp\bigr(\log\pi_{k}\bigr(\textbf{x}_{i}, \textbf{V}\bigr) - \frac{\beta}{2}\left(\textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k}\textbf{w}_{k}^{\mathsf{T}}\textbf{x}_{i} - \textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k}\right)\bigr)}{\sum_{k'=1}^{K}\exp\bigr(\log\pi_{k'}\bigr(\textbf{x}_{i}, \textbf{V}\bigr) - \frac{\beta}{2}\left(\textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k'}\textbf{w}_{k'}^{\mathsf{T}}\textbf{x}_{i} - \textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k'}\right)\bigr)}.
+p\bigr(z_{ik} = 1\bigr) = \frac{\exp\bigr(\log\pi_{k}\bigr(\textbf{x}_{i}, \textbf{V}\bigr) - \frac{\beta}{2}\left(\textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k}\textbf{w}_{k}^{\mathsf{T}}\textbf{x}_{i} - \textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k}\right)\bigr)}{\sum_{k'=1}^{K}\exp\bigr(\log\pi_{k'}\bigr(\textbf{x}_{i}, \textbf{V}\bigr) - \frac{\beta}{2}\left(\textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k'}\textbf{w}_{k'}^{\mathsf{T}}\textbf{x}_{i} - \textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k'}\right)\bigr)}.
 \end{aligned}
 \]
 Используя выражения \eqref{ch4-eq:em:4} получаем, что распределение~$q\bigr(z_{ik}\bigr)$ является бернулевским распределением с параметром~$z_{ik},$ которое задается выражением \eqref{ch4-eq:em:4}.
@@ -1083,8 +886,7 @@ p\bigr(z_{ik} = 1\bigr) &= \frac{\exp\bigr(\log\pi_{k}\bigr(\textbf{x}_{i}, \tex
 \[
 \label{ch4-eq:em:5}
 \begin{aligned}
-\log q\bigr(\textbf{W}\bigr) &= \mathsf{E}_{q/\textbf{W}}\log p\bigr(\mathbf{y}, \mathbf{Z}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr) \propto\\
-&\propto \sum_{i=1}^{N}\sum_{k=1}^{K}\mathsf{E}z_{ik}\left[\log\pi_{k}\bigr(\textbf{x}_{i, \textbf{V}}\bigr) - \frac{\beta}{2}\left(y_{i} - \textbf{w}_{k}^{\mathsf{T}}\textbf{x}_{i}\right)^{2} + \frac{1}{2}\log\frac{\beta}{2\pi}\right] + \\
+\log q\bigr(\textbf{W}\bigr) &\propto \sum_{i=1}^{N}\sum_{k=1}^{K}\mathsf{E}z_{ik}\left[\log\pi_{k}\bigr(\textbf{x}_{i, \textbf{V}}\bigr) - \frac{\beta}{2}\left(y_{i} - \textbf{w}_{k}^{\mathsf{T}}\textbf{x}_{i}\right)^{2} + \frac{1}{2}\log\frac{\beta}{2\pi}\right] + \\
 &+ \sum_{k=1}^{K}\left[-\frac{1}{2}\left(\textbf{w}_{k} - \textbf{w}_{k}^{0}\right)^{\mathsf{T}}\textbf{A}_{k}^{-1}\left(\textbf{w}_{k} - \textbf{w}_{k}^{0}\right) + \frac{1}{2}\log\det\textbf{A}^{-1}_{k} - \frac{n}{2}\log2\pi\right] \\
 &\propto \sum_{k=1}^{K}\left[\textbf{w}_{k}^{\mathsf{T}}\left(\textbf{A}_{k}^{-1}\textbf{w}_{k}^{0}+\beta\sum_{i=1}^{N}\textbf{x}_{i}y_{i}\mathsf{E}z_{ik}\right)-\frac{1}{2}\textbf{w}_{k}^{\mathsf{T}}\left(\textbf{A}_{k}^{-1}+\beta\sum_{i=1}^{N}\textbf{x}_{i}\textbf{x}_{i}^{\mathsf{T}}\right)\textbf{w}_{k}\right].
 \end{aligned}
@@ -1097,7 +899,7 @@ p\bigr(z_{ik} = 1\bigr) &= \frac{\exp\bigr(\log\pi_{k}\bigr(\textbf{x}_{i}, \tex
 \end{aligned}
 \]
 
-\paragraph{M-шаг.} M-шаг решает оптимизационную задачу
+Далее решается оптимизационная задача:
 \[
 \label{ch4-eq:em:new:3}
 \begin{aligned}
@@ -1109,41 +911,25 @@ p\bigr(z_{ik} = 1\bigr) &= \frac{\exp\bigr(\log\pi_{k}\bigr(\textbf{x}_{i}, \tex
 \[
 \label{ch4-eq:em:7}
 \begin{aligned}
-\mathcal{L}&\bigr(\textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\bigr) = \mathsf{E}_{q}\log p\bigr(\mathbf{y}, \mathbf{Z}, \mathbf{W}|\mathbf{X}, \mathbf{V}, \textbf{A}, \textbf{W}^{0}, \bm{\Xi}, \beta\bigr) =  \\
-&= \sum_{i=1}^{N}\sum_{k=1}^{K}\mathsf{E}z_{ik}\left[\log\pi_k\bigr(\textbf{x}_i, \textbf{V}\bigr) - \frac{\beta}{2}\mathsf{E}\left(y_{i} - \textbf{w}_{k}^{\mathsf{T}}\textbf{x}_{i}\right)^{2} + \frac{1}{2}\log\frac{\beta}{2\pi}\right] +\\
+\mathcal{L}&\bigr(\textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\bigr) = \sum_{i=1}^{N}\sum_{k=1}^{K}\mathsf{E}z_{ik}\left[\log\pi_k\bigr(\textbf{x}_i, \textbf{V}\bigr) - \frac{\beta}{2}\mathsf{E}\left(y_{i} - \textbf{w}_{k}^{\mathsf{T}}\textbf{x}_{i}\right)^{2} + \frac{1}{2}\log\frac{\beta}{2\pi}\right] +\\
 &+ \sum_{k=1}^{K}\left[-\frac{1}{2}\mathsf{E}\left(\textbf{w}_{k} - \textbf{w}_{k}^{0}\right)^{\mathsf{T}}\textbf{A}_{k}^{-1}\left(\textbf{w}_{k} - \textbf{w}_{k}^{0}\right) + \frac{1}{2}\log\det\textbf{A}^{-1}_{k} - \frac{n}{2}\log2\pi\right] +\\
 &+ \sum_{k=1}^{K}\sum_{k'=1}^{K}\left[-\frac{1}{2}\left(\textbf{w}_{k}^{0}-\textbf{w}_{k'}^{0}\right)^{\mathsf{T}}\bm{\Xi}^{-1}\left(\textbf{w}_{k}^{0}-\textbf{w}_{k'}^{0}\right) +\frac{1}{2}\log\det\bm{\Xi} -\frac{n}{2}\log{2\pi}\right].
 \end{aligned}
 \]
-Во-первых, для нахождения оптимального параметра~$\textbf{V}$ используется градиентный метод оптимизации, который сходится к некоторому локальному экстремуму.
-Во вторых, используя выражения \eqref{ch4-eq:em:7} получаем оптимальное значения параметра~$\textbf{A}_{k}$
+Получены оптимальное значения параметров~$\textbf{A}_{k}, \beta$ и для параметров~$\textbf{w}_{k}^{0}:$
 \[
 \label{ch4-eq:em:9}
 \begin{aligned}
-\frac{\partial \mathcal{L}\bigr(\textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\bigr)}{\partial \textbf{A}^{-1}_k} &=  \frac{1}{2}\textbf{A}_{k} - \frac{1}{2}\mathsf{E}\left(\textbf{w}_{k} - \textbf{w}_{k}^{0}\right)\left(\textbf{w}_{k} - \textbf{w}_{k}^{0}\right)^{\mathsf{T}} = 0,\\
-\textbf{A}_{k} &= \mathsf{E}\textbf{w}_{k}\textbf{w}_{k}^{\mathsf{T}} - \textbf{w}_{k}^{0}\mathsf{E}\textbf{w}_{k}^{\mathsf{T}} - \mathsf{E}\textbf{w}_{k}\textbf{w}_{k}^{0\mathsf{T}} + \textbf{w}_{k}^{0}\textbf{w}_{k}^{0\mathsf{T}}.
+\textbf{A}_{k} &= \mathsf{E}\textbf{w}_{k}\textbf{w}_{k}^{\mathsf{T}} - \textbf{w}_{k}^{0}\mathsf{E}\textbf{w}_{k}^{\mathsf{T}} - \mathsf{E}\textbf{w}_{k}\textbf{w}_{k}^{0\mathsf{T}} + \textbf{w}_{k}^{0}\textbf{w}_{k}^{0\mathsf{T}},\\
+\frac{1}{\beta} &= \frac{1}{N}\sum_{i=1}^{N}\sum_{k=1}^{K}\left[y_{i}^{2}-2y_{i}\textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k} + \textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k}\textbf{w}_{k}^{\mathsf{T}}\textbf{x}_{i}\right]\mathsf{E}z_{ik}\\
+\textbf{w}_{k}^{0} &= \left[\textbf{A}_{k}^{-1}+\left(K-1\right)\bm{\Xi}\right]^{-1}\left(\textbf{A}^{-1}_{k}\mathsf{E}\textbf{w}_{k}+\bm{\Xi}\sum_{k'=1, k'\not=k}^{K}\textbf{w}_{k'}^{0}\right).
 \end{aligned}
 \]
-Аналогично получаем оптимальные значения для параметра~$\beta$ и для параметров~$\textbf{w}_{k}^{0}$
-\[
-\label{ch4-eq:em:10}
-\begin{aligned}
-\frac{\partial \mathcal{L}\bigr(\textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\bigr)}{\partial \beta} &= \sum_{k=1}^{K}\sum_{i=1}^{N}\left(\frac{1}{\beta}\mathsf{E}z_{ik}-\frac{1}{2}\mathsf{E}z_{ik}\left[y_{i}^{2}-2y_{i}\textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k}+\textbf{x}_{i}^{\mathsf{T}}\textbf{w}_{k}\textbf{w}_{k}^{\mathsf{T}}\textbf{x}_{i}\right]\right) = 0,\\
-\frac{1}{\beta}&=\frac{1}{N}\sum_{i=1}^{N}\sum_{k=1}^{K}\left[y_{i}^{2}-2y_{i}\textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k} + \textbf{x}_{i}^{\mathsf{T}}\mathsf{E}\textbf{w}_{k}\textbf{w}_{k}^{\mathsf{T}}\textbf{x}_{i}\right]\mathsf{E}z_{ik}.
-\end{aligned}
-\]
-\[
-\label{ch4-eq:em:11}
-\begin{aligned}
-\frac{\partial \mathcal{L}\bigr(\textbf{V}, \textbf{W}^{0}, \textbf{A}, \beta\bigr)}{\partial \mathbf{w}_k^0} &= \mathbf{A}_k^{-1}\left(\mathsf{E}\mathbf{w}_k - \mathbf{w}_{k}^{0}\right) + \bm{\Xi}\sum_{k'=1}^{K}\bigr[\mathbf{w}_{k'}^{0} -\mathbf{w}_{k}^{0}\bigr] = 0,\\
-\textbf{w}_{k}^{0} &=\left[\textbf{A}_{k}^{-1}+\left(K-1\right)\bm{\Xi}\right]^{-1}\left(\textbf{A}^{-1}_{k}\mathsf{E}\textbf{w}_{k}+\bm{\Xi}\sum_{k'=1, k'\not=k}^{K}\textbf{w}_{k'}^{0}\right).
-\end{aligned}
-\]
-Выражения (\ref{ch4-eq:em:4}--\ref{ch4-eq:em:11}) задают итеративную процедуру, которая сходится к некоторому локальному максимуму оптимизационной задачи \eqref{ch4-eq:em:3}.
+Получаем итеративную процедуру, которая сходится к некоторому локальному максимуму оптимизационной задачи \eqref{ch4-eq:em:3}.
 
 В~\textbf{главе~5} рассмотрены методы для задания порядка на множестве параметров нейросетевых моделей.
 
-Предлагается метод основанный на модификации метода Белсли. Пусть $\textbf{w}$~--- вектор параметров доставляющий минимум функционалу потерь $\mathcal{L}$ на  множестве $\mathbb{W_\mathcal{A}}$, а $\textbf{A}_\text{ps}$ соответствующая ему ковариационная матрица.
+Предлагается метод основанный на модификации метода Белсли. Пусть $\textbf{w}$~--- вектор параметров доставляющий минимум функционалу потерь $\mathcal{L},$ а $\textbf{A}_\text{ps}$ соответствующая ему ковариационная матрица.
 
 Выполним сингулярное разложение матрицы
 \[
@@ -1155,19 +941,17 @@ p\bigr(z_{ik} = 1\bigr) &= \frac{\exp\bigr(\log\pi_{k}\bigr(\textbf{x}_{i}, \tex
 \]
 
 Дисперсионный долевой коэффициент $q_{ij}$ определим как вклад $j$-го признака в дисперсию $i$-го элемента вектора параметра $\textbf{w}$:
-
 \[
 q_{ij} = \frac{u^2_{ij}/\lambda_{jj}}{\sum^n_{j=1}{u^2_{ij}/\lambda_{jj}}}.
 \]
 
 Большие значение дисперсионных долей указывают на наличие зависимости между параметрами. Находим долевые коэффициенты, которые вносят максимальный вклад в дисперсию параметра $w_\xi$:
-
 \[
 \zeta = \arg\max_{j\in \mathcal{A}}{q_{\xi j}}.
 \]
 Параметр с индексом $\zeta$ определим как наименее релевантный параметр нейросети.
 
-В~\textbf{главе~6} продемонстрировано применение предложенных методов к прикладным задачам классификации и регрессии, а также для задач выбора оптимального размера выборки, также к задаче классификации временных рядов.
+В~\textbf{главе~6} продемонстрировано применение предложенных методов к прикладным задачам классификации и регрессии, а также для задач выбора оптимального размера выборки, а также к задаче классификации временных рядов.
 
 В \textbf{заключении} представлены основные результаты диссертационной работы.
 \begin{enumerate}
@@ -1199,9 +983,6 @@ q_{ij} = \frac{u^2_{ij}/\lambda_{jj}}{\sum^n_{j=1}{u^2_{ij}/\lambda_{jj}}}.
     \item \textit{A. Grabovoy, V. Strijov.} Quasi-periodic time series clustering for human // Lobachevskii Journal of Mathematics, 2020.
     \item \textit{Грабовой А.В., Бахтеев О. Ю., Стрижов В.В.} Введение отношения порядка на множестве параметров аппроксимирующих моделей~// Информатика и ее применения, 2020.
     \item \textit{Грабовой А.В., Бахтеев О.Ю., Стрижов В.В.} Определение релевантности параметров нейросети~// Информатика и ее применения, 2019.
-    \item \textit{Грабовой А.В., Стрижов В.В.} Вероятностная интерпретация задачи дистилляции~// Автоматика и телемеханика, 2022.
-    \item \textit{A. Grabovoy, T. Gadaev, A. Motrenko, V. Strijov} Numerical methods of minimum sufficient sample size estimation for linear models~// Lobachevskii Journal of Mathematics, 2023.
-    \item \textit{Bazarova A.I., Grabovoy A.V., Strijov V.V.} Analysis of the properties of probabilistic models in learning problems with an expert~// Journal of Computational Mathematics (на рецензировании), 2021.
 \end{enumerate}
 
 \end{document}
