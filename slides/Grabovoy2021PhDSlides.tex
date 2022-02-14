@@ -58,7 +58,7 @@
 % \institute[]{Конференция МФТИ}
 %\date[2021]{\small Московский физико-технический институт\\04\;декабря\;2021\,г.}
 %\institute[]{Конференция \\ <<Математические методы распознавания образов>>}
-\date[2021]{\small 08\;декабря\;2021\,г.}
+\date[2022]{\small 24\;января\;2022\,г.}
 
 %---------------------------------------------------------------------------------------------------------
 \begin{document}
@@ -863,18 +863,18 @@ p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsi
 \begin{equation*}
 \xymatrix{
 % First Line
-\mathbf{f}_{\tau_1}''\ar@[red][d]_{\color{red}\phi\bigr(3\bigr)}
+\mathbf{f}\ar@[blue][d]_{\color{blue}\bm{\phi}\bigr(3\bigr)}\ar@[red][r]^{\color{red}\bm{\phi}\bigr(2\bigr)}
 & 
-\mathbf{f}_{\tau_1}'\ar@[red][l]_{\color{red}\phi\bigr(2\bigr)}\ar@[darkcyan][d]
+\mathbf{f}_{\tau_1}'\ar@[darkcyan][d]\ar@[red][r]^{\color{red}\bm{\phi}\bigr(2\bigr)}
 &
-\mathbf{f}\ar@[red][l]_{\color{red}\phi\bigr(2\bigr)}\ar@[blue][d]^{\color{blue}\phi\bigr(3\bigr)}
+\mathbf{f}_{\tau_1}''\ar@[red][d]^{\color{red}\bm{\phi}\bigr(3\bigr)}
 \\
 % Second Line
-\mathbf{g}
+\mathbf{f}_{\tau_2}'\ar@[blue][r]_{\color{blue}\bm{\phi}\bigr(2\bigr)}
 & 
-\mathbf{f}_{\tau_2}''\ar@[blue][l]^{\color{blue}\phi\bigr(2\bigr)}
+\mathbf{f}_{\tau_2}''\ar@[blue][r]_{\color{blue}\bm{\phi}\bigr(2\bigr)}
 &
-\mathbf{f}_{\tau_2}'\ar@[blue][l]^{\color{blue}\phi\bigr(2\bigr)}
+\mathbf{g}
 }
 \end{equation*}
 
@@ -884,7 +884,7 @@ p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsi
 \textbf{Последовательности выравнивающих преобразований~$\mathbf{f}$ в $\mathbf{g}$:}\\
 ${\color{red}\tau_1=\left(\phi\bigr(2\bigr), \phi\bigr(2\bigr), \phi\bigr(3\bigr)\right)}, {\color{blue}\tau_2=\left(\phi\bigr(3\bigr), \phi\bigr(2\bigr), \phi\bigr(2\bigr)\right)}, {\color{darkcyan}\tau_3=\left(\phi\bigr(2\bigr), \phi\bigr(3\bigr), \phi\bigr(2\bigr)\right)}$
 
-~\\
+
 {\it Последовательность выравнивающих преобразований существует, но не единственно.}
 \end{frame}
 
@@ -1099,7 +1099,7 @@ $$
 \justifying
 	\begin{enumerate}
 	\justifying
-	    \item Предложен байесовский метод выбора моделей с использованием модели учителя с привилегированной и накопленной информации.
+	    \item Предложен байесовский метод выбора моделей с использованием модели учителя с привилегированной и накопленной информацией.
         \item Доказаны теоремы о свойствах дистилляции, 
         \begin{itemize}
             \item[---] \emph{теоремы об эквивалентности} для дистилляции моделей в случае задачи регрессии и классификации,
