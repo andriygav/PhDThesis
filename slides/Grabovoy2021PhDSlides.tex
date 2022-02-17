@@ -23,6 +23,7 @@
 \usepackage{mathtools}
 \usepackage{comment}
 \usepackage{multicol}
+\usepackage{color}
 
 \usepackage[all]{xy}
 
@@ -58,7 +59,7 @@
 % \institute[]{Конференция МФТИ}
 %\date[2021]{\small Московский физико-технический институт\\04\;декабря\;2021\,г.}
 %\institute[]{Конференция \\ <<Математические методы распознавания образов>>}
-\date[2022]{\small 24\;января\;2022\,г.}
+\date[2022]{\small 17\;февраля\;2022\,г.}
 
 %---------------------------------------------------------------------------------------------------------
 \begin{document}
@@ -197,9 +198,9 @@ $
 \only<2>{\color{blue} \mathfrak{G} \ar[u]}
 \only<3>{\mathfrak{G} \ar[u]}
 &
-\only<3>{\color{blue} s \ar[urr]}
+\only<3>{\color{blue} s \ar@[orange][urr]}
 &
-\only<3>{\color{blue} \hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}} \ar[r] \ar[l]^{f}}
+\only<3>{\color{blue} \hat{\mathbf{u}}, \hat{\mathbf{A}}_{ \text{u}} \ar@[green][r] \ar[l]^{f}}
 &
 \only<2-3>{\color{blue} \left(\mathbf{w}_0, \mathbf{A}_0\right) \ar[u]}
 \\
@@ -255,21 +256,18 @@ $
         \only<3>{
             $\mathbf{w} \sim \mathcal{N}\bigr({\color{blue}\mathbf{w}_0\bigr(\hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}}\bigr)}, {\color{blue}\mathbf{A}_0\bigr(\hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}}\bigr)}\bigr)$.
         }
-    %\item[] Функция потерь
-    %    \only<1>{
-    %        $\mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, %\hat{y}\bigr)$.}
-    %    \only<2>{
-    %        $\mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|y, %\hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr)$.}
-    %    \only<3>{
-    %        $\mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|{\color{bl%ue} s, }y, \hat{y}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}\bigr)$.}
     \item[] Оптимизационная задача
-        \only<1-2>{
+        \only<1>{
             \[
             \hat{\mathbf{w}}, \hat{\mathbf{A}}_{w} = \mathop{\arg\min}_{\mathbf{w} \in \mathbb{R}^{n_{w}}, \mathbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\mathbf{w},\mathbf{A}_{\text{w}}|\mathfrak{D},\mathbf{g}\bigr)
             \]}
+        \only<2>{
+            \[
+            \hat{\mathbf{w}}, \hat{\mathbf{A}}_{w} = \mathop{\arg\min}_{\mathbf{w} \in \mathbb{R}^{n_{w}}, \mathbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\mathbf{w},\mathbf{A}_{\text{w}}|\mathfrak{D}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}, \mathbf{g}\bigr)
+            \]}
         \only<3>{
             \[
-            \hat{\mathbf{w}}, \hat{\mathbf{A}}_{w} = \mathop{\arg\min}_{\mathbf{w} \in \mathbb{R}^{n_{w}}, \mathbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\hat{\mathbf{w}},\hat{\mathbf{A}}_{\text{w}}|{\color{blue} \mathbf{s}}, \mathfrak{D}, {\color{blue}\mathbf{w}_0, \mathbf{A}_0}, \mathbf{g},{\color{blue}\mathbf{f}}\bigr)
+            \hat{\mathbf{w}}, \hat{\mathbf{A}}_{w} = \mathop{\arg\min}_{\mathbf{w} \in \mathbb{R}^{n_{w}}, \mathbf{A} \in \mathbb{R}^{n_{w}\times n_{w}}} \mathcal{L}\bigr(\mathbf{w},\mathbf{A}_{\text{w}}|{\color{blue} \mathbf{s}}, \mathfrak{D},\mathbf{w}_0, \mathbf{A}_0, \mathbf{g},{\color{blue}\mathbf{f}}\bigr)
             \]}
 \end{itemize}
 \end{frame}
@@ -425,7 +423,7 @@ $\\[1mm]
 \[
 \setlength\abovedisplayskip{0pt}
 \begin{aligned}
-   \mathcal{L}\bigr(\mathbf{g}\bigr) = &-\sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}y^k_i\log\mathbf{g}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1}}}_{\text{исходная функция потерь}}- \sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}\mathbf{f}\bigr(\mathbf{x}^{\color{red}*}_i\bigr)\bigr|_{T=T_0}\log\mathbf{g}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}}}_{\text{слагаемое дистилляции}},
+   \mathcal{L}\bigr(\mathbf{g}\bigr) = &-\sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}y^k_i\log{g_k}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1}}}_{\text{исходная функция потерь}}- \sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}{f_k}\bigr(\mathbf{x}^{\color{red}*}_i\bigr)\bigr|_{T=T_0}\log{g_k}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}}}_{\text{слагаемое дистилляции}},
 \end{aligned}
 \setlength\belowdisplayskip{0pt}
 \]
