@@ -206,12 +206,12 @@ $
 \end{frame}
 
 %----------------------------------------------------------------------------------------------------------
-\section{Оптимизация модели ученика на основе учителя~и привилегированных признаков}
-\begin{frame}{Оптимизация модели ученика на основе учителя~и привилегированных признаков}
+\section{Оптимизация модели ученика на основе учителя}
+\begin{frame}{Оптимизация модели ученика на основе учителя}
 ~\\[-1mm]
 Заданы
 \begin{enumerate}[1)]
-	\item признаки $\mathbf{x}_i\in \mathbb{R},$
+	\item признаки $\mathbf{x}_i\in \mathbb{R}^{n},$
 	\item $y_i \in \mathbb{Y}=\{1, \cdots, K\}, \quad \mathbb{Y}^\prime=\mathbb{R}^{K}$.
 \end{enumerate}
 
@@ -565,17 +565,17 @@ $
 \begin{frame}{Обобщение для рекурентной сети RNN}
 Структура модели RNN задается размерностью скрытых слоев~$n_1, n_2, \ldots, n_T.$
 
-Отображения~$\phi_{\text{RNN}}\bigr(t, \mathbf{u}\bigr), \psi_{\text{RNN}}\bigr(t\bigr)$ для удаления нейрона и слоя соответственно.
+Отображения~$\phi_{\text{RNN}}\bigr(t, \mathbf{u}\bigr), \psi_{\text{RNN}}\bigr(t, \mathbf{u}\bigr)$ для удаления нейрона и слоя.
 
 \begin{rustheorem}[Грабовой, 2021]
 \justifying
-Пусть задано распределения вектора параметров~$p\bigr(\mathbf{u}\bigr).$ Тогда распределение вектора параметров~$p\bigr(\bm{\upsilon}\bigr) = \int\limits_{ \bm{\nu}_2 \in \mathbb{R}^{n_{t-1}}}p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr) d \bm{\nu}_2,$ где~$\bm{\upsilon} = \psi\bigr(t, \mathbf{u}\bigr).$
+Пусть задано распределения вектора параметров~$p\bigr(\mathbf{u}\bigr).$ Тогда распределение вектора параметров~$p\bigr(\bm{\upsilon}\bigr) = \int\limits_{ \bm{\nu}_2 \in \mathbb{R}^{n_{t-1}}}p\bigr(\bar{\bm{\nu}}_1|\mathfrak{D}, \bm{\nu}_1=\mathbf{0}\bigr) d \bm{\nu}_2,$ где~$\bm{\upsilon} = \phi_{\text{RNN}}\bigr(t, \mathbf{u}\bigr).$
 \end{rustheorem}
 
 \begin{rustheorem}[Грабовой, 2021]
 \justifying
 Пусть апостериорное распределение параметров  $p\bigr(\mathbf{u}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}, \bm{\Sigma}\bigr)$, число слоев модели учителя равняется числу слоев модели ученика $T=L$, а размеры соответствующих пространств не совпадают~$n_t \geq n_t.$
-Тогда распределение параметров~$p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr),$ где~$\bm{\upsilon} = \psi\bigr(t, \mathbf{u}\bigr)$ также является нормальным.
+Тогда распределение параметров~$p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr),$ где~$\bm{\upsilon} = \phi_{\text{RNN}}\bigr(t, \mathbf{u}\bigr)$ также является нормальным.
 \end{rustheorem}
 
 \begin{rustheorem}[Грабовой, 2021]
@@ -585,7 +585,7 @@ $
 \[
 \label{eq:ap:5}
 \begin{aligned}
-p\bigr(\bm{\upsilon}|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsilon}}+\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}} \bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1} \left(\mathbf{i} - \bar{\bm{\upsilon}}\right), \bm{\Sigma}_{\bm{\upsilon},\bm{\upsilon}} - \bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1}\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bigr).
+p\bigr(\psi_{\text{RNN}}\bigr(t, \mathbf{u}\bigr)|\mathfrak{D}\bigr) = \mathcal{N}\bigr(\mathbf{m}_{\bm{\upsilon}}+\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}} \bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1} \left(\mathbf{i} - \bar{\bm{\upsilon}}\right), \bm{\Sigma}_{\bm{\upsilon},\bm{\upsilon}} - \bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bm{\Sigma}_{\bar{\bm{\upsilon}},\bar{\bm{\upsilon}}}^{-1}\bm{\Sigma}_{\bm{\upsilon},\bar{\bm{\upsilon}}}\bigr).
 \end{aligned}
 \]
 \end{rustheorem}
