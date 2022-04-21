@@ -94,25 +94,63 @@
     \item индексы объектов, для которых известна привилегированная информация $\mathcal{I},$ а для которых она не известна $\bar{\mathcal{I}}$.
 \end{enumerate}
 
-Модели учителя~$\mathbf{f}:\mathbb{R}^{n^*} \to \mathbb{Y}^\prime$ и ученика~$\mathbf{g}:\mathbb{R}^{n} \to \mathbb{Y}^\prime$~--- пространство оценок.
+Требуется выбрать модель~$\mathbf{g},$ аппроксимирующую выборку~$\left\{\mathbf{x}_i, y_i\right\}_{i=1}^{m}$ из
+\[
+	\mathfrak{G} = \left\{\mathbf{g}| \mathbf{g}:\mathbb{R}^{n} \to \mathbb{Y}^\prime\right\}, \quad \mathbb{Y}^\prime\text{~---~пространство оценок.}
+\]
 
-Ответы $\mathbf{s}_i = \mathbf{f}\bigr(\mathbf{x}_i^*\bigr)$ функции $\mathbf{f}$ для объектов~$\mathbf{x}^*_i$.
+Задан оптимальный учитель~$\hat{\mathbf{f}}:\mathbb{R}^{n^*} \to \mathbb{Y}^\prime$ и его ответ $\mathbf{s}_i = \hat{\mathbf{f}}\bigr(\mathbf{x}_i^*\bigr)$ для объекта~$\mathbf{x}^*_i$.
 
 \bigskip
 
-Требуется выбрать модель ученика~$\mathbf{g}$ из множества
-\[
-	\mathfrak{G} = \left\{\mathbf{g}| \mathbf{g}:\mathbb{R}^{n} \to \mathbb{Y}^\prime\right\}.
-\]
 Оптимизационная задача:
 \[
-	\mathbf{g} = \arg\min_{\mathbf{g} \in \mathfrak{G}} \mathcal{L}\bigr(\mathbf{g}, \mathbf{f}, \mathbf{X}, \mathbf{X}^{*}, \mathbf{y},\mathbf{s}\bigr),
+	\mathbf{g} = \arg\min_{\mathbf{g} \in \mathfrak{G}} \mathcal{L}\bigr(\mathbf{g}, \hat{\mathbf{f}}, \mathbf{X}, \mathbf{X}^{*}, \mathbf{y},\mathbf{s}\bigr),
 \]
 где $\mathcal{L}$~--- функция ошибки.
 
 \bigskip
-\footnotetext[1]{\textit{Lopez-Paz D., Bottou L., Scholkopf B., Vapnik V.} {\color{red}Unifying distillation and privileged information} // ICLR, 2016.}
-\footnotetext[2]{\textit{Hinton G., Vinyals O., Dean J.} {\color{blue}Distilling the knowledge in a neural network} // NIPS, 2015.}
+\footnotetext[1]{\textit{Vapnik V., et al} {\color{red}Unifying distillation and privileged information} // ICLR, 2016.}
+\footnotetext[2]{\textit{Hinton G., et al} {\color{blue}Distilling the knowledge in a neural network} // NIPS, 2015.}
+\end{frame}
+
+\section{Оптимизация модели ученика на основе учителя}
+\begin{frame}{Оптимизация модели ученика на основе учителя}
+~\\[-1mm]
+Заданы
+\begin{enumerate}[1)]
+	\item признаки $\mathbf{x}_i\in \mathbb{R}^{n},$
+	\item $y_i \in \mathbb{Y}=\{1, \cdots, K\}, \quad \mathbb{Y}^\prime=\mathbb{R}^{K}$.
+\end{enumerate}
+
+%----------------------------------------------------------------------------------------------------------
+\medskip
+Параметрические семейства учителя и ученика:
+\[
+\setlength\abovedisplayskip{0pt}
+\mathfrak{F}_{\text{cl}} = \left\{\mathbf{f}| \mathbf{f} = \text{softmax}\bigr(\mathbf{v}\bigr(\mathbf{x}\bigr)/T\bigr), \quad \mathbf{v}: \mathbb{R}^{n} \to \mathbb{R}^K \right\},
+%\setlength\belowdisplayskip{0pt}
+\]
+\[
+%\setlength\abovedisplayskip{0pt}
+\mathfrak{G}_{\text{cl}} = \left\{\mathbf{g}| \mathbf{g} = \text{softmax}\bigr(\mathbf{z}\bigr(\mathbf{x}\bigr)/T\bigr), \quad \mathbf{z}: \mathbb{R}^n \to \mathbb{R}^K \right\},
+%\setlength\belowdisplayskip{0pt}
+\]
+где~$\mathbf{z},\mathbf{v}$~--- дифференцируемые по параметрам функции заданной структуры, $T$~--- параметр температуры. Оптимальная модель учителя~$\hat{\mathbf{f}} \in \mathfrak{F}_{\text{cl}}$.
+
+\medskip
+Функция ошибки
+\[
+\setlength\abovedisplayskip{0pt}
+\begin{aligned}
+   \mathcal{L}\bigr(\mathbf{g}\bigr) = &-\sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}y^k_i\log{g_k}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1}}}_{\text{исходная функция потерь}}- \sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}{\hat{f}_k}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}\log{g_k}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}}}_{\text{слагаемое дистилляции}},
+\end{aligned}
+\setlength\belowdisplayskip{0pt}
+\]
+где~$\cdot\bigr|_{T=t}$ фиксирует температуру~$T$.
+
+Оптимальная модель выбирается из класса,
+$\hat{\mathbf{g}} = \arg\min\limits_{\mathbf{g} \in \mathfrak{G}_{\text{cl}}} \mathcal{L}\bigr(\mathbf{g}\bigr).$
 \end{frame}
 
 %---------------------------------------------------------------------------------------------------------
@@ -131,10 +169,10 @@
 &
 \parbox{3em}{
 \centering
-$\hat{\mathbf{w}}, \hat{\mathbf{A}}_{w}\ar[r]^{g}$
+$\hat{\mathbf{w}}, \hat{\mathbf{A}}_{w}\ar[r]^{\mathbf{g}}$
 }
 & 
-\hat{y}\ar[rr]
+\hat{\mathbf{y}}\ar[rr]
 &
 \parbox{3em}{
 \centering
@@ -143,7 +181,7 @@ $\hat{\mathbf{w}}, \hat{\mathbf{A}}_{w}\ar[r]^{g}$
 \parbox{10em}{
 \centering
 $
-{\mathcal{L}\bigr(\mathbf{w},\mathbf{A}_{\text{w}}|{\color{blue} s, }y, \hat{y}, {\color{python-green}\mathbf{w}_0, \mathbf{A}_0}\bigr)}
+{\mathcal{L}\bigr(\mathbf{w},\mathbf{A}_{\text{w}}|{\color{blue} \mathbf{s}, }y, \hat{\mathbf{y}}, {\color{python-green}\mathbf{w}_0, \mathbf{A}_0}\bigr)}
 \ar@/_2pc/[lll]
 $
 }
@@ -155,9 +193,9 @@ $
 &
 {\mathfrak{G} \ar[u]}
 &
-{\color{blue} s \ar@[blue][urr]}
+{\color{blue} \mathbf{s} \ar@[blue][urr]}
 &
-{ \hat{\mathbf{u}}, \hat{\mathbf{A}}_{ \text{u}} \ar@[python-green][r] \ar[l]^{f}}
+{ \hat{\mathbf{u}}, \hat{\mathbf{A}}_{ \text{u}} \ar@[python-green][r] \ar[l]^{\mathbf{f}}}
 &
 {\color{python-green} \left(\mathbf{w}_0, \mathbf{A}_0\right) \ar[u]}
 \\
@@ -189,10 +227,10 @@ $
         {
             $\quad\text{и учитель~}{\mathbf{f}:\mathbb{R}^{n}\times \mathbb{R}^{n_{w}} \to \mathbb{Y}^\prime}$
         }
-    \item[] Прогноз $\hat{y} = g\bigr(\mathbf{x}, \hat{\mathbf{w}})$
+    \item[] Прогноз $\hat{\mathbf{y}} = \mathbf{g}\bigr(\mathbf{x}, \hat{\mathbf{w}})$
         {
             $\quad \text{и~}
-            {\color{blue} s = f\bigr(\mathbf{x}, \hat{\mathbf{u}})}$}
+            {\color{blue} \mathbf{s} = \mathbf{f}\bigr(\mathbf{x}, \hat{\mathbf{u}})}$}
     \item[] Априорное распределение 
         {
             $\mathbf{w} \sim \mathcal{N}\bigr({\color{python-green}\mathbf{w}_0\bigr(\hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}}\bigr)}, {\color{python-green}\mathbf{A}_0\bigr(\hat{\mathbf{u}}, \hat{\mathbf{A}}_{\text{u}}\bigr)}\bigr)$.
@@ -206,44 +244,7 @@ $
 \end{frame}
 
 %----------------------------------------------------------------------------------------------------------
-\section{Оптимизация модели ученика на основе учителя}
-\begin{frame}{Оптимизация модели ученика на основе учителя}
-~\\[-1mm]
-Заданы
-\begin{enumerate}[1)]
-	\item признаки $\mathbf{x}_i\in \mathbb{R}^{n},$
-	\item $y_i \in \mathbb{Y}=\{1, \cdots, K\}, \quad \mathbb{Y}^\prime=\mathbb{R}^{K}$.
-\end{enumerate}
 
-\medskip
-Параметрические семейства учителя и ученика:
-\[
-\setlength\abovedisplayskip{0pt}
-\mathfrak{F}_{\text{cl}} = \left\{\mathbf{f}| \mathbf{f} = \text{softmax}\bigr(\mathbf{v}\bigr(\mathbf{x}\bigr)/T\bigr), \quad \mathbf{v}: \mathbb{R}^{n} \to \mathbb{R}^K \right\},
-%\setlength\belowdisplayskip{0pt}
-\]
-\[
-%\setlength\abovedisplayskip{0pt}
-\mathfrak{G}_{\text{cl}} = \left\{\mathbf{g}| \mathbf{g} = \text{softmax}\bigr(\mathbf{z}\bigr(\mathbf{x}\bigr)/T\bigr), \quad \mathbf{z}: \mathbb{R}^n \to \mathbb{R}^K \right\},
-%\setlength\belowdisplayskip{0pt}
-\]
-где~$\mathbf{z},\mathbf{v}$~--- дифференцируемые по параметрам функции заданной структуры, $T$~--- параметр температуры.
-
-\medskip
-Функция ошибки
-\[
-\setlength\abovedisplayskip{0pt}
-\begin{aligned}
-   \mathcal{L}\bigr(\mathbf{g}\bigr) = &-\sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}y^k_i\log{g_k}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1}}}_{\text{исходная функция потерь}}- \sum_{i=1}^{m}\underbrace{{\sum_{k=1}^{K}{f_k}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}\log{g_k}\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}}}_{\text{слагаемое дистилляции}},
-\end{aligned}
-\setlength\belowdisplayskip{0pt}
-\]
-где~$\cdot\bigr|_{T=t}$ фиксирует температуру~$T$.
-
-Оптимальная модель выбирается из класса,
-$\hat{\mathbf{g}} = \arg\min\limits_{\mathbf{g} \in \mathfrak{G}_{\text{cl}}} \mathcal{L}\bigr(\mathbf{g}\bigr).$
-\end{frame}
-%----------------------------------------------------------------------------------------------------------
 \section{Вероятностная постановка задачи дистилляции}
 \begin{frame}{Вероятностная постановка задачи дистилляции}
 \bigskip
@@ -294,9 +295,9 @@ p\bigr(\mathbf{y}, \mathbf{S}|\mathbf{X}, \mathbf{g}, \mathcal{I}\bigr)=\prod_{i
 \[
 \setlength\abovedisplayskip{0pt}
 \begin{aligned}
-&\hat{\mathbf{g}} = \arg\max_{\mathbf{g}\in \mathfrak{G}} \sum_{i\not\in \mathcal{I}}\sum_{k=1}^{K}y_i^k\log g_k\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1} 
-+ \left(1-\lambda\right)\sum_{i\in \mathcal{I}}\sum_{k=1}^{K}y_i^k\log g_k\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1} +\\
-&+ \lambda\sum_{i\in \mathcal{I}}\sum_{k=1}^{K}s_{i,k}\log g_k\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0} 
+&\hat{\mathbf{g}} = \arg\max_{\mathbf{g}\in \mathfrak{G}} \underbrace{\sum_{i\not\in \mathcal{I}}\sum_{k=1}^{K}y_i^k\log g_k\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1} 
++ \left(1-\lambda\right)\sum_{i\in \mathcal{I}}\sum_{k=1}^{K}y_i^k\log g_k\bigr(\mathbf{x}_i\bigr)\bigr|_{T=1}}_{\text{исходная функция потерь задачи классификации}} +\\
+&+ \underbrace{\lambda\sum_{i\in \mathcal{I}}\sum_{k=1}^{K}s_{i,k}\log g_k\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0}}_{\text{слагаемое дистилляции}} 
 + \lambda \sum_{i\in \mathcal{I}}\sum_{k=1}^{K}\left(\log g_k\bigr(\mathbf{x}_i\bigr)\bigr|_{T=T_0} + \log\log\frac{1}{g_k\bigr(\mathbf{x}_i\bigr)}\bigr|_{T=T_0}\right).
 \end{aligned}
 \setlength\belowdisplayskip{0pt}
@@ -320,8 +321,8 @@ C=\left(-1\right)^{K}\frac{K^{K/2}}{2^{K(K-1)/2}}\prod_{k=1}^{K}g_k\bigr(\mathbf
 \begin{frame}{Вероятностная постановка задачи регрессии}
 Заданы
 \begin{enumerate}[1)]
-	\item учитель~$f\in\mathfrak{F}_{\text{rg}}= \left\{f| f = \mathbf{v}\bigr(\mathbf{x}\bigr), \quad \mathbf{v}: \mathbb{R}^{n} \to \mathbb{R} \right\}$,
-	\item ученик~$g\in\mathfrak{G}_{\text{rg}} = \left\{g| g = \mathbf{z}\bigr(\mathbf{x}\bigr), \quad \mathbf{z}: \mathbb{R}^n \to \mathbb{R} \right\}$,
+	\item учитель~$f\in\mathfrak{F}_{\text{rg}}= \left\{f| f = v\bigr(\mathbf{x}\bigr), \quad v: \mathbb{R}^{n} \to \mathbb{R} \right\}$,
+	\item ученик~$g\in\mathfrak{G}_{\text{rg}} = \left\{g| g = z\bigr(\mathbf{x}\bigr), \quad z: \mathbb{R}^n \to \mathbb{R} \right\}$,
 	\item распределение истинных меток $p\bigr(y|\mathbf{x}, g\bigr) = \mathcal{N}\bigr(y|g\bigr(\mathbf{x}\bigr), \sigma\bigr)$,
 	\item распределения меток учителя $p\bigr(s| \mathbf{x}, g\bigr) = \mathcal{N}\bigr(s|g\bigr(\mathbf{x}\bigr), \sigma_s\bigr).$
 \end{enumerate}
@@ -732,7 +733,7 @@ $$
 \multirow{2}{*}{FashionMnist} & с учителем  & $0{,}453\pm0{,}003$                                                & -                                                                                             & $0{,}84\pm0{,}13$                                               & $0{,}842\pm0{,}002$ & 7850                                                       \\ \cline{2-7} 
                               & без учителя & $0{,}461\pm0{,}005$                                                & -                                                                                             & $0{,}86\pm0{,}18$                                               & $0{,}841\pm0{,}002$ & 7850                                                       \\ \hline \hline
 \multirow{2}{*}{Synthetic}     & с учителем  & $0{,}618\pm0{,}001$                                                & $\mathbf{1{,}17}\pm\mathbf{0{,}05}$                                                                             & $\mathbf{0{,}45}\pm\mathbf{0{,}20}$                                               & $0{,}828\pm0{,}002$ & 33                                                         \\ \cline{2-7} 
-                              & без учителя & $0{,}422\pm0{,}002$                                                & $2{,}64\pm0{,}02$                                                                             & $0{,}75\pm0{,}22$                                               & $0{,}831\pm0{,}001$ & 33                                                         \\ \hline \hline
+                              & без учителя & $\mathbf{0{,}422}\pm\mathbf{0{,}002}$                                                & $2{,}64\pm0{,}02$                                                                             & $0{,}75\pm0{,}22$                                               & $0{,}831\pm0{,}001$ & 33                                                         \\ \hline \hline
 \multirow{2}{*}{Twitter Sent.}       & с учителем  & $0{,}489\pm0{,}003$                                               & -                                                                                             & $0{,}79\pm0{,}17$                                               & $0{,}764\pm0{,}005$ & 1538                                                       \\ \cline{2-7} 
                               & без учителя &  $0{,}501\pm0{,}006$                                                & -                                                                                             & $0{,}83\pm0{,}22$                                               & $0{,}747\pm0{,}004$ & 1538                                                       \\ \hline 
 \end{tabular}
@@ -749,23 +750,23 @@ $$
 \justifying
 	\begin{enumerate}
 	\justifying
-	    \item Предложен байесовский метод выбора моделей с использованием модели учителя с привилегированной и накопленной информацией.
-        \item Доказаны теоремы о свойствах дистилляции, 
+	    \item Байесовский метод выбора моделей с использованием модели учителя с привилегированной и накопленной информацией.
+        \item Теоремы о свойствах дистилляции,
         \begin{itemize}
             \item[---] \emph{теоремы об эквивалентности} для дистилляции моделей в случае задачи регрессии и классификации,
             \item[---] \emph{теоремы о виде априорного распределения} параметров модели ученика в байесовской дистилляции.
         \end{itemize}
-        \item Предложен метод выравнивания структур параметрических моделей. Предложен метод выбора априорного распределения параметров модели ученика с использованием апостериорного распределения параметров модели учителя для случаев
+        \item Метод выравнивания структур параметрических моделей. Метод выбора априорного распределения параметров модели ученика с использованием апостериорного распределения параметров модели учителя для случаев
         \begin{itemize}
             \item[---] различных размерностей пространств параметров отдельных слоев,
             \item[---] различного в числа слоев нескольких моделей.
         \end{itemize}
-        \item Предложены методы задания порядка на множестве параметров моделей
+        \item Методы задания порядка на множестве параметров моделей
         \begin{itemize}
             \item[---] на основе корреляции параметров,
             \item[---] на основе оценки скорости сходимости параметров.
         \end{itemize}
-        \item Предложена вероятностная интерпретации дистилляции моделей глубокого обучения. Исследованы свойства дистилляции моделей глубокого обучения.
+        \item Вероятностное обобщение дистилляции моделей глубокого обучения.
 	\end{enumerate}
 \end{frame}
 %----------------------------------------------------------------------------------------------------------
